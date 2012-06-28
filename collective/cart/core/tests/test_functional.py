@@ -41,12 +41,13 @@ def setUp(self):
 
     setRoles(portal, TEST_USER_ID, ['Manager'])
 
-    portal.invokeFactory(
-        'Document',
-        'document01',
-        title='Document01'
-    )
-    portal.document01.reindexObject()
+    folder01 = portal[
+        portal.invokeFactory(
+            'Folder',
+            'folder01',
+            title='Folder01'
+        )]
+    folder01.reindexObject()
 
     transaction.commit()
 
@@ -80,4 +81,5 @@ def test_suite():
     return unittest.TestSuite([
         # DocFileSuite('functional/content.txt'),
         # DocFileSuite('functional/setup_functional.txt'),
+        DocFileSuite('functional/browser.txt'),
         ])

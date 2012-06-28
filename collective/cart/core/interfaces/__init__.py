@@ -28,3 +28,20 @@ from collective.cart.core.interfaces.viewlet_manager import ICartTotalsViewletMa
 from collective.cart.core.interfaces.viewlet_manager import ICartViewletManager
 from collective.cart.core.interfaces.viewlet_manager import IEditProductViewletManager
 from collective.cart.core.interfaces.viewlet_manager import IFixedInfoViewletManager
+from zope.interface import Attribute
+from zope.interface import Interface
+
+
+class IShoppingSite(Interface):
+    """Marker interface for shopping site."""
+
+
+class ICartContainer(Interface):
+    """Marker interface for cart container."""
+
+
+class IShoppingSiteRoot(Interface):
+    """Interface for Shopping Site Root."""
+
+    shop = Attribute("Returns Shop Site Root object.")  # pragma: no cover
+    cart_container = Attribute("Returns Cart Container object of Shop Site Root.")  # pragma: no cover

@@ -1,0 +1,78 @@
+Log in as the portal owner::
+
+    >>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
+    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+
+Go to portal::
+
+    >>> browser.open(portal_url)
+
+Make Shopping Site::
+
+    >>> 'Make Shopping Site' in browser.contents
+    True
+    >>> 'Unmake Shopping Site' in browser.contents
+    False
+
+    >>> portal['cart-container']
+    Traceback (most recent call last):
+    ...
+    KeyError: 'cart-container'
+
+    >>> browser.getLink('Make Shopping Site').click()
+
+    >>> 'Make Shopping Site' in browser.contents
+    False
+    >>> 'Unmake Shopping Site' in browser.contents
+    True
+
+    >>> portal['cart-container']
+    <ATFolder at /plone/cart-container>
+
+Unmake Shopping Site::
+
+    >>> browser.getLink('Unmake Shopping Site').click()
+
+    >>> 'Make Shopping Site' in browser.contents
+    True
+    >>> 'Unmake Shopping Site' in browser.contents
+    False
+
+    >>> portal['cart-container']
+    <ATFolder at /plone/cart-container>
+
+Make Shopping Site once again::
+
+    >>> browser.getLink('Make Shopping Site').click()
+
+    >>> 'Make Shopping Site' in browser.contents
+    False
+    >>> 'Unmake Shopping Site' in browser.contents
+    True
+
+There should only be one Cart Container::
+
+    >>> portal['cart-container']
+    <ATFolder at /plone/cart-container>
+    >>> portal['cart-container-1']
+    Traceback (most recent call last):
+    ...
+    KeyError: 'cart-container-1'
+
+Deleting Cart Container Unmake Shopping Site::
+
+    >>> browser.open('/cart-container/delete_confirmation')
+    >>> browser.getControl('Delete').click()
+
+    >>> portal['cart-container']
+    Traceback (most recent call last):
+    ...
+    KeyError: 'cart-container'
+
+    >>> 'Make Shopping Site' in browser.contents
+    True
+    >>> 'Unmake Shopping Site' in browser.contents
+    False
+
+    >>> 'This container is no longer a shopping site.' in browser.contents
+    True
