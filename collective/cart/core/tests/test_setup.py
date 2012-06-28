@@ -674,8 +674,9 @@ class TestSetup(IntegrationTestCase):
 
     ## Uninstalling
     def test_uninstall(self):
-        self.installer.uninstallProducts(['collective.cart.core'])
-        self.failUnless(not self.installer.isProductInstalled('collective.cart.core'))
+        installer = getToolByName(self.portal, 'portal_quickinstaller')
+        installer.uninstallProducts(['collective.cart.core'])
+        self.assertFalse(installer.isProductInstalled('collective.cart.core'))
         ids = [action.id for action in self.controlpanel.listActions()]
         self.failUnless('collective_cart_config' not in ids)
         self.failUnless(not hasattr(self.properties, 'collective_cart_properties'))
@@ -685,8 +686,22 @@ class TestSetup(IntegrationTestCase):
         left_assignable = getMultiAdapter((self.portal, left_column), IPortletAssignmentMapping)
         self.failIf(u'Cart' in left_assignable.keys())
 
+    def test_uninstall__actions__object_buttons__make_shopping_site(self):
+        installer = getToolByName(self.portal, 'portal_quickinstaller')
+        installer.uninstallProducts(['collective.cart.core'])
+        actions = getToolByName(self.portal, 'portal_actions')
+        self.assertRaises(
+            AttributeError, lambda: getattr(actions, 'object_buttons').make_shopping_site)
+
+    def test_uninstall__actions__object_buttons__unmake_shopping_site(self):
+        installer = getToolByName(self.portal, 'portal_quickinstaller')
+        installer.uninstallProducts(['collective.cart.core'])
+        actions = getToolByName(self.portal, 'portal_actions')
+        self.assertRaises(
+            AttributeError, lambda: getattr(actions, 'object_buttons').unmake_shopping_site)
+
     def test_uninstall__types__collective_cart_core_Article(self):
-        self.installer.uninstallProducts(['collective.cart.core'])
-        self.failUnless(not self.installer.isProductInstalled('collective.cart.core'))
+        installer = getToolByName(self.portal, 'portal_quickinstaller')
+        installer.uninstallProducts(['collective.cart.core'])
         types = getToolByName(self.portal, 'portal_types')
         self.assertIsNone(types.getTypeInfo('collective.cart.core.Article'))
