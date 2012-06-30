@@ -38,6 +38,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
+        'collective.behavior.salable',
         'five.grok',
         'hexagonit.testing',
         'plone.app.dexterity',

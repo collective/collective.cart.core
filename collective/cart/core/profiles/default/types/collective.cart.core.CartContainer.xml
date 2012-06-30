@@ -2,33 +2,30 @@
 <object
   i18n:domain="collective.cart.core"
   meta_type="Dexterity FTI"
-  name="collective.cart.core.Article"
+  name="collective.cart.core.CartContainer"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   >
 
   <!-- Basic properties -->
-  <property name="title" i18n:translate="">Article</property>
+  <property name="title" i18n:translate="">CartContainer</property>
   <property name="description" i18n:translate=""/>
-  <property name="content_icon">++resource++collective.cart.core/article.png</property>
+  <property name="content_icon">folder.gif</property>
   <property name="allow_discussion">False</property>
 
   <!-- Hierarchy control -->
   <property name="global_allow">True</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-    <element value="Image"/>
+    <element value="collective.cart.core.Cart"/>
   </property>
 
   <!-- Schema, class and security -->
-  <property name="schema">collective.cart.core.interfaces.IArticle</property>
+  <property name="schema">collective.cart.core.interfaces.ICartContainer</property>
   <property name="klass">plone.dexterity.content.Container</property>
-  <property name="add_permission">collective.cart.core.AddArticle</property>
+  <property name="add_permission">collective.cart.core.AddCartContainer</property>
 
   <!-- enabled behaviors -->
   <property name="behaviors">
-    <element value="plone.app.content.interfaces.INameFromTitle" />
-    <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
-    <element value="collective.behavior.salable.interfaces.ISalable" />
   </property>
 
   <!-- Views and aliases -->

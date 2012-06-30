@@ -6,6 +6,7 @@
   </order>
   <order manager="plone.belowcontenttitle">
     <viewlet name="collective.cart.core.product.values" />
+    <viewlet name="collective.cart.core.add.to.cart" />
   </order>
   <order manager="collective.cart.core.cart.manager">
     <viewlet name="collective.cart.core.cart.contents" />

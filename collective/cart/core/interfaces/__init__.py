@@ -6,7 +6,6 @@ from collective.cart.core.interfaces.adapter import IPortal
 from collective.cart.core.interfaces.adapter import IPortalCartProperties
 from collective.cart.core.interfaces.adapter import IProduct
 from collective.cart.core.interfaces.adapter import IProductAnnotationsAdapter
-from collective.cart.core.interfaces.content_type import IArticle
 from collective.cart.core.interfaces.content_type import ICartContentType
 from collective.cart.core.interfaces.content_type import ICartFolderContentType
 from collective.cart.core.interfaces.content_type import ICartProductContentType
@@ -28,8 +27,25 @@ from collective.cart.core.interfaces.viewlet_manager import ICartTotalsViewletMa
 from collective.cart.core.interfaces.viewlet_manager import ICartViewletManager
 from collective.cart.core.interfaces.viewlet_manager import IEditProductViewletManager
 from collective.cart.core.interfaces.viewlet_manager import IFixedInfoViewletManager
+from plone.directives import form
 from zope.interface import Attribute
 from zope.interface import Interface
+
+
+class IArticle(form.Schema):
+    """Schema for Article content type."""
+
+
+class ICartContainer(form.Schema):
+    """Schema for CartContainer content type."""
+
+
+class ICart(form.Schema):
+    """Schema for Cart content type."""
+
+
+class ICartArticle(form.Schema):
+    """Schema for CartArticle content type."""
 
 
 class IShoppingSite(Interface):

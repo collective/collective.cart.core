@@ -76,3 +76,52 @@ Deleting Cart Container Unmake Shopping Site::
 
     >>> 'This container is no longer a shopping site.' in browser.contents
     True
+
+Make Shopping Site once again::
+
+    >>> browser.getLink('Make Shopping Site').click()
+
+    >>> 'Make Shopping Site' in browser.contents
+    False
+    >>> 'Unmake Shopping Site' in browser.contents
+    True
+
+Add Article::
+
+    >>> browser.open('/++add++collective.cart.core.Article')
+    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Article01'
+    >>> browser.getControl(name="form.buttons.save").click()
+
+    >>> 'Add To Cart' in browser.contents
+    True
+
+Make not salable::
+
+    >>> browser.open('/article01/edit')
+    >>> browser.getControl(name="form.widgets.ISalable.salable:list").value = False
+    >>> browser.getControl(name="form.buttons.save").click()
+
+    >>> 'Add To Cart' in browser.contents
+    False
+
+
+Make salable and Unmake Shopping Site:
+
+    >>> browser.open('/article01/edit')
+    >>> browser.getControl(name="form.widgets.ISalable.salable:list").value = True
+    >>> browser.getControl(name="form.buttons.save").click()
+    >>> browser.open(portal_url)
+    >>> browser.getLink('Unmake Shopping Site').click()
+    >>> browser.open('/article01')
+
+    >>> 'Add To Cart' in browser.contents
+    False
+
+Make Shopping Site once again::
+
+    >>> browser.open(portal_url)
+    >>> browser.getLink('Make Shopping Site').click()
+    >>> browser.open('/article01')
+
+    >>> 'Add To Cart' in browser.contents
+    True

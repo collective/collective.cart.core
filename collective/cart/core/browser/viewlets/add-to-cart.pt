@@ -1,0 +1,12 @@
+<div
+  id="add-to-cart"
+  tal:condition="viewlet/available"
+  >
+  <form tal:attributes="action viewlet/current_url">
+    <button
+      type="submit"
+      name="form.addtocart"
+      i18n:translate=""
+      >Add To Cart</button>
+  <form>
+</div>

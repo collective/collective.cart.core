@@ -1,15 +1,22 @@
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.behavior.salable.interfaces import ISalable
 from collective.cart.core import CartMessageFactory as _
+from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
 from collective.cart.core.interfaces import IAddableToCart
+from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import ICart
 from collective.cart.core.interfaces import IPortal
 from collective.cart.core.interfaces import IPortalCartProperties
 from collective.cart.core.interfaces import IPotentiallyAddableToCart
 from collective.cart.core.interfaces import IProduct
 from collective.cart.core.interfaces import IRegularExpression
+from collective.cart.core.interfaces import IShoppingSiteRoot
+from five import grok
+from plone.app.layout.globals.interfaces import IViewView
 from plone.app.layout.viewlets.common import ViewletBase
+from plone.app.layout.viewlets.interfaces import IBelowContentTitle
 from zope.component import getMultiAdapter, getUtility
 from zope.interface import alsoProvides, noLongerProvides
 from zope.schema.interfaces import IVocabularyFactory
@@ -327,3 +334,26 @@ class FixedCartContentViewlet(CartContentsViewlet):
     def totals_with_currency(self):
         if self.products is not None:
             return self.context.restrictedTraverse('totals-with-currency')()
+
+
+grok.templatedir('viewlets')
+
+
+class AddToCartViewlet(grok.Viewlet):
+    """Viewlet to show add to cart form for salable article."""
+    grok.context(IArticle)
+    grok.layer(ICollectiveCartCoreLayer)
+    grok.name('collective.cart.core.add.to.cart')
+    grok.require('zope2.View')
+    grok.template('add-to-cart')
+    grok.view(IViewView)
+    grok.viewletmanager(IBelowContentTitle)
+
+    def available(self):
+        return IShoppingSiteRoot(self.context).shop and ISalable(self.context).salable
+
+    def current_url(self):
+        """Returns current url"""
+        context_state = getMultiAdapter((
+            self.context, self.request), name=u'plone_context_state')
+        return context_state.current_page_url()
