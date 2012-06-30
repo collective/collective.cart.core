@@ -4,9 +4,9 @@
   xmlns="http://namespaces.zope.org/zope"
   >
 
-  <include package="plone.app.contentmenu" />
-
-  <browser:menuItem
+  <!-- <include package="plone.app.contentmenu" />
+ -->
+  <!-- <browser:menuItem
     for="..interfaces.ICartFolderContentType"
     menu="plone_displayviews"
     title="Cart Folder View"
@@ -55,7 +55,7 @@
     for="*"
     class=".template.CartView"
     permission="zope2.View"
-    />
+    /> -->
 
   <browser:page
     attribute="make_shopping_site"
@@ -89,7 +89,7 @@
     permission="cmf.ManagePortal"
     />
 
-    <browser:page
+    <!-- <browser:page
         name="products"
         for="*"
         class=".miscellaneous.Miscellaneous"
@@ -135,18 +135,18 @@
         class=".miscellaneous.Miscellaneous"
         permission="zope2.View"
         attribute="test_step"
-        />
+        /> -->
 
   <!-- Viewlet Managers -->
-  <browser:viewletManager
+  <!-- <browser:viewletManager
     name="collective.cart.core.config.manager"
     provides="collective.cart.core.interfaces.ICartConfigViewletManager"
     permission="cmf.ModifyPortalContent"
     class="plone.app.viewletmanager.manager.OrderedViewletManager"
-    />
+    /> -->
 
   <!-- Viewlets -->
-  <browser:viewlet
+  <!-- <browser:viewlet
     name="collective.cart.core.config.properties"
     manager="collective.cart.core.interfaces.ICartConfigViewletManager"
     class=".viewlet.CartConfigPropertiesViewlet"
@@ -158,10 +158,10 @@
     manager="collective.cart.core.interfaces.ICartConfigViewletManager"
     class=".viewlet.CartConfigTypesViewlet"
     permission="cmf.ModifyPortalContent"
-    />
+    /> -->
 
   <!-- Edit Product -->
-  <browser:viewletManager
+  <!-- <browser:viewletManager
     name="collective.cart.core.product.manager"
     provides="collective.cart.core.interfaces.IEditProductViewletManager"
     permission="cmf.ModifyPortalContent"
@@ -187,7 +187,7 @@
     manager="collective.cart.core.interfaces.ICartViewletManager"
     class=".viewlet.CartContentsViewlet"
     permission="zope2.View"
-    />
+    /> -->
 
 <!--  <browser:viewlet-->
 <!--    name="collective.cart.core.cart.totals"-->
@@ -196,7 +196,7 @@
 <!--    permission="zope2.View"-->
 <!--    />-->
 
-  <browser:viewlet
+  <!-- <browser:viewlet
     name="collective.cart.core.cart.totals"
     manager="collective.cart.core.interfaces.ICartViewletManager"
     class=".viewlet.CartTotalsViewlet"
@@ -217,10 +217,10 @@
     permission="zope2.View"
     for="collective.cart.core.interfaces.IAddableToCart"
     view="plone.app.layout.globals.interfaces.IViewView"
-    />
+    /> -->
 
   <!-- Totals -->
-  <browser:viewletManager
+  <!-- <browser:viewletManager
     name="collective.cart.core.totals.manager"
     provides="collective.cart.core.interfaces.ICartTotalsViewletManager"
     permission="zope2.View"
@@ -239,10 +239,10 @@
     manager="collective.cart.core.interfaces.ICartTotalsViewletManager"
     class=".viewlet.CartTotalCostViewlet"
     permission="zope2.View"
-    />
+    /> -->
 
   <!-- Fixed Infos -->
-  <browser:viewlet
+  <!-- <browser:viewlet
     name="collective.cart.core.fixed.info"
     manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
     class=".viewlet.FixedInfoViewlet"
@@ -256,7 +256,7 @@
     provides="collective.cart.core.interfaces.IFixedInfoViewletManager"
     permission="zope2.View"
     class="plone.app.viewletmanager.manager.OrderedViewletManager"
-    />
+    /> -->
 
 <!--  <browser:viewletManager-->
 <!--    name="collective.cart.core.fixed.info.manager"-->
@@ -265,12 +265,12 @@
 <!--    class="plone.app.viewletmanager.manager.OrderedViewletManager"-->
 <!--    />-->
 
-  <browser:viewlet
+  <!-- <browser:viewlet
     name="collective.cart.core.fixed.cart.content"
     manager="collective.cart.core.interfaces.IFixedInfoViewletManager"
     class=".viewlet.FixedCartContentViewlet"
     permission="zope2.View"
-    />
+    /> -->
 
 <!--  <browser:viewlet-->
 <!--    name="verkkomaksut.fixed.cart.content"-->

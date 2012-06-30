@@ -27,7 +27,7 @@ Make Shopping Site::
     True
 
     >>> portal['cart-container']
-    <ATFolder at /plone/cart-container>
+    <Container at /plone/cart-container>
 
 Unmake Shopping Site::
 
@@ -39,7 +39,7 @@ Unmake Shopping Site::
     False
 
     >>> portal['cart-container']
-    <ATFolder at /plone/cart-container>
+    <Container at /plone/cart-container>
 
 Make Shopping Site once again::
 
@@ -53,7 +53,7 @@ Make Shopping Site once again::
 There should only be one Cart Container::
 
     >>> portal['cart-container']
-    <ATFolder at /plone/cart-container>
+    <Container at /plone/cart-container>
     >>> portal['cart-container-1']
     Traceback (most recent call last):
     ...

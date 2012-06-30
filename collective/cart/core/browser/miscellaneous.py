@@ -1,12 +1,12 @@
 from Acquisition import aq_inner
 from Products.CMFCore.interfaces import IFolderish
-from Products.CMFCore.utils import getToolByName
+# from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-from collective.cart.core.interfaces import ICart
-from collective.cart.core.interfaces import ICartContainer
-from collective.cart.core.interfaces import ICartProduct
-from collective.cart.core.interfaces import IPortal
-from collective.cart.core.interfaces import IPortalCartProperties
+# from collective.cart.core.interfaces import ICart
+# from collective.cart.core.interfaces import ICartContainer
+# from collective.cart.core.interfaces import ICartProduct
+# from collective.cart.core.interfaces import IPortal
+# from collective.cart.core.interfaces import IPortalCartProperties
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from zope.interface import alsoProvides
@@ -24,10 +24,9 @@ class Miscellaneous(BrowserView):
         if not IShoppingSiteRoot(context).cart_container:
             container = context[
                 context.invokeFactory(
-                    'Folder',
+                    'collective.cart.core.CartContainer',
                     'cart-container',
                     title="Cart Container")]
-            alsoProvides(container, ICartContainer)
             container.reindexObject()
 
         url = context.absolute_url()
@@ -71,56 +70,56 @@ class Miscellaneous(BrowserView):
     #     del IAnnotations(context)['collective.cart.core']
     #     return self.request.response.redirect(url)
 
-    def products(self):
-        context = aq_inner(self.context)
-        cart = IPortal(context).cart
-        if cart is not None:
-            products = ICart(cart).products
-            if products:
-                properties = getToolByName(context, 'portal_properties')
-                pcp = IPortalCartProperties(properties)
-                res = []
-                for product in products:
-                    cproduct = ICartProduct(product)
-                    item = dict(
-                        uid=product.uid,
-                        title=product.title,
-                        quantity=product.quantity,
-                        url=cproduct.product.url,
-                        price_with_currency=pcp.price_with_currency(cproduct.price),
-                        html_quantity=cproduct.html_quantity,
-                        subtotal_with_currency=pcp.price_with_currency(cproduct.subtotal),
-                    )
-                    res.append(item)
-                return res
+    # def products(self):
+    #     context = aq_inner(self.context)
+    #     cart = IPortal(context).cart
+    #     if cart is not None:
+    #         products = ICart(cart).products
+    #         if products:
+    #             properties = getToolByName(context, 'portal_properties')
+    #             pcp = IPortalCartProperties(properties)
+    #             res = []
+    #             for product in products:
+    #                 cproduct = ICartProduct(product)
+    #                 item = dict(
+    #                     uid=product.uid,
+    #                     title=product.title,
+    #                     quantity=product.quantity,
+    #                     url=cproduct.product.url,
+    #                     price_with_currency=pcp.price_with_currency(cproduct.price),
+    #                     html_quantity=cproduct.html_quantity,
+    #                     subtotal_with_currency=pcp.price_with_currency(cproduct.subtotal),
+    #                 )
+    #                 res.append(item)
+    #             return res
 
-    def cart_id(self):
-        context = aq_inner(self.context)
-        cart = IPortal(context).cart
-        if cart:
-            return cart.id
+    # def cart_id(self):
+    #     context = aq_inner(self.context)
+    #     cart = IPortal(context).cart
+    #     if cart:
+    #         return cart.id
 
-    def set_info(self, items):
-        context = aq_inner(self.context)
-        IPortal(context).cart.info = items
+    # def set_info(self, items):
+    #     context = aq_inner(self.context)
+    #     IPortal(context).cart.info = items
 
-    def total_cost(self):
-        context = aq_inner(self.context)
-        cart = IPortal(context).cart
-        if cart:
-            return str(ICart(cart).total_cost)
+    # def total_cost(self):
+    #     context = aq_inner(self.context)
+    #     cart = IPortal(context).cart
+    #     if cart:
+    #         return str(ICart(cart).total_cost)
 
-    def next_step(self):
-        context = aq_inner(self.context)
-        cfolder = IPortal(context).cart_folder
-        form = cfolder.getNext_form()
-        if form is not None:
-            self.request.response.redirect(form.absolute_url())
-        else:
-            context.restrictedTraverse('test-step')
+    # def next_step(self):
+    #     context = aq_inner(self.context)
+    #     cfolder = IPortal(context).cart_folder
+    #     form = cfolder.getNext_form()
+    #     if form is not None:
+    #         self.request.response.redirect(form.absolute_url())
+    #     else:
+    #         context.restrictedTraverse('test-step')
 
-    def test_step(self):
-        """Method to provide test step."""
+    # def test_step(self):
+    #     """Method to provide test step."""
 
     # def make_cart_aware(self):
     #     context = aq_inner(self.context)

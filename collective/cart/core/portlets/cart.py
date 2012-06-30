@@ -5,7 +5,8 @@ from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 #from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from collective.cart.core import CartMessageFactory as _
+# from collective.cart.core import CartMessageFactory as _
+from collective.cart.core import _
 #from collective.cart.core.interfaces import (
 #    ICartProduct,
 #    IPortalSessionCatalog,

@@ -14,12 +14,12 @@
   <grok:grok package="." />
   <i18n:registerTranslations directory="locales" />
 
-  <include package=".adapter" />
+  <!-- <include package=".adapter" /> -->
   <include package=".browser" />
-  <include package=".content" />
+  <!-- <include package=".content" /> -->
   <include package=".portlets" />
-  <include package=".subscriber" />
-  <include package=".utility" />
+  <!-- <include package=".subscriber" />
+  <include package=".utility" /> -->
 
   <genericsetup:registerProfile
     description="Installs the collective.cart.core package"
@@ -38,20 +38,23 @@
     />
 
   <permission
-    id="collective.cart.core.AddCartFolder"
-    title="collective.cart.core: Add CartFolder"
+    id="collective.cart.core.AddArticle"
+    title="collective.cart.core: Add Article"
     />
+
+  <permission
+    id="collective.cart.core.AddCartContainer"
+    title="collective.cart.core: Add CartContainer"
+    />
+
   <permission
     id="collective.cart.core.AddCart"
     title="collective.cart.core: Add Cart"
     />
+
   <permission
-    id="collective.cart.core.AddCartProduct"
-    title="collective.cart.core: Add CartProduct"
-    />
-  <permission
-    id="collective.cart.core.AddArticle"
-    title="collective.cart.core: Add Article"
+    id="collective.cart.core.AddCartArticle"
+    title="collective.cart.core: Add CartArticle"
     />
 
 </configure>

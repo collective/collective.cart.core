@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <rolemap>
   <permissions>
-    <permission name="collective.cart.core: Add CartFolder" acquire="False">
+    <!-- <permission name="collective.cart.core: Add CartFolder" acquire="False">
         <role name="Manager" />
         <role name="Contributor" />
     </permission>
@@ -16,6 +16,6 @@
         <role name="Contributor" />
         <role name="Member" />
         <role name="Anonymous" />
-    </permission>
+    </permission> -->
   </permissions>
 </rolemap>
