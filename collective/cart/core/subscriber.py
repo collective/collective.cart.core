@@ -1,6 +1,5 @@
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-# from Products.CMFCore.interfaces import IFolderish
 from Products.statusmessages.interfaces import IStatusMessage
 from collective.cart.core import _
 from collective.cart.core.interfaces import ICartContainer

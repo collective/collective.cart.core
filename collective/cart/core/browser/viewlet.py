@@ -350,11 +350,14 @@ class AddToCartViewlet(grok.Viewlet):
     grok.view(IViewView)
     grok.viewletmanager(IBelowContentTitle)
 
+    def update(self):
+        form = self.request.form
+        if form.get('form.addtocart', None) is not None:
+            container = IShoppingSiteRoot(self.context).cart_container
+            oid = container.next_cart_id
+            cart = container[container.invokeFactory('collective.cart.core.Cart', oid)]
+            cart.reindexObject()
+            return self.render()
+
     def available(self):
         return IShoppingSiteRoot(self.context).shop and ISalable(self.context).salable
-
-    def current_url(self):
-        """Returns current url"""
-        context_state = getMultiAdapter((
-            self.context, self.request), name=u'plone_context_state')
-        return context_state.current_page_url()

@@ -104,7 +104,6 @@ Make not salable::
     >>> 'Add To Cart' in browser.contents
     False
 
-
 Make salable and Unmake Shopping Site:
 
     >>> browser.open('/article01/edit')
@@ -125,3 +124,31 @@ Make Shopping Site once again::
 
     >>> 'Add To Cart' in browser.contents
     True
+
+Add To Cart::
+
+    >>> browser.getControl(name="form.addtocart").click()
+
+    >>> portal['cart-container']['1']
+    <Container at /plone/cart-container/1>
+
+Go to Cart Container and save next cart ID with existing cart ID::
+
+    >>> browser.open('/cart-container/edit')
+    >>> 'The cart ID is already in use.' in browser.contents
+    False
+
+    >>> browser.getControl(name="form.buttons.save").click()
+
+    >>> 'The cart ID is already in use.' in browser.contents
+    True
+
+Save with non-existing cart ID:
+
+    >>> browser.getControl(name="form.widgets.next_cart_id").value = '2'
+    >>> browser.getControl(name="form.buttons.save").click()
+
+    >>> 'The cart ID is already in use.' in browser.contents
+    False
+
+    >>> browser.openBrowser()

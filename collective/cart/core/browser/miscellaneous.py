@@ -1,16 +1,12 @@
 from Acquisition import aq_inner
 from Products.CMFCore.interfaces import IFolderish
-# from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-# from collective.cart.core.interfaces import ICart
-# from collective.cart.core.interfaces import ICartContainer
-# from collective.cart.core.interfaces import ICartProduct
-# from collective.cart.core.interfaces import IPortal
-# from collective.cart.core.interfaces import IPortalCartProperties
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
+from plone.dexterity.utils import createContentInContainer
 from zope.interface import alsoProvides
 from zope.interface import noLongerProvides
+from zope.lifecycleevent import modified
 
 
 class Miscellaneous(BrowserView):
@@ -22,12 +18,9 @@ class Miscellaneous(BrowserView):
         context.reindexObject(idxs=['object_provides'])
 
         if not IShoppingSiteRoot(context).cart_container:
-            container = context[
-                context.invokeFactory(
-                    'collective.cart.core.CartContainer',
-                    'cart-container',
-                    title="Cart Container")]
-            container.reindexObject()
+            container = createContentInContainer(
+                context, 'collective.cart.core.CartContainer', id="cart-container", title="Cart Container", checkConstraints=False)
+            modified(container)
 
         url = context.absolute_url()
         return self.request.response.redirect(url)
