@@ -150,5 +150,3 @@ Save with non-existing cart ID:
 
     >>> 'The cart ID is already in use.' in browser.contents
     False
-
-    >>> browser.openBrowser()

@@ -1,26 +1,25 @@
 # from Acquisition import aq_inner
 # from Products.CMFCore.utils import getToolByName
 # from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from collective.behavior.salable.interfaces import ISalable
 # from collective.cart.core import CartMessageFactory as _
 # from collective.cart.core import _
-from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
 # from collective.cart.core.interfaces import IAddableToCart
-from collective.cart.core.interfaces import IArticle
 # from collective.cart.core.interfaces import ICart
 # from collective.cart.core.interfaces import IPortal
 # from collective.cart.core.interfaces import IPortalCartProperties
 # from collective.cart.core.interfaces import IPotentiallyAddableToCart
 # from collective.cart.core.interfaces import IProduct
 # from collective.cart.core.interfaces import IRegularExpression
-from collective.cart.core.interfaces import IShoppingSiteRoot
-from five import grok
-from plone.app.layout.globals.interfaces import IViewView
 # from plone.app.layout.viewlets.common import ViewletBase
-from plone.app.layout.viewlets.interfaces import IBelowContentTitle
-from zope.component import getMultiAdapter
 # from zope.interface import alsoProvides, noLongerProvides
 # from zope.schema.interfaces import IVocabularyFactory
+from collective.behavior.salable.interfaces import ISalable
+from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
+from collective.cart.core.interfaces import IArticle
+from collective.cart.core.interfaces import IShoppingSite
+from five import grok
+from plone.app.layout.globals.interfaces import IViewView
+from plone.app.layout.viewlets.interfaces import IBelowContentTitle
 
 
 # class CartViewletBase(ViewletBase):
@@ -353,11 +352,11 @@ class AddToCartViewlet(grok.Viewlet):
     def update(self):
         form = self.request.form
         if form.get('form.addtocart', None) is not None:
-            container = IShoppingSiteRoot(self.context).cart_container
+            container = IShoppingSite(self.context).cart_container
             oid = container.next_cart_id
             cart = container[container.invokeFactory('collective.cart.core.Cart', oid)]
             cart.reindexObject()
             return self.render()
 
     def available(self):
-        return IShoppingSiteRoot(self.context).shop and ISalable(self.context).salable
+        return IShoppingSite(self.context).shop and ISalable(self.context).salable

@@ -1,10 +1,10 @@
-from zope.component import getMultiAdapter
-from zope.component import getUtility
+from AccessControl import getSecurityManager
+from Products.CMFCore.utils import getToolByName
+from collective.cart.core.tests.base import IntegrationTestCase
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
-from Products.CMFCore.utils import getToolByName
-from AccessControl import getSecurityManager
-from collective.cart.core.tests.base import IntegrationTestCase
+from zope.component import getMultiAdapter
+from zope.component import getUtility
 
 
 class TestSetup(IntegrationTestCase):
@@ -629,7 +629,7 @@ class TestSetup(IntegrationTestCase):
     def test_types__collective_cart_core_CartContainer__global_allow(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.CartContainer')
-        self.assertTrue(ctype.global_allow)
+        self.assertFalse(ctype.global_allow)
 
     def test_types__collective_cart_core_CartContainer__filter_content_types(self):
         types = getToolByName(self.portal, 'portal_types')

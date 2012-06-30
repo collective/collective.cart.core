@@ -8,18 +8,18 @@ from five import grok
 from zope.interface import Interface
 
 
-class ShoppingSiteRoot(grok.Adapter):
+class ShoppingSite(grok.Adapter):
     """Adapter to provice Shopping Site Root."""
 
     grok.context(Interface)
-    grok.provides(IShoppingSiteRoot)
+    grok.provides(IShoppingSite)
 
     @property
     def shop(self):
         context = aq_inner(self.context)
         chain = aq_chain(context)
         chain.sort()
-        shops = [obj for obj in chain if IShoppingSite.providedBy(obj)]
+        shops = [obj for obj in chain if IShoppingSiteRoot.providedBy(obj)]
         if shops:
             return shops[0]
 

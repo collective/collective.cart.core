@@ -47,12 +47,15 @@ class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""
 
 
-class IShoppingSite(Interface):
-    """Marker interface for shopping site."""
-
-
 class IShoppingSiteRoot(Interface):
-    """Interface for Shopping Site Root."""
+    """Marker interface for Shopping Site Root."""
+
+
+class IShoppingSite(Interface):
+    """Adapter Interface for Shopping Site."""
 
     shop = Attribute("Returns Shop Site Root object.")  # pragma: no cover
     cart_container = Attribute("Returns Cart Container object of Shop Site Root.")  # pragma: no cover
+
+    def update_cart_id():  # pragma: no cover
+        """Update next cart ID for the cart container."""

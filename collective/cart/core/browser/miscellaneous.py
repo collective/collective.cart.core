@@ -14,10 +14,10 @@ class Miscellaneous(BrowserView):
     def make_shopping_site(self):
         """Make context shopping site if it is folder."""
         context = aq_inner(self.context)
-        alsoProvides(context, IShoppingSite)
+        alsoProvides(context, IShoppingSiteRoot)
         context.reindexObject(idxs=['object_provides'])
 
-        if not IShoppingSiteRoot(context).cart_container:
+        if not IShoppingSite(context).cart_container:
             container = createContentInContainer(
                 context, 'collective.cart.core.CartContainer', id="cart-container", title="Cart Container", checkConstraints=False)
             modified(container)
@@ -27,18 +27,18 @@ class Miscellaneous(BrowserView):
 
     def unmake_shopping_site(self):
         """Unmake context shopping site."""
-        noLongerProvides(self.context, IShoppingSite)
+        noLongerProvides(self.context, IShoppingSiteRoot)
         self.context.reindexObject(idxs=['object_provides'])
         url = self.context.absolute_url()
         return self.request.response.redirect(url)
 
     def is_shopping_site(self):
         return IFolderish.providedBy(
-            self.context) and IShoppingSite.providedBy(self.context)
+            self.context) and IShoppingSiteRoot.providedBy(self.context)
 
     def not_shopping_site(self):
         return IFolderish.providedBy(
-            self.context) and not IShoppingSite.providedBy(self.context)
+            self.context) and not IShoppingSiteRoot.providedBy(self.context)
 
     # def potentially_addable_but_not_addable_to_cart(self):
     #     context = aq_inner(self.context)
