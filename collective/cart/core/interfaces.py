@@ -15,21 +15,9 @@ class IArticle(form.Schema):
 class ICartContainer(form.Schema):
     """Schema for CartContainer content type."""
 
-    numbering_method = Choice(
-        title=_(u'Cart ID Numbering Method'),
-        vocabulary=numbering_methods,
-        default=u'incremental')
-
     next_cart_id = Int(
         title=_(u'Next Cart ID'),
         default=1,
-        min=1)
-
-    random_digits = Int(
-        title=_(u'Random Digits Numer'),
-        description=_(u'If Random Cart ID is selected, give integer digits here.'),
-        default=5,
-        required=False,
         min=1)
 
     quantity_method = Choice(
@@ -57,5 +45,24 @@ class IShoppingSite(Interface):
     shop = Attribute("Returns Shop Site Root object.")  # pragma: no cover
     cart_container = Attribute("Returns Cart Container object of Shop Site Root.")  # pragma: no cover
 
-    def update_cart_id():  # pragma: no cover
+    def update_next_cart_id():  # pragma: no cover
         """Update next cart ID for the cart container."""
+
+
+class ICartContainerAdapter(Interface):
+    """Adapter Interface for CartContainer."""
+
+    def update_next_cart_id():  # pragma: no cover
+        """Update next_cart_id based on numbering_method."""
+
+    def update_incremental_next_cart_id():  # pragma: no cover
+        """Update next_cart_id with incremental method."""
+
+    def update_random_next_cart_id():  # pragma: no cover
+        """Update next_cart_id with random method."""
+
+
+class IRandomDigits(Interface):
+
+    def __call__(number, ids):
+        """Returns randome digits which is not in ids."""

@@ -3,17 +3,17 @@
  <property
     name="title">Contains workflow definitions for your portal</property>
  <object name="cart_default_workflow" meta_type="Workflow"/>
- <object name="cart_folder_default_workflow" meta_type="Workflow"/>
- <object name="cart_product_default_workflow" meta_type="Workflow"/>
+ <!-- <object name="cart_folder_default_workflow" meta_type="Workflow"/>
+ <object name="cart_product_default_workflow" meta_type="Workflow"/> -->
  <bindings>
-  <type type_id="CartFolder">
+  <!-- <type type_id="CartFolder">
    <bound-workflow workflow_id="cart_folder_default_workflow"/>
-  </type>
-  <type type_id="Cart">
+  </type> -->
+  <type type_id="collective.cart.core.Cart">
    <bound-workflow workflow_id="cart_default_workflow"/>
   </type>
-  <type type_id="CartProduct">
+  <!-- <type type_id="CartProduct">
    <bound-workflow workflow_id="cart_product_default_workflow"/>
-  </type>
+  </type> -->
  </bindings>
 </object>

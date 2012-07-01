@@ -2,6 +2,7 @@ from Acquisition import aq_chain
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from collective.cart.core.interfaces import ICartContainer
+from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from five import grok
@@ -9,7 +10,7 @@ from zope.interface import Interface
 
 
 class ShoppingSite(grok.Adapter):
-    """Adapter to provice Shopping Site Root."""
+    """Adapter to provide Shopping Site Root."""
 
     grok.context(Interface)
     grok.provides(IShoppingSite)
@@ -37,3 +38,7 @@ class ShoppingSite(grok.Adapter):
             brains = catalog(query)
             if brains:
                 return brains[0].getObject()
+
+    def update_next_cart_id(self):
+        """Update next cart ID for the cart container."""
+        ICartContainerAdapter(self.cart_container).update_next_cart_id()

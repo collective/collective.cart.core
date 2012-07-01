@@ -16,10 +16,15 @@
 from collective.behavior.salable.interfaces import ISalable
 from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
 from collective.cart.core.interfaces import IArticle
+from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from five import grok
 from plone.app.layout.globals.interfaces import IViewView
 from plone.app.layout.viewlets.interfaces import IBelowContentTitle
+from plone.dexterity.utils import createContentInContainer
+from zope.interface import alsoProvides
+from zope.interface import noLongerProvides
+from zope.lifecycleevent import modified
 
 
 # class CartViewletBase(ViewletBase):
@@ -353,9 +358,11 @@ class AddToCartViewlet(grok.Viewlet):
         form = self.request.form
         if form.get('form.addtocart', None) is not None:
             container = IShoppingSite(self.context).cart_container
-            oid = container.next_cart_id
-            cart = container[container.invokeFactory('collective.cart.core.Cart', oid)]
-            cart.reindexObject()
+            oid = str(container.next_cart_id)
+            cart = createContentInContainer(
+                container, 'collective.cart.core.Cart', id=oid, checkConstraints=False)
+            modified(cart)
+            ICartContainerAdapter(container).update_next_cart_id()
             return self.render()
 
     def available(self):

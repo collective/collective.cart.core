@@ -3,27 +3,27 @@
 
   <object name="site_properties" meta_type="Plone Property Sheet">
     <property name="types_not_searched" type="lines">
-      <element value="Cart"/>
-      <element value="CartFolder"/>
-      <element value="CartProduct"/>
-    </property>
-  </object>  
-
-  <object name="navtree_properties" meta_type="Plone Property Sheet">
-    <property name="metaTypesNotToList" type="lines">
-      <element value="Cart"/>
-      <element value="CartFolder"/>
-      <element value="CartProduct"/>
+      <element value="collective.cart.core.CartContainer"/>
+      <element value="collective.cart.core.Cart"/>
+      <element value="collective.cart.core.CartArticle"/>
     </property>
   </object>
 
-  <object name="collective_cart_properties" meta_type="Plone Property Sheet">
+  <object name="navtree_properties" meta_type="Plone Property Sheet">
+    <property name="metaTypesNotToList" type="lines">
+      <element value="collective.cart.core.CartContainer"/>
+      <element value="collective.cart.core.Cart"/>
+      <element value="collective.cart.core.CartArticle"/>
+    </property>
+  </object>
+
+  <!-- <object name="collective_cart_properties" meta_type="Plone Property Sheet">
     <property name="title">Cart Properties</property>
     <property name="currency" type="string">EUR</property>
     <property name="currency_symbol" type="string"></property>
     <property name="symbol_location" type="string">Behind</property>
     <property name="content_types" type="lines" />
     <property name="decimal_type" type="string">.</property>
-  </object>
+  </object> -->
 
 </object>

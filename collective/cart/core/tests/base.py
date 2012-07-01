@@ -15,6 +15,10 @@ class CartCoreLayer(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
         """Set up Zope."""
+
+        # # Required by Products.CMFPlone:plone-content to setup defaul plone site.
+        # z2.installProduct(app, 'Products.PythonScripts')
+
         # Load ZCML
         import collective.cart.core
         self.loadZCML(package=collective.cart.core)
@@ -22,12 +26,20 @@ class CartCoreLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         """Set up Plone."""
+
+        # # Installs all the Plone stuff. Workflows etc. to setup defaul plone site.
+        # self.applyProfile(portal, 'Products.CMFPlone:plone')
+
+        # # Install portal content. Including the Members folder! to setup defaul plone site.
+        # self.applyProfile(portal, 'Products.CMFPlone:plone-content')
+
         # Install into Plone site using portal_setup
         self.applyProfile(portal, 'collective.cart.core:default')
 
     def tearDownZope(self, app):
         """Tear down Zope."""
         z2.uninstallProduct(app, 'collective.cart.core')
+        # z2.uninstallProduct(app, 'Products.PythonScripts')
 
 
 FIXTURE = CartCoreLayer()

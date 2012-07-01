@@ -12,10 +12,6 @@ class TestSetup(IntegrationTestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         self.installer = getToolByName(self.portal, 'portal_quickinstaller')
-        self.properties = getToolByName(self.portal, 'portal_properties')
-        self.site_properties = getattr(self.properties, 'site_properties')
-        self.navtree_properties = getattr(self.properties, 'navtree_properties')
-        self.controlpanel = getToolByName(self.portal, 'portal_controlpanel')
         self.catalog = getToolByName(self.portal, 'portal_catalog')
         self.types = getToolByName(self.portal, 'portal_types')
         self.workflow = getToolByName(self.portal, 'portal_workflow')
@@ -34,54 +30,48 @@ class TestSetup(IntegrationTestCase):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         self.failUnless(installer.isProductInstalled('collective.behavior.salable'))
 
-    ## propertiestool.xml
-    def test_collective_cart_properties(self):
-        ccp = getattr(self.properties, 'collective_cart_properties')
-        self.assertEquals('Cart Properties', ccp.getProperty('title'))
-        self.assertEquals('EUR', ccp.getProperty('currency'))
-        self.assertEquals('', ccp.getProperty('currency_symbol'))
-        self.assertEquals('Behind', ccp.getProperty('symbol_location'))
-        self.assertEquals((), ccp.getProperty('content_types'))
+    def test_site_properties__types_not_searchable__collective_cart_core_CartContainer(self):
+        properties = getToolByName(self.portal, 'portal_properties')
+        site_properties = getattr(properties, 'site_properties')
+        self.assertIn(
+            'collective.cart.core.CartContainer',
+            site_properties.getProperty('types_not_searched'))
 
-    ## controlpanel.xml
-    def test_configlet(self):
-        act = [action for action in self.controlpanel.listActions() if action.id == 'collective_cart_config'][0]
-        self.assertEquals(u'Cart Config', act.title)
-        self.assertEquals("collective.cart.core", act.appId)
+    def test_site_properties__types_not_searchable__collective_cart_core_Cart(self):
+        properties = getToolByName(self.portal, 'portal_properties')
+        site_properties = getattr(properties, 'site_properties')
+        self.assertIn(
+            'collective.cart.core.Cart',
+            site_properties.getProperty('types_not_searched'))
 
-        try:
-            ## Plone4
-            self.assertEquals("string:$portal_url/maintenance_icon.png", act.icon_expr.text)
-        except AttributeError:
-            ## Plone3
-            pass
 
-        self.assertEquals("string:${portal_url}/@@cart-config", act.action.text)
+    def test_propertiestool__site_properties__types_not_searchable__collective_cart_core_CartArticle(self):
+        properties = getToolByName(self.portal, 'portal_properties')
+        site_properties = getattr(properties, 'site_properties')
+        self.assertIn(
+            'collective.cart.core.CartArticle',
+            site_properties.getProperty('types_not_searched'))
 
-    ## site_properties
-    def test_not_searchable(self):
-        self.failUnless('Cart' in self.site_properties.getProperty('types_not_searched'))
-        self.failUnless('CartFolder' in self.site_properties.getProperty('types_not_searched'))
-        self.failUnless('CartProduct' in self.site_properties.getProperty('types_not_searched'))
+    def test_propertiestool__navtree_properties__metaTypesNotToList__collective_cart_core_CartContainer(self):
+        properties = getToolByName(self.portal, 'portal_properties')
+        navtree_properties = getattr(properties, 'navtree_properties')
+        self.assertIn(
+            'collective.cart.core.CartContainer',
+             navtree_properties.getProperty('metaTypesNotToList'))
 
-    def test_use_folder_tabs(self):
-        try:
-            self.failUnless('Cart' not in self.site_properties.getProperty('use_folder_tabs'))
-            self.failUnless('CartFolder' not in self.site_properties.getProperty('use_folder_tabs'))
-            self.failUnless('CartProduct' not in self.site_properties.getProperty('use_folder_tabs'))
-        except TypeError:
-            pass
+    def test_propertiestool__navtree_properties__metaTypesNotToList__collective_cart_core_Cart(self):
+        properties = getToolByName(self.portal, 'portal_properties')
+        navtree_properties = getattr(properties, 'navtree_properties')
+        self.assertIn(
+            'collective.cart.core.Cart',
+             navtree_properties.getProperty('metaTypesNotToList'))
 
-    def test_typesLinkToFolderContentsInFC(self):
-        self.failUnless('Cart' not in self.site_properties.getProperty('typesLinkToFolderContentsInFC'))
-        self.failUnless('CartFolder' not in self.site_properties.getProperty('typesLinkToFolderContentsInFC'))
-        self.failUnless('CartProduct' not in self.site_properties.getProperty('typesLinkToFolderContentsInFC'))
-
-    ## navtree_properties
-    def test_not_in_navtree(self):
-        self.failUnless('Cart' in self.navtree_properties.getProperty('metaTypesNotToList'))
-        self.failUnless('CartFolder' in self.navtree_properties.getProperty('metaTypesNotToList'))
-        self.failUnless('CartProduct' in self.navtree_properties.getProperty('metaTypesNotToList'))
+    def test_propertiestool__navtree_properties__metaTypesNotToList__collective_cart_core_CartArticle(self):
+        properties = getToolByName(self.portal, 'portal_properties')
+        navtree_properties = getattr(properties, 'navtree_properties')
+        self.assertIn(
+            'collective.cart.core.CartArticle',
+             navtree_properties.getProperty('metaTypesNotToList'))
 
     ## catalog.xml
     def test_catalog_index(self):
@@ -93,68 +83,68 @@ class TestSetup(IntegrationTestCase):
 
     ## worlflows.xml
     def test_worlflow_installed(self):
-        for item in ['cart_folder_default_workflow', 'cart_default_workflow', 'cart_product_default_workflow']:
+        for item in ['cart_default_workflow']:
             self.failUnless(item in self.workflow.objectIds())
 
-    def test_cart_folder_workflow_chain(self):
-        self.failUnless('cart_folder_default_workflow' in self.workflow.getChainForPortalType('CartFolder'))
+    # def test_cart_folder_workflow_chain(self):
+    #     self.failUnless('cart_folder_default_workflow' in self.workflow.getChainForPortalType('CartFolder'))
 
     def test_cart_workflow_chain(self):
-        self.failUnless('cart_default_workflow' in self.workflow.getChainForPortalType('Cart'))
+        self.failUnless('cart_default_workflow' in self.workflow.getChainForPortalType('collective.cart.core.Cart'))
 
-    def test_cart_product_workflow_chain(self):
-        self.failUnless('cart_product_default_workflow' in self.workflow.getChainForPortalType('CartProduct'))
+    # def test_cart_product_workflow_chain(self):
+    #     self.failUnless('cart_product_default_workflow' in self.workflow.getChainForPortalType('CartProduct'))
 
-    ## cart_folder_default_workflow definition.xml
-    def test_cart_folder_default_workflow_definition_permissions(self):
-        perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View', 'collective.cart.core: Add Cart')
-        state = self.workflow.cart_folder_default_workflow.states.secured
-        for perm in perms:
-            self.failUnless(perm in self.workflow.cart_folder_default_workflow.permissions)
-            self.assertEqual(0, state.getPermissionInfo(perm)['acquired'])
-        secured_permission_roles = {
-            'Modify portal content': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
-            ),
-            'Access contents information': (
-                'Anonymous',
-                'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
-            ),
-            'List folder contents': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
-            ),
-            'View': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
-            ),
-             'collective.cart.core: Add Cart': (
-                'Anonymous',
-                'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
-            ),
-        }
-        self.assertEqual(secured_permission_roles, state.permission_roles)
+    # ## cart_folder_default_workflow definition.xml
+    # def test_cart_folder_default_workflow_definition_permissions(self):
+    #     perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View', 'collective.cart.core: Add Cart')
+    #     state = self.workflow.cart_folder_default_workflow.states.secured
+    #     for perm in perms:
+    #         self.failUnless(perm in self.workflow.cart_folder_default_workflow.permissions)
+    #         self.assertEqual(0, state.getPermissionInfo(perm)['acquired'])
+    #     secured_permission_roles = {
+    #         'Modify portal content': (
+    #             'Contributor',
+    #             'Manager',
+    #             'Site Administrator'
+    #         ),
+    #         'Access contents information': (
+    #             'Anonymous',
+    #             'Authenticated',
+    #             'Contributor',
+    #             'Manager',
+    #             'Member',
+    #             'Owner',
+    #             'Site Administrator'
+    #         ),
+    #         'List folder contents': (
+    #             'Contributor',
+    #             'Manager',
+    #             'Site Administrator'
+    #         ),
+    #         'View': (
+    #             'Contributor',
+    #             'Manager',
+    #             'Site Administrator'
+    #         ),
+    #          'collective.cart.core: Add Cart': (
+    #             'Anonymous',
+    #             'Authenticated',
+    #             'Contributor',
+    #             'Manager',
+    #             'Member',
+    #             'Owner',
+    #             'Site Administrator'
+    #         ),
+    #     }
+    #     self.assertEqual(secured_permission_roles, state.permission_roles)
 
-    def test_cart_folder_default_workflow_definition_states(self):
-        self.assertEqual(['secured'], self.workflow.cart_folder_default_workflow.states.objectIds())
+    # def test_cart_folder_default_workflow_definition_states(self):
+    #     self.assertEqual(['secured'], self.workflow.cart_folder_default_workflow.states.objectIds())
 
     ## cart_default_workflow definition.xml
     def test_cart_default_workflow_definition_permissions(self):
-        perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View', 'collective.cart.core: Add CartProduct')
+        perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View')
         for perm in perms:
             self.failUnless(perm in self.workflow.cart_default_workflow.permissions)
 
@@ -177,7 +167,7 @@ class TestSetup(IntegrationTestCase):
         self.assertEqual((), shipped.getTransitions())
         self.assertEqual((), canceled.getTransitions())
         objs = items.values()
-        perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View', 'collective.cart.core: Add CartProduct')
+        perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View')
         for obj in objs:
             for perm in perms:
                 self.assertEqual(0, obj.getPermissionInfo(perm)['acquired'])
@@ -210,15 +200,6 @@ class TestSetup(IntegrationTestCase):
                 'Manager',
                 'Site Administrator'
             ),
-             'collective.cart.core: Add CartProduct': (
-                'Anonymous',
-                'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
-            ),
         }
         self.assertEqual(created_permission_roles, created.permission_roles)
         other_permission_roles = {
@@ -246,8 +227,6 @@ class TestSetup(IntegrationTestCase):
                 'Manager',
                 'Site Administrator'
             ),
-             'collective.cart.core: Add CartProduct': (
-            ),
         }
         states.remove('created')
         objs = [items[state] for state in states]
@@ -270,85 +249,85 @@ class TestSetup(IntegrationTestCase):
         self.assertEqual('canceled', cancel.new_state_id)
         self.assertEqual('created', create.new_state_id)
 
-    def test_cart_product_default_workflow_definition_states(self):
-        states = ['editable_for_customer', 'not_editable_for_customer']
-        for state in states:
-            self.failUnless(state in self.workflow.cart_product_default_workflow.states.objectIds())
-        items = dict(self.workflow.cart_product_default_workflow.states.objectItems())
-        editable_for_customer = items.get('editable_for_customer')
-        not_editable_for_customer = items.get('not_editable_for_customer')
-        for item in ['fix']:
-            self.failUnless(item in editable_for_customer.getTransitions())
-        for item in ['unfix']:
-            self.failUnless(item in not_editable_for_customer.getTransitions())
-        objs = items.values()
-        perms = ('Access contents information', 'Modify portal content', 'View')
-        for obj in objs:
-            for perm in perms:
-                self.assertEqual(0, obj.getPermissionInfo(perm)['acquired'])
-        editable_for_customer_permission_roles = {
-            'Modify portal content': (
-                'Anonymous',
-                'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
-            ),
-            'Access contents information': (
-                'Anonymous',
-                'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
-            ),
-            'View': (
-                'Anonymous',
-                'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
-            )
-        }
-        self.assertEqual(editable_for_customer_permission_roles, editable_for_customer.permission_roles)
-        not_editable_for_customer_permission_roles = {
-            'Modify portal content': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
-            ),
-            'Access contents information': (
-                'Anonymous',
-                'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
-            ),
-            'View': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
-            )
-        }
-        self.assertEqual(not_editable_for_customer_permission_roles, not_editable_for_customer.permission_roles)
-        self.assertEqual(not_editable_for_customer_permission_roles, not_editable_for_customer.permission_roles)
+    # def test_cart_product_default_workflow_definition_states(self):
+    #     states = ['editable_for_customer', 'not_editable_for_customer']
+    #     for state in states:
+    #         self.failUnless(state in self.workflow.cart_product_default_workflow.states.objectIds())
+    #     items = dict(self.workflow.cart_product_default_workflow.states.objectItems())
+    #     editable_for_customer = items.get('editable_for_customer')
+    #     not_editable_for_customer = items.get('not_editable_for_customer')
+    #     for item in ['fix']:
+    #         self.failUnless(item in editable_for_customer.getTransitions())
+    #     for item in ['unfix']:
+    #         self.failUnless(item in not_editable_for_customer.getTransitions())
+    #     objs = items.values()
+    #     perms = ('Access contents information', 'Modify portal content', 'View')
+    #     for obj in objs:
+    #         for perm in perms:
+    #             self.assertEqual(0, obj.getPermissionInfo(perm)['acquired'])
+    #     editable_for_customer_permission_roles = {
+    #         'Modify portal content': (
+    #             'Anonymous',
+    #             'Authenticated',
+    #             'Contributor',
+    #             'Manager',
+    #             'Member',
+    #             'Owner',
+    #             'Site Administrator'
+    #         ),
+    #         'Access contents information': (
+    #             'Anonymous',
+    #             'Authenticated',
+    #             'Contributor',
+    #             'Manager',
+    #             'Member',
+    #             'Owner',
+    #             'Site Administrator'
+    #         ),
+    #         'View': (
+    #             'Anonymous',
+    #             'Authenticated',
+    #             'Contributor',
+    #             'Manager',
+    #             'Member',
+    #             'Owner',
+    #             'Site Administrator'
+    #         )
+    #     }
+    #     self.assertEqual(editable_for_customer_permission_roles, editable_for_customer.permission_roles)
+    #     not_editable_for_customer_permission_roles = {
+    #         'Modify portal content': (
+    #             'Contributor',
+    #             'Manager',
+    #             'Site Administrator'
+    #         ),
+    #         'Access contents information': (
+    #             'Anonymous',
+    #             'Authenticated',
+    #             'Contributor',
+    #             'Manager',
+    #             'Member',
+    #             'Owner',
+    #             'Site Administrator'
+    #         ),
+    #         'View': (
+    #             'Contributor',
+    #             'Manager',
+    #             'Site Administrator'
+    #         )
+    #     }
+    #     self.assertEqual(not_editable_for_customer_permission_roles, not_editable_for_customer.permission_roles)
+    #     self.assertEqual(not_editable_for_customer_permission_roles, not_editable_for_customer.permission_roles)
 
-    def test_cart_product_default_workflow_definition_transitions(self):
-        transitions = ['fix', 'unfix']
-        for transition in transitions:
-            self.failUnless(transition in self.workflow.cart_product_default_workflow.transitions.objectIds())
-        items = dict(self.workflow.cart_product_default_workflow.transitions.objectItems())
-        fix = items.get('fix')
-        unfix = items.get('unfix')
-        self.assertEqual('not_editable_for_customer', fix.new_state_id)
-        self.assertEqual('editable_for_customer', unfix.new_state_id)
+    # def test_cart_product_default_workflow_definition_transitions(self):
+    #     transitions = ['fix', 'unfix']
+    #     for transition in transitions:
+    #         self.failUnless(transition in self.workflow.cart_product_default_workflow.transitions.objectIds())
+    #     items = dict(self.workflow.cart_product_default_workflow.transitions.objectItems())
+    #     fix = items.get('fix')
+    #     unfix = items.get('unfix')
+    #     self.assertEqual('not_editable_for_customer', fix.new_state_id)
+    #     self.assertEqual('editable_for_customer', unfix.new_state_id)
 
     def test_actions__object_buttons__make_shopping_site__i18n_domain(self):
         actions = getToolByName(self.portal, 'portal_actions')
@@ -639,7 +618,7 @@ class TestSetup(IntegrationTestCase):
     def test_types__collective_cart_core_CartContainer__allowed_content_types(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.CartContainer')
-        self.assertEqual(ctype.allowed_content_types, ('collective.cart.core.Cart',))
+        self.assertEqual(ctype.allowed_content_types, ())
 
     def test_types__collective_cart_core_CartContainer__schema(self):
         types = getToolByName(self.portal, 'portal_types')
@@ -1040,17 +1019,10 @@ class TestSetup(IntegrationTestCase):
         action = ctype.getActionObject('object/edit')
         self.assertEqual(action.permissions, (u'Modify portal content',))
 
-    ## Uninstalling
-    def test_uninstall(self):
+    def test_uninstall__package(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         installer.uninstallProducts(['collective.cart.core'])
         self.assertFalse(installer.isProductInstalled('collective.cart.core'))
-        ids = [action.id for action in self.controlpanel.listActions()]
-        self.failUnless('collective_cart_config' not in ids)
-        self.failUnless(not hasattr(self.properties, 'collective_cart_properties'))
-        left_column = getUtility(IPortletManager, name=u"plone.leftcolumn")
-        left_assignable = getMultiAdapter((self.portal, left_column), IPortletAssignmentMapping)
-        self.failIf(u'Cart' in left_assignable.keys())
 
     def test_uninstall__actions__object_buttons__make_shopping_site(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
