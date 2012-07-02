@@ -4,14 +4,11 @@
     <!-- <permission name="collective.cart.core: Add CartFolder" acquire="False">
         <role name="Manager" />
         <role name="Contributor" />
-    </permission>
+    </permission> -->
     <permission name="collective.cart.core: Add Cart" acquire="False">
-        <role name="Manager" />
-        <role name="Contributor" />
-        <role name="Member" />
-        <role name="Anonymous" />
+        <role name="Authenticated"/>
     </permission>
-    <permission name="collective.cart.core: Add CartProduct" acquire="False">
+    <!-- <permission name="collective.cart.core: Add CartProduct" acquire="False">
         <role name="Manager" />
         <role name="Contributor" />
         <role name="Member" />

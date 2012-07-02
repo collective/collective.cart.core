@@ -1,29 +1,17 @@
-# from Acquisition import aq_inner
-# from Products.CMFCore.utils import getToolByName
-# from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-# from collective.cart.core import CartMessageFactory as _
-# from collective.cart.core import _
-# from collective.cart.core.interfaces import IAddableToCart
-# from collective.cart.core.interfaces import ICart
-# from collective.cart.core.interfaces import IPortal
-# from collective.cart.core.interfaces import IPortalCartProperties
-# from collective.cart.core.interfaces import IPotentiallyAddableToCart
-# from collective.cart.core.interfaces import IProduct
-# from collective.cart.core.interfaces import IRegularExpression
-# from plone.app.layout.viewlets.common import ViewletBase
-# from zope.interface import alsoProvides, noLongerProvides
-# from zope.schema.interfaces import IVocabularyFactory
+from Products.CMFCore.utils import getToolByName
 from collective.behavior.salable.interfaces import ISalable
 from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
 from collective.cart.core.interfaces import IArticle
+from collective.cart.core.interfaces import ICart
+from collective.cart.core.interfaces import ICartArticle
 from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from five import grok
 from plone.app.layout.globals.interfaces import IViewView
 from plone.app.layout.viewlets.interfaces import IBelowContentTitle
 from plone.dexterity.utils import createContentInContainer
-from zope.interface import alsoProvides
-from zope.interface import noLongerProvides
+from plone.uuid.interfaces import IUUID
+from zope.component import getMultiAdapter
 from zope.lifecycleevent import modified
 
 
@@ -358,11 +346,51 @@ class AddToCartViewlet(grok.Viewlet):
         form = self.request.form
         if form.get('form.addtocart', None) is not None:
             container = IShoppingSite(self.context).cart_container
-            oid = str(container.next_cart_id)
-            cart = createContentInContainer(
-                container, 'collective.cart.core.Cart', id=oid, checkConstraints=False)
-            modified(cart)
-            ICartContainerAdapter(container).update_next_cart_id()
+            portal_state = getMultiAdapter(
+                (self.context, self.request), name=u"plone_portal_state")
+            member = portal_state.member()
+            query = {
+                'path': {
+                    'query': '/'.join(container.getPhysicalPath()),
+                    'depth': 1,
+                },
+                'object_provides': ICart.__identifier__,
+                'Creator': member.id,
+                'review_state': 'created',
+            }
+            catalog = getToolByName(self.context, 'portal_catalog')
+            brains = catalog(query)
+            uuid = IUUID(self.context)
+            if brains:
+                brain = brains[0]
+                cart = brain.getObject()
+                query = {
+                    'path': {
+                        'query': brain.getPath(),
+                        'depth': 1,
+                    },
+                    'object_provides': ICartArticle.__identifier__,
+                    'orig_uuid': uuid,
+                }
+                brains = catalog(query)
+                if brains:
+                    pass
+                else:
+                    oid = str(int(max(set(cart.objectIds()))) + 1)
+                    article = createContentInContainer(
+                        cart, 'collective.cart.core.CartArticle', id=oid,
+                        checkConstraints=False, orig_uuid=uuid)
+                    modified(article)
+            else:
+                oid = str(container.next_cart_id)
+                cart = createContentInContainer(
+                    container, 'collective.cart.core.Cart', id=oid, checkConstraints=False)
+                modified(cart)
+                ICartContainerAdapter(container).update_next_cart_id()
+                article = createContentInContainer(
+                    cart, 'collective.cart.core.CartArticle', id='1',
+                    checkConstraints=False, orig_uuid=uuid)
+                modified(article)
             return self.render()
 
     def available(self):

@@ -1,5 +1,4 @@
 from collective.cart.core import _
-from collective.cart.core.vocabulary import numbering_methods
 from collective.cart.core.vocabulary import quantity_methods
 from plone.directives import form
 from zope.interface import Attribute
@@ -33,6 +32,8 @@ class ICart(form.Schema):
 
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""
+
+    orig_uuid = Attribute('Original UUID for the article.')
 
 
 class IShoppingSiteRoot(Interface):

@@ -1,10 +1,6 @@
 from AccessControl import getSecurityManager
 from Products.CMFCore.utils import getToolByName
 from collective.cart.core.tests.base import IntegrationTestCase
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import IPortletManager
-from zope.component import getMultiAdapter
-from zope.component import getUtility
 
 
 class TestSetup(IntegrationTestCase):
@@ -44,7 +40,6 @@ class TestSetup(IntegrationTestCase):
             'collective.cart.core.Cart',
             site_properties.getProperty('types_not_searched'))
 
-
     def test_propertiestool__site_properties__types_not_searchable__collective_cart_core_CartArticle(self):
         properties = getToolByName(self.portal, 'portal_properties')
         site_properties = getattr(properties, 'site_properties')
@@ -73,74 +68,46 @@ class TestSetup(IntegrationTestCase):
             'collective.cart.core.CartArticle',
              navtree_properties.getProperty('metaTypesNotToList'))
 
-    ## catalog.xml
-    def test_catalog_index(self):
-        self.failUnless('uid' in self.catalog.indexes())
-        self.failUnless('session_cart_id' in self.catalog.indexes())
-
-    def test_metadata(self):
-        self.failUnless('quantity' in self.catalog.schema())
-
     ## worlflows.xml
     def test_worlflow_installed(self):
         for item in ['cart_default_workflow']:
             self.failUnless(item in self.workflow.objectIds())
 
-    # def test_cart_folder_workflow_chain(self):
-    #     self.failUnless('cart_folder_default_workflow' in self.workflow.getChainForPortalType('CartFolder'))
+    def test_cart_folder_workflow_chain(self):
+        self.failUnless('cart_container_default_workflow' in self.workflow.getChainForPortalType('collective.cart.core.CartContainer'))
 
     def test_cart_workflow_chain(self):
         self.failUnless('cart_default_workflow' in self.workflow.getChainForPortalType('collective.cart.core.Cart'))
 
-    # def test_cart_product_workflow_chain(self):
-    #     self.failUnless('cart_product_default_workflow' in self.workflow.getChainForPortalType('CartProduct'))
+    ## cart_container_default_workflow definition.xml
+    def test_cart_container_default_workflow_definition_permissions(self):
+        perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View')
+        state = self.workflow.cart_container_default_workflow.states.addable
+        for perm in perms:
+            self.failUnless(perm in self.workflow.cart_container_default_workflow.permissions)
+            self.assertEqual(0, state.getPermissionInfo(perm)['acquired'])
+        secured_permission_roles = {
+            'Modify portal content': (
+                'Contributor',
+                'Manager',
+                'Site Administrator'
+            ),
+            'Access contents information': (
+                'Authenticated',
+            ),
+            'List folder contents': (
+                'Contributor',
+                'Manager',
+                'Site Administrator'
+            ),
+            'View': (
+                'Authenticated',
+            ),
+        }
+        self.assertEqual(secured_permission_roles, state.permission_roles)
 
-    # ## cart_folder_default_workflow definition.xml
-    # def test_cart_folder_default_workflow_definition_permissions(self):
-    #     perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View', 'collective.cart.core: Add Cart')
-    #     state = self.workflow.cart_folder_default_workflow.states.secured
-    #     for perm in perms:
-    #         self.failUnless(perm in self.workflow.cart_folder_default_workflow.permissions)
-    #         self.assertEqual(0, state.getPermissionInfo(perm)['acquired'])
-    #     secured_permission_roles = {
-    #         'Modify portal content': (
-    #             'Contributor',
-    #             'Manager',
-    #             'Site Administrator'
-    #         ),
-    #         'Access contents information': (
-    #             'Anonymous',
-    #             'Authenticated',
-    #             'Contributor',
-    #             'Manager',
-    #             'Member',
-    #             'Owner',
-    #             'Site Administrator'
-    #         ),
-    #         'List folder contents': (
-    #             'Contributor',
-    #             'Manager',
-    #             'Site Administrator'
-    #         ),
-    #         'View': (
-    #             'Contributor',
-    #             'Manager',
-    #             'Site Administrator'
-    #         ),
-    #          'collective.cart.core: Add Cart': (
-    #             'Anonymous',
-    #             'Authenticated',
-    #             'Contributor',
-    #             'Manager',
-    #             'Member',
-    #             'Owner',
-    #             'Site Administrator'
-    #         ),
-    #     }
-    #     self.assertEqual(secured_permission_roles, state.permission_roles)
-
-    # def test_cart_folder_default_workflow_definition_states(self):
-    #     self.assertEqual(['secured'], self.workflow.cart_folder_default_workflow.states.objectIds())
+    def test_cart_container_default_workflow_definition_states(self):
+        self.assertEqual(['addable'], self.workflow.cart_container_default_workflow.states.objectIds())
 
     ## cart_default_workflow definition.xml
     def test_cart_default_workflow_definition_permissions(self):
@@ -173,32 +140,16 @@ class TestSetup(IntegrationTestCase):
                 self.assertEqual(0, obj.getPermissionInfo(perm)['acquired'])
         created_permission_roles = {
             'Modify portal content': (
-                'Anonymous',
                 'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
             ),
            'List folder contents': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
+                'Authenticated',
             ),
             'Access contents information': (
-                'Anonymous',
                 'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
             ),
             'View': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
+                'Authenticated',
             ),
         }
         self.assertEqual(created_permission_roles, created.permission_roles)
@@ -214,18 +165,10 @@ class TestSetup(IntegrationTestCase):
                 'Site Administrator'
             ),
             'Access contents information': (
-                'Anonymous',
                 'Authenticated',
-                'Contributor',
-                'Manager',
-                'Member',
-                'Owner',
-                'Site Administrator'
             ),
             'View': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
+                'Authenticated',
             ),
         }
         states.remove('created')
@@ -418,10 +361,10 @@ class TestSetup(IntegrationTestCase):
         from plone.browserlayer import utils
         self.failUnless(ICollectiveCartCoreLayer in utils.registered_layers())
 
-    def test_portlet(self):
-        left_column = getUtility(IPortletManager, name=u"plone.leftcolumn")
-        left_assignable = getMultiAdapter((self.portal, left_column), IPortletAssignmentMapping)
-        self.failUnless(u'Cart' in left_assignable.keys())
+    # def test_portlet(self):
+    #     left_column = getUtility(IPortletManager, name=u"plone.leftcolumn")
+    #     left_assignable = getMultiAdapter((self.portal, left_column), IPortletAssignmentMapping)
+    #     self.failUnless(u'Cart' in left_assignable.keys())
 
     def test_types__collective_cart_core_Article__i18n_domain(self):
         types = getToolByName(self.portal, 'portal_types')

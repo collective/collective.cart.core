@@ -1,3 +1,4 @@
+from Products.CMFCore.utils import getToolByName
 from Testing import ZopeTestCase as ztc
 from collective.cart.core.tests.base import FUNCTIONAL_TESTING
 from hexagonit.testing.browser import Browser
@@ -48,6 +49,18 @@ def setUp(self):
             title='Folder01'
         )]
     folder01.reindexObject()
+
+    regtool = getToolByName(portal, 'portal_registration')
+
+    editor = 'editor'
+    regtool.addMember(editor, editor)
+    setRoles(portal, editor, ['Editor'])
+    self.globs['editor'] = editor
+
+    member = 'member'
+    regtool.addMember(member, member)
+    setRoles(portal, member, ['Member'])
+    self.globs['member'] = member
 
     transaction.commit()
 

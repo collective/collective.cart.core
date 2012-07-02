@@ -3,9 +3,9 @@ Log in as the portal owner::
     >>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
 
-Go to portal::
+Change the display to folder_listing to make portal_url context portal::
 
-    >>> browser.open(portal_url)
+    >>> browser.open('/selectViewTemplate?templateId=folder_listing')
 
 Make Shopping Site::
 
@@ -92,6 +92,10 @@ Add Article::
     >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Article01'
     >>> browser.getControl(name="form.buttons.save").click()
 
+Publish the Article::
+
+    >>> browser.getLink('Publish').click()
+
     >>> 'Add To Cart' in browser.contents
     True
 
@@ -152,3 +156,76 @@ Save with non-existing cart ID:
 
     >>> 'The cart ID is already in use.' in browser.contents
     False
+
+Log out::
+
+    >>> browser.getLink('Log out').click()
+
+Log in as editor::
+
+    >>> browser.login(editor, editor)
+
+Go to portal::
+
+    >>> browser.open(portal_url)
+
+    >>> 'Make Shopping Site' in browser.contents
+    False
+    >>> 'Unmake Shopping Site' in browser.contents
+    False
+
+Log out::
+
+    >>> browser.getLink('Log out').click()
+
+Log in as member::
+
+    >>> browser.login(member, member)
+
+Go to Article::
+
+    >>> browser.open('/article01')
+
+Add To Cart::
+
+    >>> browser.getControl(name="form.addtocart").click()
+
+Log out::
+
+    >>> browser.getLink('Log out').click()
+
+Log in as admin::
+
+    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+
+Go to see Cart Container::
+
+    >>> browser.open('/cart-container/edit')
+    >>> 'value="3"' in browser.contents
+    True
+
+    >>> portal['cart-container']['2']
+    <Container at /plone/cart-container/2>
+
+Log out and log in as member again::
+
+    >>> browser.getLink('Log out').click()
+    >>> browser.login(member, member)
+
+Go to Article and add it again::
+
+    >>> browser.open('/article01')
+    >>> browser.getControl(name="form.addtocart").click()
+
+    >>> portal['cart-container']['3']
+    Traceback (most recent call last):
+    ...
+    KeyError: '3'
+
+    >>> portal['cart-container']['2']['1']
+    <Container at /plone/cart-container/2/1>
+
+    >>> portal['cart-container']['2']['2']
+    Traceback (most recent call last):
+    ...
+    KeyError: '2'

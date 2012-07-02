@@ -1,10 +1,4 @@
-from AccessControl import getSecurityManager
-from Products.CMFCore.utils import getToolByName
 from collective.cart.core.tests.base import IntegrationTestCase
-from plone.portlets.interfaces import IPortletAssignmentMapping
-from plone.portlets.interfaces import IPortletManager
-from zope.component import getMultiAdapter
-from zope.component import getUtility
 
 
 class TestSetup(IntegrationTestCase):
@@ -29,15 +23,15 @@ class TestSetup(IntegrationTestCase):
 
         # Add cart with ID: 1
         from plone.dexterity.utils import createContentInContainer
-        cart1 = createContentInContainer(
-                container, 'collective.cart.core.Cart', id="1", checkConstraints=False)
+        createContentInContainer(
+            container, 'collective.cart.core.Cart', id="1", checkConstraints=False)
         ICartContainerAdapter(container).update_next_cart_id()
         self.assertEqual(container.next_cart_id, 2)
 
         # Add carts with ID: 2 and 3
-        cart2 = createContentInContainer(
-                container, 'collective.cart.core.Cart', id="2", checkConstraints=False)
-        cart3 = createContentInContainer(
-                container, 'collective.cart.core.Cart', id="3", checkConstraints=False)
+        createContentInContainer(
+            container, 'collective.cart.core.Cart', id="2", checkConstraints=False)
+        createContentInContainer(
+            container, 'collective.cart.core.Cart', id="3", checkConstraints=False)
         ICartContainerAdapter(container).update_next_cart_id()
         self.assertEqual(container.next_cart_id, 4)

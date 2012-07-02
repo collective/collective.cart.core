@@ -1,9 +1,6 @@
-from collective.cart.core.error import InfiniteLoopError
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import ICartContainerAdapter
-from collective.cart.core.interfaces import IRandomDigits
 from five import grok
-from zope.component import getUtility
 
 
 class CartContainerAdapter(grok.Adapter):
