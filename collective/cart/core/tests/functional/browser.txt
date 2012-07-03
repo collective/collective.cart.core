@@ -178,9 +178,9 @@ Log out::
 
     >>> browser.getLink('Log out').click()
 
-Log in as member::
+Log in as member1::
 
-    >>> browser.login(member, member)
+    >>> browser.login(member1, member1)
 
 Go to Article::
 
@@ -207,10 +207,10 @@ Go to see Cart Container::
     >>> portal['cart-container']['2']
     <Container at /plone/cart-container/2>
 
-Log out and log in as member again::
+Log out and log in as member1 again::
 
     >>> browser.getLink('Log out').click()
-    >>> browser.login(member, member)
+    >>> browser.login(member1, member1)
 
 Go to Article and add it again::
 
@@ -229,3 +229,31 @@ Go to Article and add it again::
     Traceback (most recent call last):
     ...
     KeyError: '2'
+
+Log out and log in as member2::
+
+    >>> browser.getLink('Log out').click()
+    >>> browser.login(member2, member2)
+
+Go to Article and add it::
+
+    >>> browser.open('/article01')
+    >>> browser.getControl(name="form.addtocart").click()
+
+    >>> portal['cart-container']['3']
+    <Container at /plone/cart-container/3>
+
+Log out and log in as member1 again::
+
+    >>> browser.getLink('Log out').click()
+    >>> browser.login(member1, member1)
+
+Go to Article and add it again::
+
+    >>> browser.open('/article01')
+    >>> browser.getControl(name="form.addtocart").click()
+
+    >>> portal['cart-container']['4']
+    Traceback (most recent call last):
+    ...
+    KeyError: '4'

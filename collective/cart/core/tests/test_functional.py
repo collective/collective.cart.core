@@ -57,10 +57,15 @@ def setUp(self):
     setRoles(portal, editor, ['Editor'])
     self.globs['editor'] = editor
 
-    member = 'member'
-    regtool.addMember(member, member)
-    setRoles(portal, member, ['Member'])
-    self.globs['member'] = member
+    member1 = 'member1'
+    regtool.addMember(member1, member1)
+    setRoles(portal, member1, ['Member'])
+    self.globs['member1'] = member1
+
+    member2 = 'member2'
+    regtool.addMember(member2, member2)
+    setRoles(portal, member2, ['Member'])
+    self.globs['member2'] = member2
 
     transaction.commit()
 

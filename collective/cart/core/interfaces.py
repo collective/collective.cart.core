@@ -25,6 +25,9 @@ class ICartContainer(form.Schema):
         vocabulary=quantity_methods,
         default=u'select')
 
+    def update_next_cart_id():  # pragma: no cover
+        """Update next_cart_id"""
+
 
 class ICart(form.Schema):
     """Schema for Cart content type."""
@@ -49,6 +52,9 @@ class IShoppingSite(Interface):
     def update_next_cart_id():  # pragma: no cover
         """Update next cart ID for the cart container."""
 
+    def member_cart():  # pragma: no cover
+        """Returns member cart."""
+
 
 class ICartContainerAdapter(Interface):
     """Adapter Interface for CartContainer."""
@@ -56,14 +62,9 @@ class ICartContainerAdapter(Interface):
     def update_next_cart_id():  # pragma: no cover
         """Update next_cart_id based on numbering_method."""
 
-    def update_incremental_next_cart_id():  # pragma: no cover
-        """Update next_cart_id with incremental method."""
 
-    def update_random_next_cart_id():  # pragma: no cover
-        """Update next_cart_id with random method."""
+class IArticleAdapter(Interface):
+    """Adapter Interface for Article."""
 
-
-class IRandomDigits(Interface):
-
-    def __call__(number, ids):
-        """Returns randome digits which is not in ids."""
+    def add_to_cart():
+        """Add Article to Cart."""
