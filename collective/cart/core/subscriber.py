@@ -11,9 +11,9 @@ from zope.lifecycleevent.interfaces import IObjectRemovedEvent
 
 @grok.subscribe(ICartContainer, IObjectRemovedEvent)
 def unmake_shopping_site(container, event):
-    assert container == event.object
-    parent = aq_parent(aq_inner(container))
-    noLongerProvides(parent, IShoppingSiteRoot)
-    parent.reindexObject(idxs=['object_provides'])
-    message = _(u"This container is no longer a shopping site.")
-    IStatusMessage(container.REQUEST).addStatusMessage(message, type='info')
+    if container == event.object:
+        parent = aq_parent(aq_inner(container))
+        noLongerProvides(parent, IShoppingSiteRoot)
+        parent.reindexObject(idxs=['object_provides'])
+        message = _(u"This container is no longer a shopping site.")
+        IStatusMessage(container.REQUEST).addStatusMessage(message, type='info')
