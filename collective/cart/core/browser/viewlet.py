@@ -1,8 +1,6 @@
-from collective.behavior.salable.interfaces import ISalable
 from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
 from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IArticleAdapter
-from collective.cart.core.interfaces import IShoppingSite
 from five import grok
 from plone.app.layout.globals.interfaces import IViewView
 from plone.app.layout.viewlets.interfaces import IBelowContentTitle
@@ -342,4 +340,4 @@ class AddToCartViewlet(grok.Viewlet):
             return self.render()
 
     def available(self):
-        return IShoppingSite(self.context).shop and ISalable(self.context).salable
+        return IArticleAdapter(self.context).addable_to_cart

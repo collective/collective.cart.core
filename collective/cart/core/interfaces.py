@@ -1,9 +1,7 @@
 from collective.cart.core import _
-from collective.cart.core.vocabulary import quantity_methods
 from plone.directives import form
 from zope.interface import Attribute
 from zope.interface import Interface
-from zope.schema import Choice
 from zope.schema import Int
 
 
@@ -18,12 +16,6 @@ class ICartContainer(form.Schema):
         title=_(u'Next Cart ID'),
         default=1,
         min=1)
-
-    quantity_method = Choice(
-        title=_(u'Quantity Method'),
-        description=_(u'Select one method, Select or Input to determine how to put products into cart.'),
-        vocabulary=quantity_methods,
-        default=u'select')
 
     def update_next_cart_id():  # pragma: no cover
         """Update next_cart_id"""
@@ -68,3 +60,5 @@ class IArticleAdapter(Interface):
 
     def add_to_cart():
         """Add Article to Cart."""
+
+    addable_to_cart = Attribute('True if the Article is addable to cart.')

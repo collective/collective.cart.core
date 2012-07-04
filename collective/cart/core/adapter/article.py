@@ -1,4 +1,5 @@
 from Products.CMFCore.utils import getToolByName
+from collective.behavior.salable.interfaces import ISalable
 from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IArticleAdapter
 from collective.cart.core.interfaces import ICartArticle
@@ -69,3 +70,8 @@ class ArticleAdapter(grok.Adapter):
             self._add_to_existing_cart(cart)
         else:
             self._add_first_time_to_cart()
+
+    @property
+    def addable_to_cart(self):
+        """True if the Article is addable to cart."""
+        return IShoppingSite(self.context).shop and ISalable(self.context).salable
