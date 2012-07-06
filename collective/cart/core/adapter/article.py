@@ -17,7 +17,7 @@ class ArticleAdapter(grok.Adapter):
     grok.context(IArticle)
     grok.provides(IArticleAdapter)
 
-    def _create_cart_article(self, cart, oid):
+    def _create_cart_article(self, cart, oid, **kwargs):
         """Create CartArticle
 
         :param cart: Cart object.
@@ -30,11 +30,14 @@ class ArticleAdapter(grok.Adapter):
         """
         carticle = createContentInContainer(
             cart, 'collective.cart.core.CartArticle', id=oid,
-            checkConstraints=False, orig_uuid=IUUID(self.context))
+            checkConstraints=False, orig_uuid=IUUID(self.context),
+            title=self.context.title, description=self.context.description)
+        for key in kwargs:
+            setattr(carticle, key, kwargs[key])
         modified(carticle)
         return carticle
 
-    def _add_first_time_to_cart(self):
+    def _add_first_time_to_cart(self, **kwargs):
         """Add first time to cart creates cart."""
         container = IShoppingSite(self.context).cart_container
         if container:
@@ -43,7 +46,7 @@ class ArticleAdapter(grok.Adapter):
                 container, 'collective.cart.core.Cart', id=oid, checkConstraints=False)
             modified(cart)
             ICartContainerAdapter(container).update_next_cart_id()
-            self._create_cart_article(cart, '1')
+            self._create_cart_article(cart, '1', **kwargs)
 
     def _add_to_existing_cart(self, cart):
         """Add to existing cart."""
@@ -63,13 +66,13 @@ class ArticleAdapter(grok.Adapter):
             oid = str(int(max(set(cart.objectIds()))) + 1)
             self._create_cart_article(cart, oid)
 
-    def add_to_cart(self):
+    def add_to_cart(self, **kwargs):
         """Add Article to Cart."""
         cart = IShoppingSite(self.context).member_cart
         if cart:
             self._add_to_existing_cart(cart)
         else:
-            self._add_first_time_to_cart()
+            self._add_first_time_to_cart(**kwargs)
 
     @property
     def addable_to_cart(self):

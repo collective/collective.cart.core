@@ -877,8 +877,7 @@ class TestSetup(IntegrationTestCase):
     def test_types__collective_cart_core_CartArticle__behaviors(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.CartArticle')
-        self.assertEqual(ctype.behaviors, (
-            'plone.app.content.interfaces.INameFromTitle',))
+        self.assertEqual(ctype.behaviors, ())
 
     def test_types__collective_cart_core_CartArticle__default_view(self):
         types = getToolByName(self.portal, 'portal_types')
