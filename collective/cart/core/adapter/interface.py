@@ -2,6 +2,7 @@ from Acquisition import aq_chain
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from collective.cart.core.interfaces import ICart
+from collective.cart.core.interfaces import ICartArticle
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
@@ -19,6 +20,7 @@ class ShoppingSite(grok.Adapter):
 
     @property
     def shop(self):
+        """Returns Shop Site Root object."""
         context = aq_inner(self.context)
         chain = aq_chain(context)
         chain.sort()
@@ -28,6 +30,7 @@ class ShoppingSite(grok.Adapter):
 
     @property
     def cart_container(self):
+        """Returns Cart Container object of Shop Site Root."""
         if self.shop:
             query = {
                 'object_provides': ICartContainer.__identifier__,
@@ -41,13 +44,14 @@ class ShoppingSite(grok.Adapter):
             if brains:
                 return brains[0].getObject()
 
-    def update_next_cart_id(self):
-        """Update next cart ID for the cart container."""
-        ICartContainerAdapter(self.cart_container).update_next_cart_id()
+    @property
+    def cart(self):
+        """Returns current Cart object."""
+        return self._member_cart
 
     @property
-    def member_cart(self):
-        """Returns member cart."""
+    def _member_cart(self):
+        """Returns member Cart object."""
         container = self.cart_container
         if container:
             portal_state = getMultiAdapter(
@@ -66,3 +70,31 @@ class ShoppingSite(grok.Adapter):
             brains = catalog(query)
             if brains:
                 return brains[0].getObject()
+
+    @property
+    def cart_articles(self):
+        if self.cart:
+            query = {
+                'path': '/'.join(self.cart.getPhysicalPath()),
+                'object_provides': ICartArticle.__identifier__,
+            }
+            catalog = getToolByName(self.context, 'portal_catalog')
+            return catalog(query)
+
+
+    def update_next_cart_id(self):
+        """Update next cart ID for the cart container."""
+        ICartContainerAdapter(self.cart_container).update_next_cart_id()
+
+    def remove_cart_articles(self, ids):
+        """Remove articles of ids from current cart.
+
+        :param ids: List of ids or id in string.
+        :type ids: list or str
+        """
+        if self.cart:
+            if isinstance(ids, str):
+                ids = [ids]
+            for oid in ids:
+                self.cart[oid].unindexObject()
+                del self.cart[oid]

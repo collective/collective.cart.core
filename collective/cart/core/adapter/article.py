@@ -48,7 +48,7 @@ class ArticleAdapter(grok.Adapter):
             ICartContainerAdapter(container).update_next_cart_id()
             self._create_cart_article(cart, '1', **kwargs)
 
-    def _add_to_existing_cart(self, cart):
+    def _add_to_existing_cart(self, cart, **kwargs):
         """Add to existing cart."""
         query = {
             'path': {
@@ -61,20 +61,47 @@ class ArticleAdapter(grok.Adapter):
         catalog = getToolByName(self.context, 'portal_catalog')
         brains = catalog(query)
         if brains:
-            pass
+            obj = brains[0].getObject()
+            self._update_existing_cart_article(obj, **kwargs)
         else:
             oid = str(int(max(set(cart.objectIds()))) + 1)
             self._create_cart_article(cart, oid)
 
-    def add_to_cart(self, **kwargs):
-        """Add Article to Cart."""
-        cart = IShoppingSite(self.context).member_cart
-        if cart:
-            self._add_to_existing_cart(cart)
-        else:
-            self._add_first_time_to_cart(**kwargs)
+    def _update_existing_cart_article(self, carticle, **kwargs):
+        """Update cart article which already exists in current cart.
+
+        :param carticle: Cart Article.
+        :type carticle: collective.cart.core.CartArticle
+        """
 
     @property
     def addable_to_cart(self):
         """True if the Article is addable to cart."""
         return IShoppingSite(self.context).shop and ISalable(self.context).salable
+
+    @property
+    def cart_articles(self, review_state=None):
+        """Returns Cart Article brains which is originally from this Article.
+
+        :param review_state: review_state for catalog query.
+        :type review_state: str or list
+
+        :rtype: list
+        """
+        catalog = getToolByName(self.context, 'portal_catalog')
+        query = {
+            'path': '/'.join(IShoppingSite(self.context).cart_container.getPhysicalPath()),
+            'object_provides': ICartArticle.__identifier__,
+            'orig_uuid': IUUID(self.context),
+        }
+        if review_state is not None:
+            query['review_state'] = review_state
+        return catalog(query)
+
+    def add_to_cart(self, **kwargs):
+        """Add Article to Cart."""
+        cart = IShoppingSite(self.context).cart
+        if cart:
+            self._add_to_existing_cart(cart, **kwargs)
+        else:
+            self._add_first_time_to_cart(**kwargs)

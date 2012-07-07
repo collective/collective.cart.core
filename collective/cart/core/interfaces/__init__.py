@@ -38,14 +38,16 @@ class IShoppingSiteRoot(Interface):
 class IShoppingSite(Interface):
     """Adapter Interface for Shopping Site."""
 
-    shop = Attribute("Returns Shop Site Root object.")  # pragma: no cover
-    cart_container = Attribute("Returns Cart Container object of Shop Site Root.")  # pragma: no cover
+    shop = Attribute("Shop Site Root object.")
+    cart_container = Attribute("Cart Container object of Shop Site Root.")
+    cart = Attribute('Current Cart object.')
+    cart_articles = Attribute('List of cart articles within current cart.')
 
     def update_next_cart_id():  # pragma: no cover
         """Update next cart ID for the cart container."""
 
-    def member_cart():  # pragma: no cover
-        """Returns member cart."""
+    def remove_cart_articles(ids):
+        """Remove articles of ids from current cart."""
 
 
 class ICartContainerAdapter(Interface):
@@ -58,7 +60,14 @@ class ICartContainerAdapter(Interface):
 class IArticleAdapter(Interface):
     """Adapter Interface for Article."""
 
-    def add_to_cart():
+    addable_to_cart = Attribute('True if the Article is addable to cart.')
+    cart_articles = Attribute('Cart Article brains which is originally from this Article.')
+
+    def add_to_cart():  # pragma: no cover
         """Add Article to Cart."""
 
-    addable_to_cart = Attribute('True if the Article is addable to cart.')
+
+class ICartArticleAdapter(Interface):
+    """Adapter Interface for CartArticle."""
+
+    orig_article = Attribute('Originar Article object.')

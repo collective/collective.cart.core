@@ -41,6 +41,7 @@ setup(
         'collective.behavior.salable',
         'five.grok',
         'hexagonit.testing',
+        'plone.app.contentlisting',
         'plone.app.dexterity',
         'plone.directives.form',
         'setuptools',

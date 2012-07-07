@@ -90,6 +90,7 @@ Add Article::
 
     >>> browser.open('/++add++collective.cart.core.Article')
     >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Article01'
+    >>> browser.getControl(name="form.widgets.IDublinCore.description").value = 'Description of Article01'
     >>> browser.getControl(name="form.buttons.save").click()
 
 Publish the Article::
@@ -124,17 +125,32 @@ Make Shopping Site once again::
 
     >>> browser.open(portal_url)
     >>> browser.getLink('Make Shopping Site').click()
-    >>> browser.open('/article01')
 
-    >>> 'Add To Cart' in browser.contents
+
+Cart should be empty::
+
+    >>> browser.open('/@@cart')
+    >>> 'Cart is empty' in browser.contents
     True
 
-Add To Cart::
+Add Article01 To Cart::
 
+    >>> browser.open('/article01')
+    >>> 'Add To Cart' in browser.contents
+    True
     >>> browser.getControl(name="form.addtocart").click()
 
     >>> portal['cart-container']['1']
     <Container at /plone/cart-container/1>
+
+Check cart::
+
+    >>> browser.open('/@@cart')
+    >>> print browser.bycss('.name')
+    --- 1 ---
+    <td class="name">
+    <a href="http://nohost/plone/article01">Article01</a>
+    </td>
 
 Go to Cart Container and save next cart ID with existing cart ID::
 
@@ -235,6 +251,12 @@ Log out and log in as member2::
     >>> browser.getLink('Log out').click()
     >>> browser.login(member2, member2)
 
+Cart should be empty::
+
+    >>> browser.open('/@@cart')
+    >>> 'Cart is empty' in browser.contents
+    True
+
 Go to Article and add it::
 
     >>> browser.open('/article01')
@@ -257,3 +279,91 @@ Go to Article and add it again::
     Traceback (most recent call last):
     ...
     KeyError: '4'
+
+Log out, log in as adming and add Article01::
+
+    >>> browser.getLink('Log out').click()
+    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+    >>> browser.open('/++add++collective.cart.core.Article')
+    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Article02'
+    >>> browser.getControl(name="form.widgets.IDublinCore.description").value = 'Description of Article02'
+    >>> browser.getControl(name="form.buttons.save").click()
+
+Publish the Article::
+
+    >>> browser.getLink('Publish').click()
+
+Log out, log in as member1 and add Article02 to Cart::
+
+    >>> browser.getLink('Log out').click()
+    >>> browser.login(member1, member1)
+    >>> browser.open('/article02')
+    >>> browser.getControl(name="form.addtocart").click()
+
+Check cart::
+
+    >>> browser.open('/@@cart')
+    >>> print browser.bycss('.name')
+    --- 1 ---
+    <td class="name">
+    <a href="http://nohost/plone/article01">Article01</a>
+    </td>
+    --- 2 ---
+    <td class="name">
+    <a href="http://nohost/plone/article02">Article02</a>
+    </td>
+
+Log out, log in as admin, remove Article02::
+
+    >>> browser.getLink('Log out').click()
+    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+    >>> browser.open('/article02/delete_confirmation')
+    >>> browser.getControl('Delete').click()
+
+    >>> 'Article02 has been deleted.' in browser.contents
+    True
+
+Log out, log in as member1 and go to cart::
+
+    >>> browser.getLink('Log out').click()
+    >>> browser.login(member1, member1)
+    >>> browser.open('/@@cart')
+    >>> print browser.bycss('.name')
+    --- 1 ---
+    <td class="name">
+    <a href="http://nohost/plone/article01">Article01</a>
+    </td>
+    --- 2 ---
+    <td class="name">
+    Article02
+    </td>
+
+    >>> print browser.bycss('.delete')
+    --- 1 ---
+    <td class="delete">
+    <button class="standalone" name="form.delete.article" type="submit" value="1">Delete</button>
+    </td>
+    --- 2 ---
+    <td class="delete">
+    <button class="standalone" name="form.delete.article" type="submit" value="2">Delete</button>
+    </td>
+
+Delete Article02::
+
+    >>> browser.getControl(name="form.delete.article", index=1).click()
+    >>> print browser.bycss('.name')
+    --- 1 ---
+    <td class="name">
+    <a href="http://nohost/plone/article01">Article01</a>
+    </td>
+
+Delete Article01::
+
+    >>> browser.getControl(name="form.delete.article").click()
+
+    >>> print browser.bycss('.name')
+
+    >>> browser.open('/@@cart')
+
+    >>> 'Cart is empty' in browser.contents
+    True
