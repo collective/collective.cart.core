@@ -1,4 +1,3 @@
-from Products.CMFCore.utils import getToolByName
 from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
 from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IArticleAdapter
@@ -10,7 +9,6 @@ from plone.app.contentlisting.interfaces import IContentListing
 from plone.app.layout.globals.interfaces import IViewView
 from plone.app.layout.viewlets.interfaces import IBelowContentTitle
 from plone.app.viewletmanager.manager import OrderedViewletManager
-from zope.lifecycleevent import modified
 
 
 grok.templatedir('viewlets')

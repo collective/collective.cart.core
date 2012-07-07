@@ -81,7 +81,6 @@ class ShoppingSite(grok.Adapter):
             catalog = getToolByName(self.context, 'portal_catalog')
             return catalog(query)
 
-
     def update_next_cart_id(self):
         """Update next cart ID for the cart container."""
         ICartContainerAdapter(self.cart_container).update_next_cart_id()
@@ -96,5 +95,4 @@ class ShoppingSite(grok.Adapter):
             if isinstance(ids, str):
                 ids = [ids]
             for oid in ids:
-                self.cart[oid].unindexObject()
                 del self.cart[oid]

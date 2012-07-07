@@ -1,14 +1,7 @@
 from Products.CMFCore.utils import getToolByName
-from collective.behavior.salable.interfaces import ISalable
-from collective.cart.core.interfaces import IArticle
-from collective.cart.core.interfaces import ICartArticleAdapter
 from collective.cart.core.interfaces import ICartArticle
-from collective.cart.core.interfaces import ICartContainerAdapter
-from collective.cart.core.interfaces import IShoppingSite
+from collective.cart.core.interfaces import ICartArticleAdapter
 from five import grok
-from plone.dexterity.utils import createContentInContainer
-from plone.uuid.interfaces import IUUID
-from zope.lifecycleevent import modified
 
 
 class CartArticleAdapter(grok.Adapter):

@@ -1,4 +1,3 @@
-from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from collective.cart.shopping.browser.interfaces import ICollectiveCartCoreLayer
