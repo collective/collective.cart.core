@@ -57,21 +57,31 @@ class CartArticlesViewlet(grok.Viewlet):
             IShoppingSite(self.context).remove_cart_articles(oid)
             return self.render()
 
+    def _items(self, item):
+        """Returns dictionary of content listing items.
+
+        :param item: Iterated object of IContentListing.
+        :type item: plone.app.contentlisting.catalog.CatalogContentListingObject
+
+        :rtype dict:
+        """
+        items = {
+            'id': item.getId(),
+            'title': item.Title(),
+            'description': item.Description(),
+            'url': None,
+        }
+        # If the original object still exists.
+        obj = item.getObject()
+        orig_article = ICartArticleAdapter(obj).orig_article
+        if orig_article:
+            items['url'] = orig_article.absolute_url()
+        return items
+
     @property
     def articles(self):
         """Returns list of articles to show in cart."""
         results = []
         for item in IContentListing(self.view.cart_articles):
-            items = {
-                'id': item.getId(),
-                'title': item.Title(),
-                'description': item.Description(),
-                'url': None,
-            }
-            # If the original object still exists.
-            obj = item.getObject()
-            orig_article = ICartArticleAdapter(obj).orig_article
-            if orig_article:
-                items['url'] = orig_article.absolute_url()
-            results.append(items)
+            results.append(self._items(item))
         return results
