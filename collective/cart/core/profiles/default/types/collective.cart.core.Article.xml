@@ -15,9 +15,10 @@
   <!-- Hierarchy control -->
   <property name="global_allow">True</property>
   <property name="filter_content_types">True</property>
-  <property name="allowed_content_types">
+  <property name="allowed_content_types" />
+  <!-- <property name="allowed_content_types">
     <element value="Image"/>
-  </property>
+  </property> -->
 
   <!-- Schema, class and security -->
   <property name="schema">collective.cart.core.interfaces.IArticle</property>
