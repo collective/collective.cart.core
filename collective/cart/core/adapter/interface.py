@@ -81,6 +81,10 @@ class ShoppingSite(grok.Adapter):
             catalog = getToolByName(self.context, 'portal_catalog')
             return catalog(query)
 
+    def get_cart_article(self, cid):
+        if self.cart_articles:
+            return [article for article in self.cart_articles if article.id == cid][0].getObject()
+
     def update_next_cart_id(self):
         """Update next cart ID for the cart container."""
         ICartContainerAdapter(self.cart_container).update_next_cart_id()

@@ -1,33 +1,30 @@
-Log in as the portal owner::
+Log in as Manager::
 
-    >>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
 
 Change the display to folder_listing to make portal_url context portal::
 
     >>> browser.open('/selectViewTemplate?templateId=folder_listing')
 
-Make Shopping Site::
-
     >>> 'Make Shopping Site' in browser.contents
     True
     >>> 'Unmake Shopping Site' in browser.contents
     False
 
-    >>> portal['cart-container']
+    >>> browser.open('/cart-container')
     Traceback (most recent call last):
     ...
-    KeyError: 'cart-container'
+    HTTPError: HTTP Error 404: Not Found
 
+Make Shopping Site::
+
+    >>> browser.open('/')
     >>> browser.getLink('Make Shopping Site').click()
 
     >>> 'Make Shopping Site' in browser.contents
     False
     >>> 'Unmake Shopping Site' in browser.contents
     True
-
-    >>> portal['cart-container']
-    <Container at /plone/cart-container>
 
     >>> browser.open('/cart-container')
     >>> print browser.bycss('#next-cart-id')
@@ -50,11 +47,20 @@ Unmake Shopping Site::
     >>> 'Unmake Shopping Site' in browser.contents
     False
 
-    >>> portal['cart-container']
-    <Container at /plone/cart-container>
+    >>> browser.open('/cart-container')
+    >>> print browser.bycss('#next-cart-id')
+    --- 1 ---
+    <p id="next-cart-id">The next cart ID: 1</p>
+
+    >>> print browser.bycss('#no-carts')
+    --- 1 ---
+    <p id="no-carts">There are no carts.</p>
+
+    >>> print browser.bycss('#cart-list')
 
 Make Shopping Site once again::
 
+    >>> browser.open('/')
     >>> browser.getLink('Make Shopping Site').click()
 
     >>> 'Make Shopping Site' in browser.contents
@@ -64,32 +70,31 @@ Make Shopping Site once again::
 
 There should only be one Cart Container::
 
-    >>> portal['cart-container']
-    <Container at /plone/cart-container>
-    >>> portal['cart-container-1']
+    >>> browser.open('/cart-container-1')
     Traceback (most recent call last):
     ...
-    KeyError: 'cart-container-1'
+    HTTPError: HTTP Error 404: Not Found
 
 Deleting Cart Container Unmake Shopping Site::
 
     >>> browser.open('/cart-container/delete_confirmation')
     >>> browser.getControl('Delete').click()
 
-    >>> portal['cart-container']
+    >>> 'This container is no longer a shopping site.' in browser.contents
+    True
+
+    >>> browser.open('/cart-container')
     Traceback (most recent call last):
     ...
-    KeyError: 'cart-container'
+    HTTPError: HTTP Error 404: Not Found
 
+Make Shopping Site once again::
+
+    >>> browser.open('/')
     >>> 'Make Shopping Site' in browser.contents
     True
     >>> 'Unmake Shopping Site' in browser.contents
     False
-
-    >>> 'This container is no longer a shopping site.' in browser.contents
-    True
-
-Make Shopping Site once again::
 
     >>> browser.getLink('Make Shopping Site').click()
 
@@ -101,9 +106,11 @@ Make Shopping Site once again::
 Add Article::
 
     >>> browser.open('/++add++collective.cart.core.Article')
-    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Article01'
-    >>> browser.getControl(name="form.widgets.IDublinCore.description").value = 'Description of Article01'
+    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Ärticle01'
+    >>> browser.getControl(name="form.widgets.IDublinCore.description").value = 'Description of Ärticle01'
     >>> browser.getControl(name="form.buttons.save").click()
+
+    >>> article01_url = browser.url
 
 Publish the Article::
 
@@ -114,7 +121,8 @@ Publish the Article::
 
 Make not salable::
 
-    >>> browser.open('/article01/edit')
+    >>> browser.open(article01_url)
+    >>> browser.getLink('Edit').click()
     >>> browser.getControl(name="form.widgets.ISalable.salable:list").value = False
     >>> browser.getControl(name="form.buttons.save").click()
 
@@ -123,19 +131,19 @@ Make not salable::
 
 Make salable and Unmake Shopping Site:
 
-    >>> browser.open('/article01/edit')
+    >>> browser.getLink('Edit').click()
     >>> browser.getControl(name="form.widgets.ISalable.salable:list").value = True
     >>> browser.getControl(name="form.buttons.save").click()
-    >>> browser.open(portal_url)
+    >>> browser.open('/')
     >>> browser.getLink('Unmake Shopping Site').click()
-    >>> browser.open('/article01')
+    >>> browser.open(article01_url)
 
     >>> 'Add To Cart' in browser.contents
     False
 
 Make Shopping Site once again::
 
-    >>> browser.open(portal_url)
+    >>> browser.open('/')
     >>> browser.getLink('Make Shopping Site').click()
 
 
@@ -152,8 +160,38 @@ Add Article01 To Cart::
     True
     >>> browser.getControl(name="form.addtocart").click()
 
-    >>> portal['cart-container']['1']
-    <Container at /plone/cart-container/1>
+Check Cart Container::
+
+    >>> browser.open('/cart-container')
+    >>> print browser.bycss('#next-cart-id')
+    --- 1 ---
+    <p id="next-cart-id">The next cart ID: 2</p>
+
+    >>> print browser.bycss('#no-carts')
+
+    >>> print browser.bycss('#cart-list')
+    --- 1 ---
+    <table id="cart-list"><thead><tr><td>Cart ID</td>
+    <td>State</td>
+    <td>Last Modified</td>
+    </tr></thead><tbody><tr><td class="cart-id">
+    <a href="http://nohost/plone/cart-container/1">1</a>
+    </td>
+    <td class="cart-state">created</td>
+    <td class="cart-modified">...</td>
+    </tr></tbody></table>
+
+    >>> browser.open('/cart-container/1')
+    >>> print browser.bycss('#cart-content')
+    --- 1 ---
+    <section id="cart-content"><h1>Cart ID: 1</h1>
+    <table id="article-list"><thead><tr><td>ID</td>
+    <td>Name</td>
+    </tr></thead><tbody><tr><td class="article-id">1</td>
+    <td class="article-title">
+    <a href="http://nohost/plone/article01">&#196;rticle01</a>
+    </td>
+    </tr></tbody></table></section>
 
 Check cart::
 
@@ -161,7 +199,7 @@ Check cart::
     >>> print browser.bycss('.name')
     --- 1 ---
     <td class="name">
-    <a href="http://nohost/plone/article01">Article01</a>
+    <a href="http://nohost/plone/article01">&#196;rticle01</a>
     </td>
 
 Go to Cart Container and save next cart ID with existing cart ID::
@@ -185,31 +223,6 @@ Save with non-existing cart ID:
     >>> 'The cart ID is already in use.' in browser.contents
     False
 
-Log out::
-
-    >>> browser.getLink('Log out').click()
-
-Log in as editor::
-
-    >>> browser.login(editor, editor)
-
-Go to portal::
-
-    >>> browser.open(portal_url)
-
-    >>> 'Make Shopping Site' in browser.contents
-    False
-    >>> 'Unmake Shopping Site' in browser.contents
-    False
-
-Log out::
-
-    >>> browser.getLink('Log out').click()
-
-Log in as member1::
-
-    >>> browser.login(member1, member1)
-
 Go to Article::
 
     >>> browser.open('/article01')
@@ -218,98 +231,21 @@ Add To Cart::
 
     >>> browser.getControl(name="form.addtocart").click()
 
-Log out::
-
-    >>> browser.getLink('Log out').click()
-
-Log in as admin::
-
-    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
 
 Go to see Cart Container::
 
-    >>> browser.open('/cart-container/edit')
-    >>> 'value="3"' in browser.contents
-    True
+    >>> browser.open('/cart-container')
+    >>> print browser.bycss('#next-cart-id')
+    --- 1 ---
+    <p id="next-cart-id">The next cart ID: 2</p>
 
-    >>> portal['cart-container']['2']
-    <Container at /plone/cart-container/2>
+Add Ärticle02::
 
-Log out and log in as member1 again::
-
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member1, member1)
-
-Go to Article and add it again::
-
-    >>> browser.open('/article01')
-    >>> browser.getControl(name="form.addtocart").click()
-
-    >>> portal['cart-container']['3']
-    Traceback (most recent call last):
-    ...
-    KeyError: '3'
-
-    >>> portal['cart-container']['2']['1']
-    <Container at /plone/cart-container/2/1>
-
-    >>> portal['cart-container']['2']['2']
-    Traceback (most recent call last):
-    ...
-    KeyError: '2'
-
-Log out and log in as member2::
-
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member2, member2)
-
-Cart should be empty::
-
-    >>> browser.open('/@@cart')
-    >>> 'Cart is empty' in browser.contents
-    True
-
-Go to Article and add it::
-
-    >>> browser.open('/article01')
-    >>> browser.getControl(name="form.addtocart").click()
-
-    >>> portal['cart-container']['3']
-    <Container at /plone/cart-container/3>
-
-Log out and log in as member1 again::
-
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member1, member1)
-
-Go to Article and add it again::
-
-    >>> browser.open('/article01')
-    >>> browser.getControl(name="form.addtocart").click()
-
-    >>> portal['cart-container']['4']
-    Traceback (most recent call last):
-    ...
-    KeyError: '4'
-
-Log out, log in as adming and add Article01::
-
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
     >>> browser.open('/++add++collective.cart.core.Article')
-    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Article02'
-    >>> browser.getControl(name="form.widgets.IDublinCore.description").value = 'Description of Article02'
+    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Ärticle02'
+    >>> browser.getControl(name="form.widgets.IDublinCore.description").value = 'Description of Ärticle02'
     >>> browser.getControl(name="form.buttons.save").click()
 
-Publish the Article::
-
-    >>> browser.getLink('Publish').click()
-
-Log out, log in as member1 and add Article02 to Cart::
-
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member1, member1)
-    >>> browser.open('/article02')
     >>> browser.getControl(name="form.addtocart").click()
 
 Check cart::
@@ -318,36 +254,32 @@ Check cart::
     >>> print browser.bycss('.name')
     --- 1 ---
     <td class="name">
-    <a href="http://nohost/plone/article01">Article01</a>
+    <a href="http://nohost/plone/article01">&#196;rticle01</a>
     </td>
     --- 2 ---
     <td class="name">
-    <a href="http://nohost/plone/article02">Article02</a>
+    <a href="http://nohost/plone/article02">&#196;rticle02</a>
     </td>
 
-Log out, log in as admin, remove Article02::
+Remove Ärticle02::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
     >>> browser.open('/article02/delete_confirmation')
     >>> browser.getControl('Delete').click()
 
-    >>> 'Article02 has been deleted.' in browser.contents
+    >>> 'rticle02 has been deleted.' in browser.contents
     True
 
-Log out, log in as member1 and go to cart::
+Check cart::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member1, member1)
     >>> browser.open('/@@cart')
     >>> print browser.bycss('.name')
     --- 1 ---
     <td class="name">
-    <a href="http://nohost/plone/article01">Article01</a>
+    <a href="http://nohost/plone/article01">&#196;rticle01</a>
     </td>
     --- 2 ---
     <td class="name">
-    Article02
+    &#196;rticle02
     </td>
 
     >>> print browser.bycss('.delete')
@@ -360,16 +292,16 @@ Log out, log in as member1 and go to cart::
     <button class="standalone" name="form.delete.article" type="submit" value="2">Delete</button>
     </td>
 
-Delete Article02::
+Delete Ärticle02::
 
     >>> browser.getControl(name="form.delete.article", index=1).click()
     >>> print browser.bycss('.name')
     --- 1 ---
     <td class="name">
-    <a href="http://nohost/plone/article01">Article01</a>
+    <a href="http://nohost/plone/article01">&#196;rticle01</a>
     </td>
 
-Delete Article01::
+Delete Ärticle01::
 
     >>> browser.getControl(name="form.delete.article").click()
 
@@ -380,14 +312,11 @@ Delete Article01::
     >>> 'Cart is empty' in browser.contents
     True
 
-Check Cart Container::
+Go to Cart ID 1::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
-
-    >>> browser.open('/cart-container')
-    >>> print browser.bycss('#next-cart-id')
+    >>> browser.open('/cart-container/1')
+    >>> print browser.bycss('#cart-content')
     --- 1 ---
-    <p id="next-cart-id">The next cart ID: 4</p>
-
-    >>> print browser.bycss('#no-carts')
+    <section id="cart-content"><h1>Cart ID: 1</h1>
+    <p id="no-articles">There are no articles within this cart.</p>
+    </section>

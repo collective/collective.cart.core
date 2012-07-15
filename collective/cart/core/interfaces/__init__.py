@@ -43,6 +43,9 @@ class IShoppingSite(Interface):
     cart = Attribute('Current Cart object.')
     cart_articles = Attribute('List of cart articles within current cart.')
 
+    def get_cart_article(cid):
+        """Get cart article by cid."""
+
     def update_next_cart_id():  # pragma: no cover
         """Update next cart ID for the cart container."""
 
