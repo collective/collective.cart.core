@@ -64,7 +64,11 @@ class ArticleAdapter(grok.Adapter):
             obj = brains[0].getObject()
             self._update_existing_cart_article(obj, **kwargs)
         else:
-            oid = str(int(max(set(cart.objectIds()))) + 1)
+            ids = cart.objectIds()
+            if ids:
+                oid = str(int(max(set(cart.objectIds()))) + 1)
+            else:
+                oid = '1'
             self._create_cart_article(cart, oid, **kwargs)
 
     def _update_existing_cart_article(self, carticle, **kwargs):

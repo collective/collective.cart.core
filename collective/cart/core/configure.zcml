@@ -8,18 +8,17 @@
   xmlns="http://namespaces.zope.org/zope"
   >
 
-  <includeDependencies package="." />
+  <permission
+    id="collective.cart.core.ViewCartContent"
+    title="collective.cart.core: View Cart Content"
+    />
 
+  <includeDependencies package="." />
   <five:registerPackage package="." initialize=".initialize" />
   <grok:grok package="." />
   <i18n:registerTranslations directory="locales" />
 
-  <!-- <include package=".adapter" /> -->
   <include package=".browser" />
-  <!-- <include package=".content" /> -->
-  <!-- <include package=".portlets" /> -->
-  <!-- <include package=".subscriber" />
-  <include package=".utility" /> -->
 
   <genericsetup:registerProfile
     description="Installs the collective.cart.core package"

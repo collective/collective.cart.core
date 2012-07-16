@@ -32,7 +32,7 @@ class BaseListingView(grok.View):
     grok.baseclass()
     grok.layer(ICollectiveCartCoreLayer)
     grok.name('view')
-    grok.require('cmf.ModifyPortalContent')
+    grok.require('collective.cart.core.ViewCartContent')
 
     def _listing(self, interface):
         """List of Cart within Cart Container."""

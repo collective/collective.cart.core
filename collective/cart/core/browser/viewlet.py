@@ -55,7 +55,10 @@ class CartArticlesViewlet(grok.Viewlet):
         oid = form.get('form.delete.article', None)
         if oid is not None:
             IShoppingSite(self.context).remove_cart_articles(oid)
-            return self.render()
+            if self.view.cart_articles:
+                return self.render()
+            else:
+                return self.request.response.redirect(self.view.url())
 
     def _items(self, item):
         """Returns dictionary of content listing items.

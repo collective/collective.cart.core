@@ -361,6 +361,30 @@ class TestSetup(IntegrationTestCase):
         from plone.browserlayer import utils
         self.failUnless(ICollectiveCartCoreLayer in utils.registered_layers())
 
+    def test_rolemap__collective_cart_core_ViewCartContent__rolesOfPermission(self):
+        permission = "collective.cart.core: View Cart Content"
+        roles = [
+            item['name'] for item in self.portal.rolesOfPermission(
+                permission
+            ) if item['selected'] == 'SELECTED'
+        ]
+        roles.sort()
+        self.assertEqual(
+            roles,
+            [
+                'Contributor',
+                'Manager',
+                'Site Administrator',
+            ]
+        )
+
+    def test_rolemap__collective_cart_core_ViewCartContent__acquiredRolesAreUsedBy(self):
+        permission = "collective.cart.core: View Cart Content"
+        self.assertEqual(
+            self.portal.acquiredRolesAreUsedBy(permission),
+            'CHECKED'
+        )
+
     # def test_portlet(self):
     #     left_column = getUtility(IPortletManager, name=u"plone.leftcolumn")
     #     left_assignable = getMultiAdapter((self.portal, left_column), IPortletAssignmentMapping)
