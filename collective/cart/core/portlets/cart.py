@@ -1,10 +1,8 @@
-from Acquisition import aq_inner
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from collective.cart.core import _
 from collective.cart.core.interfaces import IShoppingSite
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
-from zope.component import getMultiAdapter
 from zope.interface import implements
 
 
