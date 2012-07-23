@@ -22,6 +22,10 @@ class CartView(grok.View):
     grok.require('zope2.View')
     grok.template('cart')
 
+    def update(self):
+        self.request.set('disable_border', True)
+        super(CartView, self).update()
+
     @property
     def cart_articles(self):
         """List of CartArticles within cart."""

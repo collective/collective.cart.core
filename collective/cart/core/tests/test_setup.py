@@ -385,11 +385,6 @@ class TestSetup(IntegrationTestCase):
             'CHECKED'
         )
 
-    # def test_portlet(self):
-    #     left_column = getUtility(IPortletManager, name=u"plone.leftcolumn")
-    #     left_assignable = getMultiAdapter((self.portal, left_column), IPortletAssignmentMapping)
-    #     self.failUnless(u'Cart' in left_assignable.keys())
-
     def test_types__collective_cart_core_Article__i18n_domain(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.Article')

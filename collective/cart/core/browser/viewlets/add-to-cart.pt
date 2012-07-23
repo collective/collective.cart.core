@@ -2,7 +2,9 @@
   id="add-to-cart"
   tal:condition="viewlet/available"
   >
-  <form tal:attributes="action context/@@plone_context_state/current_base_url">
+  <form
+    method="post"
+    tal:attributes="action context/@@plone_context_state/current_base_url">
     <button
       type="submit"
       name="form.addtocart"

@@ -1,16 +1,11 @@
 from Acquisition import aq_inner
-from zope.component import getMultiAdapter
-from zope.interface import implements
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.cart.core import _
+from collective.cart.core.interfaces import IShoppingSite
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
-#from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-# from collective.cart.core import CartMessageFactory as _
-from collective.cart.core import _
-#from collective.cart.core.interfaces import (
-#    ICartProduct,
-#    IPortalSessionCatalog,
-#)
+from zope.component import getMultiAdapter
+from zope.interface import implements
 
 
 class ICartPortlet(IPortletDataProvider):
@@ -33,21 +28,18 @@ class Renderer(base.Renderer):
     render = ViewPageTemplateFile('cart.pt')
 
     @property
-    def link_to_cart(self):
-#        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
-#        portal_url = portal_state.portal_url()
-#        return '%s/@@cart' % portal_url
-        context_state = getMultiAdapter((self.context, self.request), name=u'plone_context_state')
-        url = context_state.object_url()
-        return '%s/@@cart' % url
+    def cart_url(self):
+        return '{}/@@cart'.format(IShoppingSite(self.context).shop.absolute_url())
 
     @property
     def available(self):
-        context = aq_inner(self.context)
-        return context.restrictedTraverse('products')()
+        if hasattr(self, 'view') and getattr(self.view, 'grokcore.component.directive.name', None) == 'cart':
+            return False
+        return IShoppingSite(self.context).cart_articles
 
-    def products(self):
-        return self.available
+    @property
+    def count(self):
+        return len(self.available)
 
 
 class AddForm(base.NullAddForm):
