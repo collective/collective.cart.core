@@ -16,4 +16,4 @@ def unmake_shopping_site(container, event):
         noLongerProvides(parent, IShoppingSiteRoot)
         parent.reindexObject(idxs=['object_provides'])
         message = _(u"This container is no longer a shopping site.")
-        IStatusMessage(container.REQUEST).addStatusMessage(message, type='info')
+        IStatusMessage(container.REQUEST).addStatusMessage(message, type='warn')
