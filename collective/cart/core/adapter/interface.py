@@ -7,6 +7,7 @@ from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
+from collective.cart.shipping.interfaces import IShippingMethod
 from five import grok
 from zope.component import getMultiAdapter
 from zope.interface import Interface
@@ -100,3 +101,13 @@ class ShoppingSite(grok.Adapter):
                 ids = [ids]
             for oid in ids:
                 del self.cart[oid]
+
+    @property
+    def shopping_methods(self):
+        context = aq_inner(self.context)
+        catalog = getToolByName(context, 'portal_catalog')
+        query = {
+                'path': '/'.join(context.getPhysicalPath()),
+                'object_provides': IShippingMethod.__identifier__,
+            }
+        return catalog(query)
