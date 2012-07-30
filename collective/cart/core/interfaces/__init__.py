@@ -42,7 +42,6 @@ class IShoppingSite(Interface):
     cart_container = Attribute("Cart Container object of Shop Site Root.")
     cart = Attribute('Current Cart object.')
     cart_articles = Attribute('List of cart articles within current cart.')
-    shipping_methods = Attribute('List of shipping methods.')
 
     def get_cart_article(cid):  # pragma: no cover
         """Get cart article by cid."""
