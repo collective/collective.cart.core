@@ -74,3 +74,11 @@ class ICartArticleAdapter(Interface):
     """Adapter Interface for CartArticle."""
 
     orig_article = Attribute('Originar Article object.')
+
+
+class IMakeShoppingSiteEvent(Interface):
+    """An event making shopping site."""
+
+
+class IUnmakeShoppingSiteEvent(Interface):
+    """An event unmaking shopping site."""

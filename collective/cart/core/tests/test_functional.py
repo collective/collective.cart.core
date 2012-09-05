@@ -3,6 +3,8 @@ from Testing import ZopeTestCase as ztc
 from collective.cart.core.tests.base import FUNCTIONAL_TESTING
 from hexagonit.testing.browser import Browser
 from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import TEST_USER_PASSWORD
 from plone.app.testing import setRoles
 from plone.testing import layered
 from zope.testing import renormalizing
@@ -25,17 +27,17 @@ CHECKER = renormalizing.RENormalizing([
 
 def setUp(self):
     layer = self.globs['layer']
+    browser = Browser(layer['app'])
+    portal = layer['portal']
     # Update global variables within the tests.
     self.globs.update({
-        'portal': layer['portal'],
-        'portal_url': layer['portal'].absolute_url(),
-        'browser': Browser(layer['app']),
+        'TEST_USER_NAME': TEST_USER_NAME,
+        'TEST_USER_PASSWORD': TEST_USER_PASSWORD,
+        'browser': browser,
+        'portal': portal,
     })
     ztc.utils.setupCoreSessions(layer['app'])
-    portal = self.globs['portal']
-    browser = self.globs['browser']
-    portal_url = self.globs['portal_url']
-    browser.setBaseUrl(portal_url)
+    browser.setBaseUrl(portal.absolute_url())
 
     browser.handleErrors = True
     portal.error_log._ignored_exceptions = ()
@@ -97,7 +99,5 @@ def DocFileSuite(testfile, flags=FLAGS, setUp=setUp, layer=FUNCTIONAL_TESTING):
 
 def test_suite():
     return unittest.TestSuite([
-        # DocFileSuite('functional/content.txt'),
-        # DocFileSuite('functional/setup_functional.txt'),
         DocFileSuite('functional/browser.txt'),
         ])

@@ -1,9 +1,8 @@
-Log in as the portal owner::
+Log in as Manager::
 
-    >>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
 
-Change the display to folder_listing to make portal_url context portal::
+Change the display to folder_listing to make '/' context portal::
 
     >>> browser.open('/selectViewTemplate?templateId=folder_listing')
 
@@ -126,7 +125,7 @@ Make salable and Unmake Shopping Site:
     >>> browser.open('/article01/edit')
     >>> browser.getControl(name="form.widgets.ISalable.salable:list").value = True
     >>> browser.getControl(name="form.buttons.save").click()
-    >>> browser.open(portal_url)
+    >>> browser.open('/')
     >>> browser.getLink('Unmake Shopping Site').click()
     >>> browser.open('/article01')
 
@@ -135,7 +134,7 @@ Make salable and Unmake Shopping Site:
 
 Make Shopping Site once again::
 
-    >>> browser.open(portal_url)
+    >>> browser.open('/')
     >>> browser.getLink('Make Shopping Site').click()
 
 
@@ -195,7 +194,7 @@ Log in as editor::
 
 Go to portal::
 
-    >>> browser.open(portal_url)
+    >>> browser.open('/')
 
     >>> 'Make Shopping Site' in browser.contents
     False
