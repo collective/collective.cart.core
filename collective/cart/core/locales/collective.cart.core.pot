@@ -12,11 +12,14 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
+"Domain: collective.cart.core\n"
 
 #: ./browser/viewlets/product_values.pt:12
 msgid "Add To Cart"
 msgstr ""
+
+msgid "Article"
+msgstr "Tuote"
 
 #: ./browser/viewlets/cart_types.pt:4
 msgid "Addable Content Types to Cart"
