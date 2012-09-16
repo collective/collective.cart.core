@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<object name="portal_factory" meta_type="Plone Factory Tool">
- <factorytypes>
-  <type portal_type="CartFolder"/>
-  <type portal_type="Cart"/>
-  <type portal_type="CartProduct"/>
- </factorytypes>
-</object>

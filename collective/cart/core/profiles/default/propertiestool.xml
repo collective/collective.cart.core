@@ -17,13 +17,4 @@
     </property>
   </object>
 
-  <!-- <object name="collective_cart_properties" meta_type="Plone Property Sheet">
-    <property name="title">Cart Properties</property>
-    <property name="currency" type="string">EUR</property>
-    <property name="currency_symbol" type="string"></property>
-    <property name="symbol_location" type="string">Behind</property>
-    <property name="content_types" type="lines" />
-    <property name="decimal_type" type="string">.</property>
-  </object> -->
-
 </object>
