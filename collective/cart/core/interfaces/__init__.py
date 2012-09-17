@@ -31,7 +31,7 @@ class ICartArticle(form.Schema):
     orig_uuid = Attribute('Original UUID for the article.')
 
 
-class IShoppingSiteRoot(Interface):
+class IShoppingSiteRoot(form.Schema):
     """Marker interface for Shopping Site Root."""
 
 
