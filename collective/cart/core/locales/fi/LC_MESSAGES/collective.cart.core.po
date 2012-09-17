@@ -22,6 +22,9 @@ msgstr "Lisää koriin"
 msgid "Addable Content Types to Cart"
 msgstr ""
 
+msgid "Article"
+msgstr "Tuote"
+
 #: ./browser/templates/cart.pt:10
 #: ./portlets/cart.pt:6
 #: ./portlets/cart.py:27

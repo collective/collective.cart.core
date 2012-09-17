@@ -9,8 +9,7 @@ long_description = (
     open(os.path.join("docs", "INSTALL.txt")).read() + "\n" +
     open(os.path.join("docs", "HISTORY.txt")).read() + "\n" +
     open(os.path.join("docs", "CONTRIBUTORS.txt")).read() + "\n" +
-    open(os.path.join("docs", "CREDITS.txt")).read()
-)
+    open(os.path.join("docs", "CREDITS.txt")).read())
 
 
 setup(
@@ -30,7 +29,7 @@ setup(
     keywords='',
     author='Taito Horiuchi',
     author_email='taito.horiuchi@gmail.com',
-    url='https://github.com/taito/collective.cart.core/',
+    url='https://github.com/collective/collective.cart.core/',
     license='BSD',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['collective', 'collective.cart'],
@@ -44,7 +43,8 @@ setup(
         'plone.app.dexterity',
         'plone.app.portlets',
         'plone.directives.form',
-        'setuptools'],
+        'setuptools',
+        'zope.i18nmessageid'],
     entry_points="""
     # -*- Entry points: -*-
 
