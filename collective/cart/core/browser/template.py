@@ -5,7 +5,7 @@ from collective.cart.core.interfaces import ICartArticleAdapter
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
-from collective.cart.shopping.browser.interfaces import ICollectiveCartCoreLayer
+from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
 from five import grok
 from plone.app.contentlisting.interfaces import IContentListing
 from plone.memoize.instance import memoize

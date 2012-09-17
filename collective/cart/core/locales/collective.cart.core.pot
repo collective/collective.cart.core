@@ -1,7 +1,10 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-09-24 16:37+0000\n"
+"POT-Creation-Date: 2012-09-17 11:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,190 +21,114 @@ msgstr ""
 msgid "Add To Cart"
 msgstr ""
 
+#: ./profiles/default/types/collective.cart.core.Article.xml
 msgid "Article"
-msgstr "Tuote"
-
-#: ./browser/viewlets/cart_types.pt:4
-msgid "Addable Content Types to Cart"
 msgstr ""
 
-#: ./browser/templates/cart.pt:10
-#: ./portlets/cart.pt:6
-#: ./portlets/cart.py:27
+#: ./browser/templates/cart.pt:13
+#: ./portlets/cart.py:21
+#: ./profiles/default/portlets.xml
 msgid "Cart"
 msgstr ""
 
-#: ./browser/templates/cart_config.pt:10
-#: ./profiles/default/controlpanel.xml
-msgid "Cart Config"
+#: ./browser/templates/cart-container.pt:13
+msgid "Cart Container"
 msgstr ""
 
-#: ./browser/viewlets/fixed_cart_content.pt:2
-msgid "Cart Contents"
+#: ./browser/templates/cart-container.pt:27
+msgid "Cart ID"
 msgstr ""
 
-#: ./content/cart.py:33
-#: ./interfaces/content_type.py:17
-msgid "Cart ID Numbering Method"
+#: ./browser/templates/cart-content.pt:14
+msgid "Cart ID: ${DYNAMIC_CONTENT}"
 msgstr ""
 
-#: ./browser/viewlets/cart_properties.pt:4
-msgid "Cart Properties"
+#: ./browser/templates/cart.pt:14
+msgid "Cart is empty."
 msgstr ""
 
-#: ./browser/templates/cart.pt:11
-msgid "Cart is Empty."
+#: ./profiles/default/types/collective.cart.core.CartArticle.xml
+msgid "CartArticle"
 msgstr ""
 
-#: ./profiles/default/types/CartFolder.xml
-msgid "CartFolder"
+#: ./profiles/default/types/collective.cart.core.CartContainer.xml
+msgid "CartContainer"
 msgstr ""
 
-#: ./profiles/default/types/CartProduct.xml
-msgid "CartProduct"
-msgstr ""
-
-#: ./portlets/cart.pt:47
-msgid "Check Cart"
-msgstr ""
-
-#: ./browser/template.py:80
-#: ./browser/viewlet.py:183
-msgid "Check this if you have unlimited amount of stock."
-msgstr ""
-
-#: ./browser/viewlets/cart_content.pt:23
+#: ./browser/viewlets/cart-articles.pt:11
 msgid "Delete"
 msgstr ""
 
-#: ./profiles/default/actions.xml
-msgid "Edit Product"
+#: ./portlets/cart.pt:9
+msgid "Go to cart"
 msgstr ""
 
-#: ./content/cart.py:49
-#: ./interfaces/content_type.py:26
-msgid "If Incrementanl Cart ID is seleceted, give interger number here."
+#: ./browser/templates/cart-content.pt:26
+msgid "ID"
 msgstr ""
 
-#: ./content/cart.py:62
-#: ./interfaces/content_type.py:33
-msgid "If Random Cart ID is selected, give integer digits here."
-msgstr ""
-
-#: ./profiles/default/actions.xml
-msgid "Make Addable To Cart"
+#: ./browser/templates/cart-container.pt:29
+msgid "Last Modified"
 msgstr ""
 
 #: ./profiles/default/actions.xml
-msgid "Make Cart Aware"
+msgid "Make Shopping Site"
 msgstr ""
 
 #: ./profiles/default/actions.xml
-msgid "Make Not Addable To Cart"
+msgid "Make this container shopping site."
 msgstr ""
 
-#: ./profiles/default/actions.xml
-msgid "Make Not Cart Aware"
+#: ./browser/templates/cart-content.pt:27
+#: ./browser/viewlets/cart-articles.pt:8
+msgid "Name"
 msgstr ""
 
-#: ./browser/template.py:91
-#: ./browser/viewlet.py:194
-msgid "Maximum Addable Quantity"
-msgstr ""
-
-#: ./content/cart.py:91
-msgid "Next Form"
-msgstr ""
-
-#: ./interfaces/content_type.py:25
-msgid "Next Incremenatal Cart ID"
-msgstr ""
-
-#: ./content/cart.py:48
-msgid "Next Incremental Cart ID"
+#: ./interfaces/__init__.py:16
+msgid "Next Cart ID"
 msgstr ""
 
 #: ./browser/viewlets/cart_next.pt:4
 msgid "Next Step"
 msgstr ""
 
-#: ./browser/template.py:30
-msgid "Please add CartFolder first."
-msgstr ""
-
-#: ./browser/template.py:70
-#: ./browser/viewlet.py:173
-#: ./browser/viewlets/cart_content.pt:14
+#: ./browser/viewlets/product_values.pt:6
 msgid "Price"
 msgstr ""
 
-#: ./browser/viewlets/cart_content.pt:11
-#: ./browser/viewlets/fixed_cart_content.pt:6
-#: ./portlets/cart.pt:16
-msgid "Product Name"
-msgstr ""
-
-#: ./browser/viewlet.py:267
-msgid "Products Subtotal"
-msgstr ""
-
-#: ./browser/viewlets/cart_content.pt:17
-#: ./browser/viewlets/fixed_cart_content.pt:12
 #: ./browser/viewlets/product_values.pt:9
 msgid "Quantity"
 msgstr ""
 
-#: ./content/cart.py:74
-#: ./interfaces/content_type.py:39
-msgid "Quantity Method"
+#: ./browser/templates/cart-container.pt:28
+msgid "State"
 msgstr ""
 
-#: ./content/cart.py:61
-#: ./interfaces/content_type.py:32
-msgid "Random Digits Cart ID"
+#: ./validator.py:26
+msgid "The cart ID is already in use."
 msgstr ""
 
-#: ./content/cart.py:34
-#: ./interfaces/content_type.py:18
-msgid "Select Incremental or Random for Cart ID Numbering."
+#: ./browser/templates/cart-container.pt:15
+msgid "The next cart ID: ${DYNAMIC_CONTENT}"
 msgstr ""
 
-#: ./content/cart.py:92
-msgid "Select next form for check out. Only FormFolder from PloneFormGen is available."
+#: ./browser/templates/cart-content.pt:16
+msgid "There are no articles within this cart."
 msgstr ""
 
-#: ./content/cart.py:75
-#: ./interfaces/content_type.py:40
-msgid "Select one method, Select or Input to determine how to put products into cart."
+#: ./browser/templates/cart-container.pt:17
+msgid "There are no carts."
 msgstr ""
 
-#: ./browser/template.py:85
-#: ./browser/viewlet.py:188
-msgid "Stock"
+#: ./subscriber.py:22
+msgid "This container is no longer a shopping site."
 msgstr ""
 
-#: ./browser/viewlets/cart_content.pt:20
-#: ./browser/viewlets/fixed_cart_content.pt:15
-msgid "Subtotal"
+#: ./profiles/default/actions.xml
+msgid "Unmake Shopping Site"
 msgstr ""
 
-#: ./browser/viewlet.py:279
-msgid "Total Cost"
-msgstr ""
-
-#: ./browser/template.py:79
-#: ./browser/viewlet.py:182
-msgid "Unlimited Stock"
-msgstr ""
-
-#: ./browser/viewlets/cart_content.pt:56
-#: ./browser/viewlets/cart_properties.pt:24
-#: ./browser/viewlets/cart_types.pt:11
-msgid "Update"
-msgstr ""
-
-#: ./browser/template.py:92
-#: ./browser/viewlet.py:195
-msgid "You need to specify this if you checked Unlimited Stock."
+#: ./profiles/default/actions.xml
+msgid "Unmake this container shopping site."
 msgstr ""
 
