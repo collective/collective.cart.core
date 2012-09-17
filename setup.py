@@ -5,11 +5,11 @@ import os
 
 
 long_description = (
-    open("README.txt").read() + "\n" +
-    open(os.path.join("docs", "INSTALL.txt")).read() + "\n" +
-    open(os.path.join("docs", "HISTORY.txt")).read() + "\n" +
-    open(os.path.join("docs", "CONTRIBUTORS.txt")).read() + "\n" +
-    open(os.path.join("docs", "CREDITS.txt")).read())
+    open("README.rst").read() + "\n" +
+    open(os.path.join("collective", "cart", "core", "docs", "INSTALL.rst")).read() + "\n" +
+    open(os.path.join("collective", "cart", "core", "docs", "HISTORY.rst")).read() + "\n" +
+    open(os.path.join("collective", "cart", "core", "docs", "CONTRIBUTORS.rst")).read() + "\n" +
+    open(os.path.join("collective", "cart", "core", "docs", "CREDITS.rst")).read())
 
 
 setup(
