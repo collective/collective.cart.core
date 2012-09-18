@@ -281,29 +281,51 @@ class TestSetup(IntegrationTestCase):
         from plone.browserlayer import utils
         self.failUnless(ICollectiveCartCoreLayer in utils.registered_layers())
 
+    def test_rolemap__collective_cart_core_AddArticle__rolesOfPermission(self):
+        permission = "collective.cart.core: Add Article"
+        roles = [item['name'] for item in self.portal.rolesOfPermission(
+            permission) if item['selected'] == 'SELECTED']
+        roles.sort()
+        self.assertEqual(roles, [
+            'Contributor',
+            'Manager',
+            'Site Administrator',
+            ])
+
+    def test_rolemap__collective_cart_core_AddArticle__acquiredRolesAreUsedBy(self):
+        permission = "collective.cart.core: Add Article"
+        self.assertEqual(
+            self.portal.acquiredRolesAreUsedBy(permission), 'CHECKED')
+
+    def test_rolemap__collective_cart_core_AddCart__rolesOfPermission(self):
+        permission = "collective.cart.core: Add Cart"
+        roles = [item['name'] for item in self.portal.rolesOfPermission(
+            permission) if item['selected'] == 'SELECTED']
+        roles.sort()
+        self.assertEqual(roles, [
+            'Authenticated',
+            ])
+
+    def test_rolemap__collective_cart_core_AddCart__acquiredRolesAreUsedBy(self):
+        permission = "collective.cart.core: Add Cart"
+        self.assertEqual(
+            self.portal.acquiredRolesAreUsedBy(permission), '')
+
     def test_rolemap__collective_cart_core_ViewCartContent__rolesOfPermission(self):
         permission = "collective.cart.core: View Cart Content"
-        roles = [
-            item['name'] for item in self.portal.rolesOfPermission(
-                permission
-            ) if item['selected'] == 'SELECTED'
-        ]
+        roles = [item['name'] for item in self.portal.rolesOfPermission(
+            permission) if item['selected'] == 'SELECTED']
         roles.sort()
-        self.assertEqual(
-            roles,
-            [
-                'Contributor',
-                'Manager',
-                'Site Administrator',
-            ]
-        )
+        self.assertEqual(roles, [
+            'Contributor',
+            'Manager',
+            'Site Administrator',
+            ])
 
     def test_rolemap__collective_cart_core_ViewCartContent__acquiredRolesAreUsedBy(self):
         permission = "collective.cart.core: View Cart Content"
         self.assertEqual(
-            self.portal.acquiredRolesAreUsedBy(permission),
-            'CHECKED'
-        )
+            self.portal.acquiredRolesAreUsedBy(permission), 'CHECKED')
 
     def test_types__collective_cart_core_Article__i18n_domain(self):
         types = getToolByName(self.portal, 'portal_types')
