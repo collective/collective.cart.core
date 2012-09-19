@@ -2,7 +2,7 @@
 <object name="portal_properties" meta_type="Plone Properties Tool">
 
   <object name="site_properties" meta_type="Plone Property Sheet">
-    <property name="types_not_searched" type="lines">
+    <property name="types_not_searched" type="lines" purge="False">
       <element value="collective.cart.core.CartContainer"/>
       <element value="collective.cart.core.Cart"/>
       <element value="collective.cart.core.CartArticle"/>
@@ -10,7 +10,7 @@
   </object>
 
   <object name="navtree_properties" meta_type="Plone Property Sheet">
-    <property name="metaTypesNotToList" type="lines">
+    <property name="metaTypesNotToList" type="lines" purge="False">
       <element value="collective.cart.core.CartContainer"/>
       <element value="collective.cart.core.Cart"/>
       <element value="collective.cart.core.CartArticle"/>

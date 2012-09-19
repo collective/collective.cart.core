@@ -1,6 +1,11 @@
 Change log
 ----------
 
+0.5.1 (2012-09-20)
+==================
+
+- Added purge="False" to types_not_searched and metaTypesNotToList properties. [taito]
+
 0.5 (2012-09-19)
 ================
 
