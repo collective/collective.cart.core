@@ -14,7 +14,7 @@ long_description = (
 
 setup(
     name='collective.cart.core',
-    version='0.5',
+    version='0.5.1',
     description="Yet another cart for Plone.",
     long_description=long_description,
     # Get more strings from
