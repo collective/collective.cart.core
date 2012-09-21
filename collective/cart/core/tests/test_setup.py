@@ -327,6 +327,21 @@ class TestSetup(IntegrationTestCase):
         self.assertEqual(
             self.portal.acquiredRolesAreUsedBy(permission), 'CHECKED')
 
+    def test_rolemap__collective_cart_core_AddCartPortlet__rolesOfPermission(self):
+        permission = "collective.cart.core: Add Cart Portlet"
+        roles = [item['name'] for item in self.portal.rolesOfPermission(
+            permission) if item['selected'] == 'SELECTED']
+        roles.sort()
+        self.assertEqual(roles, [
+            'Manager',
+            'Site Administrator',
+            ])
+
+    def test_rolemap__collective_cart_core_AddCartPortlet__acquiredRolesAreUsedBy(self):
+        permission = "collective.cart.core: Add Cart Portlet"
+        self.assertEqual(
+            self.portal.acquiredRolesAreUsedBy(permission), 'CHECKED')
+
     def test_types__collective_cart_core_Article__i18n_domain(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.Article')

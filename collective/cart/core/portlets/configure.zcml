@@ -1,15 +1,23 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="collective.cart.core">
+  i18n_domain="collective.cart.core"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns="http://namespaces.zope.org/zope">
 
   <include package="plone.app.portlets" />
 
+  <permission
+    id="collective.cart.core.AddCartPortlet"
+    title="collective.cart.core: Add Cart Portlet"
+    />
+
   <plone:portlet
-        name="portlet.Cart"
-        interface=".cart.ICartPortlet"
-        assignment=".cart.Assignment"
-        renderer=".cart.Renderer"
-        addview=".cart.AddForm" />
+    addview=".cart.AddForm"
+    assignment=".cart.Assignment"
+    interface=".cart.ICartPortlet"
+    name="portlet.Cart"
+    renderer=".cart.Renderer"
+    view_permission="zope2.View"
+    edit_permission="collective.cart.core.AddCartPortlet"
+    />
 
 </configure>

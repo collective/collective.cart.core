@@ -14,5 +14,9 @@
       <role name="Manager" />
       <role name="Site Administrator" />
     </permission>
+    <permission name="collective.cart.core: Add Cart Portlet" acquire="True">
+      <role name="Manager" />
+      <role name="Site Administrator" />
+    </permission>
   </permissions>
 </rolemap>
