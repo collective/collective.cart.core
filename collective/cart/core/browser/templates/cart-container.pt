@@ -5,14 +5,13 @@
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   xmlns:metal="http://xml.zope.org/namespaces/metal"
   xmlns:tal="http://xml.zope.org/namespaces/tal"
-  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-  >
+  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <body>
     <div metal:fill-slot="main">
       <section id="cart-container">
         <h1 i18n:translate="">Cart Container</h1>
         <p id="next-cart-id" i18n:translate="">
-          The next cart ID: <span tal:replace="context/next_cart_id" />
+          The next cart ID: <span i18n:name="next_cart_id" tal:replace="context/next_cart_id" />
         </p>
         <p
           i18n:translate=""

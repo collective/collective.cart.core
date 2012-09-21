@@ -16,8 +16,7 @@ class Assignment(base.Assignment):
 
     @property
     def title(self):
-        """Title shown in @@manage-portlets.
-        """
+        """Title shown in @@manage-portlets"""
         return _(u"Cart")
 
 

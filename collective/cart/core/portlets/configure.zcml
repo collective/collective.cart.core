@@ -14,7 +14,7 @@
     addview=".cart.AddForm"
     assignment=".cart.Assignment"
     interface=".cart.ICartPortlet"
-    name="portlet.Cart"
+    name="collective.cart.core.CartPortlet"
     renderer=".cart.Renderer"
     view_permission="zope2.View"
     edit_permission="collective.cart.core.AddCartPortlet"

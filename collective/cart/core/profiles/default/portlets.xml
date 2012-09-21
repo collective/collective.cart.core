@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
 <portlets
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="collective.cart.core">
+  i18n:domain="collective.cart.core"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <portlet
-    addview="portlet.Cart"
+    addview="collective.cart.core.CartPortlet"
     title="Cart"
-    i18n:attributes="title"
+    description=""
+    i18n:attributes="title;
+                    description"
     />
   <for interface="plone.app.portlets.interfaces.IColumn" />
 
