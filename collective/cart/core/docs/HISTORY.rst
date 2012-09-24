@@ -1,7 +1,7 @@
 Change log
 ----------
 
-0.5.2 (2012-09-XX)
+0.5.2 (2012-09-24)
 ==================
 
 - Added permission for cart portlet. [taito]
