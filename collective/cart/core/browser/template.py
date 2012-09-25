@@ -30,14 +30,14 @@ class CartView(grok.View):
         return IShoppingSite(self.context).cart_articles
 
 
-class BaseListingView(grok.View, BaseListingObject):
+class BaseListingView(grok.View):
     grok.baseclass()
     grok.layer(ICollectiveCartCoreLayer)
     grok.name('view')
     grok.require('collective.cart.core.ViewCartContent')
 
 
-class CartContainerView(BaseListingView):
+class CartContainerView(BaseListingView, BaseListingObject):
 
     grok.context(ICartContainer)
     grok.template('cart-container')
@@ -61,21 +61,3 @@ class CartContentView(BaseListingView):
 
     grok.context(ICart)
     grok.template('cart-content')
-
-    @property
-    def articles(self):
-        """List of CartArticles within cart."""
-        result = []
-        for item in self._listing(ICartArticle):
-            res = {
-                'id': item.getId(),
-                'title': item.Title(),
-                'url': None,
-                'modification': self._localized_time(item),
-            }
-            obj = item.getObject()
-            article = ICartArticleAdapter(obj).orig_article
-            if article:
-                res['url'] = article.absolute_url()
-            result.append(res)
-        return result
