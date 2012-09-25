@@ -1,6 +1,9 @@
 from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
+from collective.cart.core.browser.base import BaseListingObject
 from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IArticleAdapter
+from collective.cart.core.interfaces import ICart
+from collective.cart.core.interfaces import ICartArticle
 from collective.cart.core.interfaces import ICartArticleAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
@@ -88,3 +91,38 @@ class CartArticlesViewlet(grok.Viewlet):
         for item in IContentListing(self.view.cart_articles):
             results.append(self._items(item))
         return results
+
+
+class CartContentViewletManager(OrderedViewletManager, grok.ViewletManager):
+    """Viewlet manager for cart view."""
+    grok.context(ICart)
+    grok.layer(ICollectiveCartCoreLayer)
+    grok.name('collective.cart.core.cartcontentviewletmanager')
+
+
+class CartContentViewlet(grok.Viewlet, BaseListingObject):
+    """Viewlet to show cart content in cart container."""
+    grok.context(ICart)
+    grok.layer(ICollectiveCartCoreLayer)
+    grok.name('collective.cart.core.cart-content')
+    grok.require('zope2.View')
+    grok.template('cart-content')
+    grok.viewletmanager(CartContentViewletManager)
+
+    @property
+    def articles(self):
+        """List of CartArticles within cart."""
+        result = []
+        for item in self._listing(ICartArticle):
+            res = {
+                'id': item.getId(),
+                'title': item.Title(),
+                'url': None,
+                'modification': self._localized_time(item),
+            }
+            obj = item.getObject()
+            article = ICartArticleAdapter(obj).orig_article
+            if article:
+                res['url'] = article.absolute_url()
+            result.append(res)
+        return result

@@ -171,9 +171,9 @@ Check Cart Container::
 
     >>> print browser.bycss('#cart-list')
     --- 1 ---
-    <table id="cart-list"><thead><tr><td>Cart ID</td>
-    <td>State</td>
-    <td>Last Modified</td>
+    <table class="listing" id="cart-list"><thead><tr><th>Cart ID</th>
+    <th>State</th>
+    <th>Last Modified</th>
     </tr></thead><tbody><tr><td class="cart-id">
     <a href="http://nohost/plone/cart-container/1">1</a>
     </td>
@@ -182,11 +182,15 @@ Check Cart Container::
     </tr></tbody></table>
 
     >>> browser.open('/cart-container/1')
+
+    >>> print browser.bycss('.documentFirstHeading')
+    --- 1 ---
+    <h1 class="documentFirstHeading">Cart ID: 1</h1>
+
     >>> print browser.bycss('#cart-content')
     --- 1 ---
-    <section id="cart-content"><h1>Cart ID: 1</h1>
-    <table id="article-list"><thead><tr><td>ID</td>
-    <td>Name</td>
+    <section id="cart-content"><table class="listing" id="article-list"><thead><tr><th>ID</th>
+    <th>Name</th>
     </tr></thead><tbody><tr><td class="article-id">1</td>
     <td class="article-title">
     <a href="http://nohost/plone/article01">&#196;rticle01</a>
@@ -317,6 +321,5 @@ Go to Cart ID 1::
     >>> browser.open('/cart-container/1')
     >>> print browser.bycss('#cart-content')
     --- 1 ---
-    <section id="cart-content"><h1>Cart ID: 1</h1>
-    <p id="no-articles">There are no articles within this cart.</p>
+    <section id="cart-content"><p id="no-articles">There are no articles within this cart.</p>
     </section>

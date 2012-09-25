@@ -22,7 +22,6 @@ class CartCoreLayer(PloneSandboxLayer):
         # Load ZCML
         import collective.cart.core
         self.loadZCML(package=collective.cart.core)
-        z2.installProduct(app, 'collective.cart.core')
 
     def setUpPloneSite(self, portal):
         """Set up Plone."""
@@ -38,7 +37,6 @@ class CartCoreLayer(PloneSandboxLayer):
 
     def tearDownZope(self, app):
         """Tear down Zope."""
-        z2.uninstallProduct(app, 'collective.cart.core')
         z2.uninstallProduct(app, 'Products.PythonScripts')
 
 

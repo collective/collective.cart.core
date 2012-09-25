@@ -1,4 +1,4 @@
-from Products.CMFCore.utils import getToolByName
+from collective.cart.core.browser.base import BaseListingObject
 from collective.cart.core.interfaces import ICart
 from collective.cart.core.interfaces import ICartArticle
 from collective.cart.core.interfaces import ICartArticleAdapter
@@ -7,8 +7,6 @@ from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
 from five import grok
-from plone.app.contentlisting.interfaces import IContentListing
-from plone.memoize.instance import memoize
 
 
 grok.templatedir('templates')
@@ -32,36 +30,11 @@ class CartView(grok.View):
         return IShoppingSite(self.context).cart_articles
 
 
-class BaseListingView(grok.View):
+class BaseListingView(grok.View, BaseListingObject):
     grok.baseclass()
     grok.layer(ICollectiveCartCoreLayer)
     grok.name('view')
     grok.require('collective.cart.core.ViewCartContent')
-
-    def _listing(self, interface):
-        """List of Cart within Cart Container."""
-        catalog = getToolByName(self.context, 'portal_catalog')
-        query = {
-            'path': {
-                'query': '/'.join(self.context.getPhysicalPath()),
-                'depth': 1,
-            },
-            'object_provides': interface.__identifier__,
-        }
-        return IContentListing(catalog(query))
-
-    @memoize
-    def _ulocalized_time(self):
-        """Return ulocalized_time method.
-
-        :rtype: method
-        """
-        translation_service = getToolByName(self.context, 'translation_service')
-        return translation_service.ulocalized_time
-
-    def _localized_time(self, item):
-        ulocalized_time = self._ulocalized_time()
-        return ulocalized_time(item.ModificationDate(), long_format=True, context=self.context)
 
 
 class CartContainerView(BaseListingView):

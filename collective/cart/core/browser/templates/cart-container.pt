@@ -20,12 +20,12 @@
           >
           There are no carts.
         </p>
-      <table id="cart-list" tal:condition="view/carts">
+      <table class="listing" id="cart-list" tal:condition="view/carts">
         <thead>
           <tr>
-            <td i18n:translate="">Cart ID</td>
-            <td i18n:translate="">State</td>
-            <td i18n:translate="">Last Modified</td>
+            <th i18n:translate="">Cart ID</th>
+            <th i18n:translate="">State</th>
+            <th i18n:translate="">Last Modified</th>
           </tr>
         </thead>
         <tbody>
