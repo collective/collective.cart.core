@@ -42,6 +42,10 @@ class CartContainerView(BaseListingView, BaseListingObject):
     grok.context(ICartContainer)
     grok.template('cart-container')
 
+    def update(self):
+        self.request.set('disable_plone.leftcolumn', True)
+        self.request.set('disable_plone.rightcolumn', True)
+
     @property
     def carts(self):
         result = []
@@ -52,6 +56,7 @@ class CartContainerView(BaseListingView, BaseListingObject):
                 'url': item.getURL(),
                 'review_state': item.review_state(),
                 'modified': self._localized_time(item),
+                'owner': item.Creator(),
             }
             result.append(res)
         return result

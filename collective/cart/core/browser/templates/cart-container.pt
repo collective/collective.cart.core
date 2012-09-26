@@ -26,6 +26,7 @@
             <th i18n:translate="">Cart ID</th>
             <th i18n:translate="">State</th>
             <th i18n:translate="">Last Modified</th>
+            <th i18n:translate="">Owner</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +38,7 @@
             </td>
             <td class="cart-state" tal:content="item/review_state" />
             <td class="cart-modified" tal:content="item/modified" />
+            <td class="cart-owner" tal:content="item/owner" />
           </tr>
         </tbody>
       </table>
