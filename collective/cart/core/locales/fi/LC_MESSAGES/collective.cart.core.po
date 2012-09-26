@@ -58,7 +58,7 @@ msgstr "Poista"
 
 #: ./portlets/cart.pt:9
 msgid "Go to cart"
-msgstr "Mene ostoskoriin"
+msgstr "Siirry ostoskoriin"
 
 #: ./browser/templates/cart-content.pt:25
 msgid "ID"

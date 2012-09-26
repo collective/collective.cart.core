@@ -1,7 +1,5 @@
 from collective.cart.core.browser.base import BaseListingObject
 from collective.cart.core.interfaces import ICart
-from collective.cart.core.interfaces import ICartArticle
-from collective.cart.core.interfaces import ICartArticleAdapter
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
