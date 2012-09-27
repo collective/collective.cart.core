@@ -11,7 +11,7 @@ grok.templatedir('templates')
 
 
 class CartView(grok.View):
-
+    """Cart View"""
     grok.context(IShoppingSiteRoot)
     grok.layer(ICollectiveCartCoreLayer)
     grok.name('cart')

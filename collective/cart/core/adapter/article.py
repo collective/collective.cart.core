@@ -64,9 +64,16 @@ class ArticleAdapter(grok.Adapter):
             obj = brains[0].getObject()
             self._update_existing_cart_article(obj, **kwargs)
         else:
-            ids = cart.objectIds()
-            if ids:
-                oid = str(int(max(set(cart.objectIds()))) + 1)
+            query = {
+                'path': {
+                    'query': '/'.join(cart.getPhysicalPath()),
+                    'depth': 1,
+                },
+                'object_provides': ICartArticle.__identifier__,
+            }
+            brains = catalog(query)
+            if brains:
+                oid = str(int(max(set([brain.id for brain in brains]))) + 1)
             else:
                 oid = '1'
             self._create_cart_article(cart, oid, **kwargs)
