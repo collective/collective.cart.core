@@ -183,13 +183,13 @@ Log out, log in as member1 and go to cart::
     &#196;rticle02
     </td>
 
-    >>> print browser.bycss('.delete')
+    >>> print browser.bycss('.remove')
     --- 1 ---
-    <td class="delete">
+    <td class="remove">
     <button class="standalone" name="form.delete.article" type="submit" value="1">Delete</button>
     </td>
     --- 2 ---
-    <td class="delete">
+    <td class="remove">
     <button class="standalone" name="form.delete.article" type="submit" value="2">Delete</button>
     </td>
 

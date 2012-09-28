@@ -34,7 +34,7 @@
               tal:replace="item/title"
               />
           </td>
-          <td class="delete">
+          <td class="remove">
             <button
               class="standalone"
               i18n:translate=""
