@@ -2,7 +2,7 @@ from Acquisition import aq_chain
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from collective.cart.core.interfaces import ICart
-from collective.cart.core.interfaces import ICartArticle
+from collective.cart.core.interfaces import ICartAdapter
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
@@ -74,12 +74,7 @@ class ShoppingSite(grok.Adapter):
     @property
     def cart_articles(self):
         if self.cart:
-            query = {
-                'path': '/'.join(self.cart.getPhysicalPath()),
-                'object_provides': ICartArticle.__identifier__,
-            }
-            catalog = getToolByName(self.context, 'portal_catalog')
-            return catalog(query)
+            return ICartAdapter(self.cart).articles
 
     def get_cart_article(self, cid):
         if self.cart_articles:

@@ -25,6 +25,12 @@ class ICart(form.Schema):
     """Schema for Cart content type."""
 
 
+class ICartAdapter(Interface):
+    """Adapter interface for Cart."""
+
+    articles = Attribute('List of brains of CartArticle.')
+
+
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""
 
