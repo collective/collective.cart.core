@@ -34,7 +34,7 @@ class ICartAdapter(Interface):
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""
 
-    orig_uuid = Attribute('Original UUID for the article.')
+    orig_uuid = Attribute('Original UUID')
 
 
 class IShoppingSiteRoot(form.Schema):
