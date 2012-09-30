@@ -2,7 +2,7 @@ from collective.cart.core import _
 from plone.directives import form
 from zope.interface import Attribute
 from zope.interface import Interface
-from zope.schema import Int
+from zope import schema
 
 
 class IArticle(form.Schema):
@@ -12,7 +12,7 @@ class IArticle(form.Schema):
 class ICartContainer(form.Schema):
     """Schema for CartContainer content type."""
 
-    next_cart_id = Int(
+    next_cart_id = schema.Int(
         title=_(u'Next Cart ID'),
         default=1,
         min=1)
@@ -23,6 +23,10 @@ class ICartContainer(form.Schema):
 
 class ICart(form.Schema):
     """Schema for Cart content type."""
+
+    description = schema.Text(
+        title=_(u'Description'),
+        required=False)
 
 
 class ICartAdapter(Interface):
