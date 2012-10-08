@@ -73,41 +73,8 @@ class TestSetup(IntegrationTestCase):
         for item in ['cart_default_workflow']:
             self.failUnless(item in self.workflow.objectIds())
 
-    def test_cart_folder_workflow_chain(self):
-        self.failUnless('cart_container_default_workflow' in self.workflow.getChainForPortalType('collective.cart.core.CartContainer'))
-
     def test_cart_workflow_chain(self):
         self.failUnless('cart_default_workflow' in self.workflow.getChainForPortalType('collective.cart.core.Cart'))
-
-    ## cart_container_default_workflow definition.xml
-    def test_cart_container_default_workflow_definition_permissions(self):
-        perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View')
-        state = self.workflow.cart_container_default_workflow.states.addable
-        for perm in perms:
-            self.failUnless(perm in self.workflow.cart_container_default_workflow.permissions)
-            self.assertEqual(0, state.getPermissionInfo(perm)['acquired'])
-        secured_permission_roles = {
-            'Modify portal content': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
-            ),
-            'Access contents information': (
-                'Authenticated',
-            ),
-            'List folder contents': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'
-            ),
-            'View': (
-                'Authenticated',
-            ),
-        }
-        self.assertEqual(secured_permission_roles, state.permission_roles)
-
-    def test_cart_container_default_workflow_definition_states(self):
-        self.assertEqual(['addable'], self.workflow.cart_container_default_workflow.states.objectIds())
 
     ## cart_default_workflow definition.xml
     def test_cart_default_workflow_definition_permissions(self):
@@ -557,7 +524,7 @@ class TestSetup(IntegrationTestCase):
     def test_types__collective_cart_core_CartContainer__behaviors(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.CartContainer')
-        self.assertEqual(ctype.behaviors, ())
+        self.assertEqual(ctype.behaviors, ('plone.app.content.interfaces.INameFromTitle',))
 
     def test_types__collective_cart_core_CartContainer__default_view(self):
         types = getToolByName(self.portal, 'portal_types')

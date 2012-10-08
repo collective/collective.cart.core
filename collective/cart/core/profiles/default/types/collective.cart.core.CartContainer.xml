@@ -24,6 +24,7 @@
 
   <!-- enabled behaviors -->
   <property name="behaviors">
+    <element value="plone.app.content.interfaces.INameFromTitle" />
   </property>
 
   <!-- Views and aliases -->
