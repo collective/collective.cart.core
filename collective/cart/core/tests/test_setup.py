@@ -474,7 +474,7 @@ class TestSetup(IntegrationTestCase):
     def test_types__collective_cart_core_CartContainer__title(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.CartContainer')
-        self.assertEqual(ctype.title, 'CartContainer')
+        self.assertEqual(ctype.title, 'Cart Container')
 
     def test_types__collective_cart_core_CartContainer__description(self):
         types = getToolByName(self.portal, 'portal_types')
@@ -770,7 +770,7 @@ class TestSetup(IntegrationTestCase):
     def test_types__collective_cart_core_CartArticle__title(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.CartArticle')
-        self.assertEqual(ctype.title, 'CartArticle')
+        self.assertEqual(ctype.title, 'Cart Article')
 
     def test_types__collective_cart_core_CartArticle__description(self):
         types = getToolByName(self.portal, 'portal_types')
