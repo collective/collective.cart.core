@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-21 10:07+0000\n"
+"POT-Creation-Date: 2012-10-15 03:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,12 +26,17 @@ msgid "Article"
 msgstr ""
 
 #: ./browser/templates/cart.pt:12
-#: ./portlets/cart.py:21
+#: ./portlets/cart.py:20
 #: ./profiles/default/portlets.xml
 msgid "Cart"
 msgstr ""
 
+#: ./profiles/default/types/collective.cart.core.CartArticle.xml
+msgid "Cart Article"
+msgstr ""
+
 #: ./browser/templates/cart-container.pt:12
+#: ./profiles/default/types/collective.cart.core.CartContainer.xml
 msgid "Cart Container"
 msgstr ""
 
@@ -39,31 +44,27 @@ msgstr ""
 msgid "Cart ID"
 msgstr ""
 
-#: ./browser/templates/cart-content.pt:13
-msgid "Cart ID: ${DYNAMIC_CONTENT}"
+#: ./browser/templates/cart-content.pt:12
+msgid "Cart ID: ${cart_id}"
 msgstr ""
 
 #: ./browser/templates/cart.pt:13
 msgid "Cart is empty."
 msgstr ""
 
-#: ./profiles/default/types/collective.cart.core.CartArticle.xml
-msgid "CartArticle"
-msgstr ""
-
-#: ./profiles/default/types/collective.cart.core.CartContainer.xml
-msgid "CartContainer"
-msgstr ""
-
 #: ./browser/viewlets/cart-articles.pt:11
 msgid "Delete"
+msgstr ""
+
+#: ./interfaces/__init__.py:28
+msgid "Description"
 msgstr ""
 
 #: ./portlets/cart.pt:9
 msgid "Go to cart"
 msgstr ""
 
-#: ./browser/templates/cart-content.pt:25
+#: ./browser/viewlets/cart-content.pt:11
 msgid "ID"
 msgstr ""
 
@@ -79,8 +80,8 @@ msgstr ""
 msgid "Make this container shopping site."
 msgstr ""
 
-#: ./browser/templates/cart-content.pt:26
 #: ./browser/viewlets/cart-articles.pt:8
+#: ./browser/viewlets/cart-content.pt:12
 msgid "Name"
 msgstr ""
 
@@ -90,6 +91,10 @@ msgstr ""
 
 #: ./browser/viewlets/cart_next.pt:4
 msgid "Next Step"
+msgstr ""
+
+#: ./browser/templates/cart-container.pt:29
+msgid "Owner"
 msgstr ""
 
 #: ./browser/viewlets/product_values.pt:6
@@ -112,7 +117,7 @@ msgstr ""
 msgid "The next cart ID: ${next_cart_id}"
 msgstr ""
 
-#: ./browser/templates/cart-content.pt:15
+#: ./browser/viewlets/cart-content.pt:2
 msgid "There are no articles within this cart."
 msgstr ""
 

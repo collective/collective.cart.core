@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-21 10:07+0000\n"
+"POT-Creation-Date: 2012-10-15 03:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,12 +23,17 @@ msgid "Article"
 msgstr "Tuote"
 
 #: ./browser/templates/cart.pt:12
-#: ./portlets/cart.py:21
+#: ./portlets/cart.py:20
 #: ./profiles/default/portlets.xml
 msgid "Cart"
 msgstr "Ostoskori"
 
+#: ./profiles/default/types/collective.cart.core.CartArticle.xml
+msgid "Cart Article"
+msgstr "Ostoskorituote"
+
 #: ./browser/templates/cart-container.pt:12
+#: ./profiles/default/types/collective.cart.core.CartContainer.xml
 msgid "Cart Container"
 msgstr "Ostoskorikonteineri"
 
@@ -36,31 +41,27 @@ msgstr "Ostoskorikonteineri"
 msgid "Cart ID"
 msgstr "Ostoskoritunnus"
 
-#: ./browser/templates/cart-content.pt:13
-msgid "Cart ID: ${DYNAMIC_CONTENT}"
-msgstr "Ostoskoritunnus: ${DYNAMIC_CONTENT}"
+#: ./browser/templates/cart-content.pt:12
+msgid "Cart ID: ${cart_id}"
+msgstr "Ostoskoritunnus: ${cart_id}"
 
 #: ./browser/templates/cart.pt:13
 msgid "Cart is empty."
 msgstr "Ostoskori on tyhjä"
 
-#: ./profiles/default/types/collective.cart.core.CartArticle.xml
-msgid "CartArticle"
-msgstr "Ostoskorituote"
-
-#: ./profiles/default/types/collective.cart.core.CartContainer.xml
-msgid "CartContainer"
-msgstr "Ostoskorikonteineri"
-
 #: ./browser/viewlets/cart-articles.pt:11
 msgid "Delete"
 msgstr "Poista"
+
+#: ./interfaces/__init__.py:28
+msgid "Description"
+msgstr "Kuvaus"
 
 #: ./portlets/cart.pt:9
 msgid "Go to cart"
 msgstr "Siirry ostoskoriin"
 
-#: ./browser/templates/cart-content.pt:25
+#: ./browser/viewlets/cart-content.pt:11
 msgid "ID"
 msgstr "Tunnus"
 
@@ -76,8 +77,8 @@ msgstr "Luo kauppa"
 msgid "Make this container shopping site."
 msgstr "Tee tästä konteinerista kauppa."
 
-#: ./browser/templates/cart-content.pt:26
 #: ./browser/viewlets/cart-articles.pt:8
+#: ./browser/viewlets/cart-content.pt:12
 msgid "Name"
 msgstr "Nimi"
 
@@ -88,6 +89,10 @@ msgstr "Seuraava ostoskoritunnus"
 #: ./browser/viewlets/cart_next.pt:4
 msgid "Next Step"
 msgstr "Seuraavaan"
+
+#: ./browser/templates/cart-container.pt:29
+msgid "Owner"
+msgstr "Omistaja"
 
 #: ./browser/viewlets/product_values.pt:6
 msgid "Price"
@@ -109,7 +114,7 @@ msgstr "Sama ostoskoritunnus on jo olemassa."
 msgid "The next cart ID: ${next_cart_id}"
 msgstr "Seuraava ostoskoritunnus: ${next_cart_id}"
 
-#: ./browser/templates/cart-content.pt:15
+#: ./browser/viewlets/cart-content.pt:2
 msgid "There are no articles within this cart."
 msgstr "Tässä ostoskorissa ei ole yhtään tuotetta."
 
