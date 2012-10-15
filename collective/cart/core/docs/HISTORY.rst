@@ -2,7 +2,7 @@ Change log
 ----------
 
 0.5.2.1 (2012-10-15)
-==================
+====================
 
 - Finnish translations updated. [taito]
 - Added owner to cart container view. [taito]
