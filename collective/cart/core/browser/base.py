@@ -27,6 +27,7 @@ class BaseListingObject(object):
         translation_service = getToolByName(self.context, 'translation_service')
         return translation_service.ulocalized_time
 
-    def _localized_time(self, item):
+    def _localized_time(self, item, long_format=True):
         ulocalized_time = self._ulocalized_time()
-        return ulocalized_time(item.ModificationDate(), long_format=True, context=self.context)
+        return ulocalized_time(item.ModificationDate(),
+            long_format=long_format, context=self.context)

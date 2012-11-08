@@ -29,43 +29,37 @@ class TestSetup(IntegrationTestCase):
     def test_site_properties__types_not_searchable__collective_cart_core_CartContainer(self):
         properties = getToolByName(self.portal, 'portal_properties')
         site_properties = getattr(properties, 'site_properties')
-        self.assertIn(
-            'collective.cart.core.CartContainer',
+        self.assertIn('collective.cart.core.CartContainer',
             site_properties.getProperty('types_not_searched'))
 
     def test_site_properties__types_not_searchable__collective_cart_core_Cart(self):
         properties = getToolByName(self.portal, 'portal_properties')
         site_properties = getattr(properties, 'site_properties')
-        self.assertIn(
-            'collective.cart.core.Cart',
+        self.assertIn('collective.cart.core.Cart',
             site_properties.getProperty('types_not_searched'))
 
     def test_propertiestool__site_properties__types_not_searchable__collective_cart_core_CartArticle(self):
         properties = getToolByName(self.portal, 'portal_properties')
         site_properties = getattr(properties, 'site_properties')
-        self.assertIn(
-            'collective.cart.core.CartArticle',
+        self.assertIn('collective.cart.core.CartArticle',
             site_properties.getProperty('types_not_searched'))
 
     def test_propertiestool__navtree_properties__metaTypesNotToList__collective_cart_core_CartContainer(self):
         properties = getToolByName(self.portal, 'portal_properties')
         navtree_properties = getattr(properties, 'navtree_properties')
-        self.assertIn(
-            'collective.cart.core.CartContainer',
+        self.assertIn('collective.cart.core.CartContainer',
              navtree_properties.getProperty('metaTypesNotToList'))
 
     def test_propertiestool__navtree_properties__metaTypesNotToList__collective_cart_core_Cart(self):
         properties = getToolByName(self.portal, 'portal_properties')
         navtree_properties = getattr(properties, 'navtree_properties')
-        self.assertIn(
-            'collective.cart.core.Cart',
+        self.assertIn('collective.cart.core.Cart',
              navtree_properties.getProperty('metaTypesNotToList'))
 
     def test_propertiestool__navtree_properties__metaTypesNotToList__collective_cart_core_CartArticle(self):
         properties = getToolByName(self.portal, 'portal_properties')
         navtree_properties = getattr(properties, 'navtree_properties')
-        self.assertIn(
-            'collective.cart.core.CartArticle',
+        self.assertIn('collective.cart.core.CartArticle',
              navtree_properties.getProperty('metaTypesNotToList'))
 
     ## worlflows.xml
@@ -106,37 +100,23 @@ class TestSetup(IntegrationTestCase):
             for perm in perms:
                 self.assertEqual(0, obj.getPermissionInfo(perm)['acquired'])
         created_permission_roles = {
-            'Modify portal content': (
-                'Authenticated',
-            ),
-           'List folder contents': (
-                'Authenticated',
-            ),
-            'Access contents information': (
-                'Authenticated',
-            ),
-            'View': (
-                'Authenticated',
-            ),
+            'Modify portal content': ('Authenticated',),
+            'List folder contents': ('Authenticated',),
+            'Access contents information': ('Authenticated',),
+            'View': ('Authenticated',),
         }
         self.assertEqual(created_permission_roles, created.permission_roles)
         other_permission_roles = {
             'Modify portal content': (
                 'Contributor',
                 'Manager',
-                'Site Administrator'
-            ),
-           'List folder contents': (
+                'Site Administrator'),
+            'List folder contents': (
                 'Contributor',
                 'Manager',
-                'Site Administrator'
-            ),
-            'Access contents information': (
-                'Authenticated',
-            ),
-            'View': (
-                'Authenticated',
-            ),
+                'Site Administrator'),
+            'Access contents information': ('Authenticated',),
+            'View': ('Authenticated',),
         }
         states.remove('created')
         objs = [items[state] for state in states]
@@ -256,8 +236,7 @@ class TestSetup(IntegrationTestCase):
         self.assertEqual(roles, [
             'Contributor',
             'Manager',
-            'Site Administrator',
-            ])
+            'Site Administrator'])
 
     def test_rolemap__collective_cart_core_AddArticle__acquiredRolesAreUsedBy(self):
         permission = "collective.cart.core: Add Article"
@@ -269,9 +248,7 @@ class TestSetup(IntegrationTestCase):
         roles = [item['name'] for item in self.portal.rolesOfPermission(
             permission) if item['selected'] == 'SELECTED']
         roles.sort()
-        self.assertEqual(roles, [
-            'Authenticated',
-            ])
+        self.assertEqual(roles, ['Authenticated'])
 
     def test_rolemap__collective_cart_core_AddCart__acquiredRolesAreUsedBy(self):
         permission = "collective.cart.core: Add Cart"
@@ -286,8 +263,7 @@ class TestSetup(IntegrationTestCase):
         self.assertEqual(roles, [
             'Contributor',
             'Manager',
-            'Site Administrator',
-            ])
+            'Site Administrator'])
 
     def test_rolemap__collective_cart_core_ViewCartContent__acquiredRolesAreUsedBy(self):
         permission = "collective.cart.core: View Cart Content"
@@ -301,8 +277,7 @@ class TestSetup(IntegrationTestCase):
         roles.sort()
         self.assertEqual(roles, [
             'Manager',
-            'Site Administrator',
-            ])
+            'Site Administrator'])
 
     def test_rolemap__collective_cart_core_AddCartPortlet__acquiredRolesAreUsedBy(self):
         permission = "collective.cart.core: Add Cart Portlet"

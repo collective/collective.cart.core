@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-10-15 03:23+0000\n"
+"POT-Creation-Date: 2012-11-08 11:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,24 @@ msgstr ""
 msgid "Add To Cart"
 msgstr ""
 
+#: ./profiles/default/workflows/cart_container_default_workflow/definition.xml
+msgid "Addable"
+msgstr ""
+
 #: ./profiles/default/types/collective.cart.core.Article.xml
 msgid "Article"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Back to created state"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Bill is paid"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Cancel the order"
 msgstr ""
 
 #: ./browser/templates/cart.pt:12
@@ -40,6 +56,10 @@ msgstr ""
 msgid "Cart Container"
 msgstr ""
 
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Cart Created"
+msgstr ""
+
 #: ./browser/templates/cart-container.pt:26
 msgid "Cart ID"
 msgstr ""
@@ -50,6 +70,18 @@ msgstr ""
 
 #: ./browser/templates/cart.pt:13
 msgid "Cart is empty."
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Charged"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Charging cart as an order"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Customer pays for the order"
 msgstr ""
 
 #: ./browser/viewlets/cart-articles.pt:11
@@ -93,6 +125,14 @@ msgstr ""
 msgid "Next Step"
 msgstr ""
 
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Order Canceled"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Order is shipped"
+msgstr ""
+
 #: ./browser/templates/cart-container.pt:29
 msgid "Owner"
 msgstr ""
@@ -103,6 +143,10 @@ msgstr ""
 
 #: ./browser/viewlets/product_values.pt:9
 msgid "Quantity"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Ship the order"
 msgstr ""
 
 #: ./browser/templates/cart-container.pt:27

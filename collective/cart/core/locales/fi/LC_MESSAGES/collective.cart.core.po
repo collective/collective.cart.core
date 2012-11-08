@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-10-15 03:23+0000\n"
+"POT-Creation-Date: 2012-11-08 11:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,25 @@ msgstr ""
 msgid "Add To Cart"
 msgstr "Lisää koriin"
 
+#: ./profiles/default/workflows/cart_container_default_workflow/definition.xml
+msgid "Addable"
+msgstr "Lisättävä"
+
 #: ./profiles/default/types/collective.cart.core.Article.xml
 msgid "Article"
 msgstr "Tuote"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Back to created state"
+msgstr "Takaisin luotu tilalle"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Bill is paid"
+msgstr "Lasku on maksettu"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Cancel the order"
+msgstr "Peru tilausta"
 
 #: ./browser/templates/cart.pt:12
 #: ./portlets/cart.py:20
@@ -37,6 +53,10 @@ msgstr "Ostoskorituote"
 msgid "Cart Container"
 msgstr "Ostoskorikonteineri"
 
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Cart Created"
+msgstr "Ostoskori luotu"
+
 #: ./browser/templates/cart-container.pt:26
 msgid "Cart ID"
 msgstr "Ostoskoritunnus"
@@ -48,6 +68,18 @@ msgstr "Ostoskoritunnus: ${cart_id}"
 #: ./browser/templates/cart.pt:13
 msgid "Cart is empty."
 msgstr "Ostoskori on tyhjä"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Charged"
+msgstr "Laskutettu"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Charging cart as an order"
+msgstr "Laskuta ostoskoria tilauksena"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Customer pays for the order"
+msgstr "Asiakas maksaa tilauksen"
 
 #: ./browser/viewlets/cart-articles.pt:11
 msgid "Delete"
@@ -90,6 +122,14 @@ msgstr "Seuraava ostoskoritunnus"
 msgid "Next Step"
 msgstr "Seuraavaan"
 
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Order Canceled"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Order is shipped"
+msgstr "Tilaus on lähetetty toimitettavaksi"
+
 #: ./browser/templates/cart-container.pt:29
 msgid "Owner"
 msgstr "Omistaja"
@@ -101,6 +141,10 @@ msgstr "Hinta"
 #: ./browser/viewlets/product_values.pt:9
 msgid "Quantity"
 msgstr "Määrä"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Ship the order"
+msgstr "Lahetä tilausta toimitettavaksi"
 
 #: ./browser/templates/cart-container.pt:27
 msgid "State"

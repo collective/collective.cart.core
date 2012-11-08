@@ -9,8 +9,8 @@ class TestSetup(IntegrationTestCase):
     def create_cart_container(self):
         from plone.dexterity.utils import createContentInContainer
         from zope.lifecycleevent import modified
-        container = createContentInContainer(
-                self.portal, 'collective.cart.core.CartContainer', id="cart-container", title="Cart Container", checkConstraints=False)
+        container = createContentInContainer(self.portal, 'collective.cart.core.CartContainer',
+            id="cart-container", title="Cart Container", checkConstraints=False)
         modified(container)
         return container
 
