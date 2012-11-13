@@ -1,11 +1,12 @@
 Change log
 ----------
 
-0.5.2.2 (2012-10-15)
+0.5.2.3 (2012-11-13)
 ====================
 
 - Finnish translations updated. [taito]
 - Added owner to cart container view. [taito]
+- Updated workflows. [taito]
 
 0.5.2 (2012-09-24)
 ==================
