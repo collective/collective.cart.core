@@ -78,7 +78,8 @@ class ShoppingSite(grok.Adapter):
 
     def get_cart_article(self, cid):
         if self.cart_articles:
-            return [article for article in self.cart_articles if article.id == cid][0].getObject()
+            return ICartAdapter(self.cart).get_article(cid)
+            # return [article for article in self.cart_articles if article.id == cid][0].getObject()
 
     def update_next_cart_id(self):
         """Update next cart ID for the cart container."""

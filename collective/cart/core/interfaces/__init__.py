@@ -29,11 +29,26 @@ class ICart(form.Schema):
         required=False)
 
 
-class ICartAdapter(Interface):
+class IBaseAdapter(Interface):
+    """Base interface for adapters"""
+
+    def get_brains(self, interface, **query):
+        """Get brains which provides interface under the context."""
+
+    def get_content_listing(self, interface, **query):
+        """Get ContentListing from brains gotten from get_brains method."""
+
+    def localized_time(item, long_format=False):
+        """Returns localized time."""
+
+
+class ICartAdapter(IBaseAdapter):
     """Adapter interface for Cart."""
 
     articles = Attribute('List of brains of CartArticle.')
 
+    def get_article(oid):
+        """Get CartArticle form cart by ID."""
 
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""

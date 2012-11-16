@@ -50,7 +50,7 @@
     <permission-role>Authenticated</permission-role>
   </permission-map>
   </state>
-  <state state_id="created" title="Cart Created" i18n:attributes="title">
+  <state state_id="created" title="Created" i18n:attributes="title">
     <exit-transition transition_id="cancel"/>
     <exit-transition transition_id="charge"/>
     <permission-map name="Access contents information" acquired="False">

@@ -1,12 +1,11 @@
-from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
+from collective.cart.core.adapter.base import BaseAdapter
 from collective.cart.core.interfaces import ICart
 from collective.cart.core.interfaces import ICartArticle
 from collective.cart.core.interfaces import ICartAdapter
 from five import grok
 
 
-class CartAdapter(grok.Adapter):
+class CartAdapter(BaseAdapter):
     """Adapter for Cart"""
 
     grok.context(ICart)
@@ -14,11 +13,11 @@ class CartAdapter(grok.Adapter):
 
     @property
     def articles(self):
-        """List of CartArticles"""
-        context = aq_inner(self.context)
-        query = {
-            'path': '/'.join(context.getPhysicalPath()),
-            'object_provides': ICartArticle.__identifier__,
-        }
-        catalog = getToolByName(context, 'portal_catalog')
-        return catalog(query)
+        """List of CartArticle brains."""
+        return self.get_brains(ICartArticle)
+
+    def get_article(self, oid):
+        """Get CartArticle form cart by ID."""
+        brains = self.get_brains(ICartArticle, id=oid)
+        if brains:
+            return brains[0].getObject()

@@ -1,2 +1,2 @@
-msgid "Cart"
-msgstr "Ostoskori"
+msgid "Created"
+msgstr "Luotu"
