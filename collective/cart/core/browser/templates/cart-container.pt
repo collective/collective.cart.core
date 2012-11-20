@@ -36,7 +36,7 @@
                 tal:attributes="href item/url"
                 tal:content="item/id" />
             </td>
-            <td class="cart-state" tal:content="item/review_state" />
+            <td class="cart-state" i18n:translate="" tal:content="item/state_title" />
             <td class="cart-modified" tal:content="item/modified" />
             <td class="cart-owner" tal:content="item/owner" />
           </tr>

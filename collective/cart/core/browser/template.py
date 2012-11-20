@@ -1,3 +1,4 @@
+from Products.CMFCore.utils import getToolByName
 from collective.cart.core.browser.base import BaseListingObject
 from collective.cart.core.interfaces import ICart
 from collective.cart.core.interfaces import ICartContainer
@@ -47,12 +48,13 @@ class CartContainerView(BaseListingView, BaseListingObject):
     @property
     def carts(self):
         result = []
+        workflow = getToolByName(self.context, 'portal_workflow')
         for item in self._listing(ICart):
             res = {
                 'id': item.getId(),
                 'title': item.Title(),
                 'url': item.getURL(),
-                'review_state': item.review_state(),
+                'state_title': workflow.getTitleForStateOnType(item.review_state(), item.portal_type),
                 'modified': self._localized_time(item),
                 'owner': item.Creator(),
             }
