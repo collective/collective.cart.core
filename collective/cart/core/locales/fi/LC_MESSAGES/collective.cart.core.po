@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-13 20:06+0000\n"
+"POT-Creation-Date: 2012-11-20 18:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,25 +18,17 @@ msgstr ""
 msgid "Add To Cart"
 msgstr "Lisää koriin"
 
-#: ./profiles/default/workflows/cart_container_default_workflow/definition.xml
-msgid "Addable"
-msgstr "Lisättävä"
-
 #: ./profiles/default/types/collective.cart.core.Article.xml
 msgid "Article"
 msgstr "Tuote"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Back to created state"
-msgstr "Takaisin luotu tilalle"
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Bill is paid"
-msgstr "Lasku on maksettu"
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Cancel the order"
 msgstr "Peru tilausta"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Canceled"
+msgstr "Peruttu"
 
 #: ./browser/templates/cart.pt:12
 #: ./portlets/cart.py:20
@@ -54,8 +46,8 @@ msgid "Cart Container"
 msgstr "Ostoskorikonteineri"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Cart Created"
-msgstr "Ostoskori luotu"
+msgid "Cart Default Workflow"
+msgstr "Oostoskori-oletusworkflow"
 
 #: ./browser/templates/cart-container.pt:26
 msgid "Cart ID"
@@ -70,16 +62,12 @@ msgid "Cart is empty."
 msgstr "Ostoskori on tyhjä"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Charged"
-msgstr "Laskutettu"
+msgid "Created"
+msgstr "Luotu"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Charging cart as an order"
-msgstr "Laskuta ostoskoria tilauksena"
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Customer pays for the order"
-msgstr "Asiakas maksaa tilauksen"
+msgid "Created cart can be canceled or ordered."
+msgstr "Luotu ostoskori voi perua tai tilata."
 
 #: ./browser/viewlets/cart-articles.pt:11
 msgid "Delete"
@@ -123,16 +111,24 @@ msgid "Next Step"
 msgstr "Seuraavaan"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Order Canceled"
-msgstr ""
+msgid "Ordered"
+msgstr "Tilattu"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Order is shipped"
-msgstr "Tilaus on lähetetty toimitettavaksi"
+msgid "Ordered cart can be canceled or paid."
+msgstr "Tilattu ostoskori voi perua tai maksaa."
 
 #: ./browser/templates/cart-container.pt:29
 msgid "Owner"
 msgstr "Omistaja"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Paid"
+msgstr "Maksettu"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Paid cart can be canceled or shipped."
+msgstr "Maksettu ostoskori voi perua tai ĺähettää."
 
 #: ./browser/viewlets/product_values.pt:6
 msgid "Price"
@@ -143,12 +139,32 @@ msgid "Quantity"
 msgstr "Määrä"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Ship the order"
-msgstr "Lahetä tilausta toimitettavaksi"
+msgid "Shipped"
+msgstr "Lähetetty"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Shipped cart can be ..."
+msgstr "Lähetetty ostoskori voi ..."
 
 #: ./browser/templates/cart-container.pt:27
 msgid "State"
 msgstr "Tila"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Created"
+msgstr "Luotu tilaan"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Ordered"
+msgstr "Tilattu tilaan"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Paid"
+msgstr "Maksettu tilaan"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Shipped"
+msgstr "Lähetetty tilaan"
 
 #: ./validator.py:26
 msgid "The cart ID is already in use."

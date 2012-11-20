@@ -1,2 +1,59 @@
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Cancel the order"
+msgstr "Peru tilausta"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Canceled"
+msgstr "Peruttu"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Cart Default Workflow"
+msgstr "Oostoskori-oletusworkflow"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Created"
 msgstr "Luotu"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Created cart can be canceled or ordered."
+msgstr "Luotu ostoskori voi perua tai tilata."
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Ordered"
+msgstr "Tilattu"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Ordered cart can be canceled or paid."
+msgstr "Tilattu ostoskori voi perua tai maksaa."
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Paid"
+msgstr "Maksettu"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Paid cart can be canceled or shipped."
+msgstr "Maksettu ostoskori voi perua tai toimittaa."
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Shipped"
+msgstr "Lähetetty"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Shipped cart can be ..."
+msgstr "Lähetetty ostoskori voi ..."
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Created"
+msgstr "Luotu tilaan"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Ordered"
+msgstr "Tilattu tilaan"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Paid"
+msgstr "Maksettu tilaan"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Shipped"
+msgstr "Lähetetty tilaan"

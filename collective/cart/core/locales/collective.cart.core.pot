@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-13 20:06+0000\n"
+"POT-Creation-Date: 2012-11-20 18:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,24 +21,16 @@ msgstr ""
 msgid "Add To Cart"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_container_default_workflow/definition.xml
-msgid "Addable"
-msgstr ""
-
 #: ./profiles/default/types/collective.cart.core.Article.xml
 msgid "Article"
 msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Back to created state"
-msgstr ""
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Bill is paid"
-msgstr ""
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Cancel the order"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Canceled"
 msgstr ""
 
 #: ./browser/templates/cart.pt:12
@@ -57,7 +49,7 @@ msgid "Cart Container"
 msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Cart Created"
+msgid "Cart Default Workflow"
 msgstr ""
 
 #: ./browser/templates/cart-container.pt:26
@@ -73,15 +65,11 @@ msgid "Cart is empty."
 msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Charged"
+msgid "Created"
 msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Charging cart as an order"
-msgstr ""
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Customer pays for the order"
+msgid "Created cart can be canceled or ordered."
 msgstr ""
 
 #: ./browser/viewlets/cart-articles.pt:11
@@ -126,15 +114,23 @@ msgid "Next Step"
 msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Order Canceled"
+msgid "Ordered"
 msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Order is shipped"
+msgid "Ordered cart can be canceled or paid."
 msgstr ""
 
 #: ./browser/templates/cart-container.pt:29
 msgid "Owner"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Paid"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Paid cart can be canceled or shipped."
 msgstr ""
 
 #: ./browser/viewlets/product_values.pt:6
@@ -146,11 +142,31 @@ msgid "Quantity"
 msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Ship the order"
+msgid "Shipped"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "Shipped cart can be ..."
 msgstr ""
 
 #: ./browser/templates/cart-container.pt:27
 msgid "State"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Created"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Ordered"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Paid"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Shipped"
 msgstr ""
 
 #: ./validator.py:26
