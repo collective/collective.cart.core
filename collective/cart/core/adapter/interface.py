@@ -1,6 +1,6 @@
 from Acquisition import aq_chain
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
+from collective.cart.core.adapter.base import BaseAdapter
 from collective.cart.core.interfaces import ICart
 from collective.cart.core.interfaces import ICartAdapter
 from collective.cart.core.interfaces import ICartContainer
@@ -12,7 +12,7 @@ from zope.component import getMultiAdapter
 from zope.interface import Interface
 
 
-class ShoppingSite(grok.Adapter):
+class ShoppingSite(BaseAdapter):
     """Adapter to provide Shopping Site Root."""
 
     grok.context(Interface)
@@ -32,15 +32,8 @@ class ShoppingSite(grok.Adapter):
     def cart_container(self):
         """Returns Cart Container object of Shop Site Root."""
         if self.shop:
-            query = {
-                'object_provides': ICartContainer.__identifier__,
-                'path': {
-                    'query': '/'.join(self.shop.getPhysicalPath()),
-                    'depth': 1,
-                },
-            }
-            catalog = getToolByName(self.context, 'portal_catalog')
-            brains = catalog(query)
+            path = '/'.join(self.shop.getPhysicalPath())
+            brains = self.get_brains(ICartContainer, path=path, depth=1)
             if brains:
                 return brains[0].getObject()
 
@@ -57,17 +50,8 @@ class ShoppingSite(grok.Adapter):
             portal_state = getMultiAdapter(
                 (self.context, self.context.REQUEST), name=u"plone_portal_state")
             member = portal_state.member()
-            query = {
-                'path': {
-                    'query': '/'.join(container.getPhysicalPath()),
-                    'depth': 1,
-                },
-                'object_provides': ICart.__identifier__,
-                'Creator': member.id,
-                'review_state': 'created',
-            }
-            catalog = getToolByName(self.context, 'portal_catalog')
-            brains = catalog(query)
+            path = '/'.join(container.getPhysicalPath())
+            brains = self.get_brains(ICart, path=path, depth=1, Creator=member.id, review_state='created')
             if brains:
                 return brains[0].getObject()
 
@@ -79,7 +63,6 @@ class ShoppingSite(grok.Adapter):
     def get_cart_article(self, cid):
         if self.cart_articles:
             return ICartAdapter(self.cart).get_article(cid)
-            # return [article for article in self.cart_articles if article.id == cid][0].getObject()
 
     def update_next_cart_id(self):
         """Update next cart ID for the cart container."""

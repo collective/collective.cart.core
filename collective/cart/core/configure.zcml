@@ -55,4 +55,6 @@
     title="collective.cart.core: Add CartArticle"
     />
 
+  <include file="upgrades.zcml"/>
+
 </configure>

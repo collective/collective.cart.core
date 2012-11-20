@@ -20,8 +20,13 @@ class BaseAdapter(grok.Adapter):
     def get_brains(self, interface=None, **query):
         if interface:
             query['object_provides'] = interface.__identifier__
-        if query.get('path') is None:
-            query['path'] = '/'.join(aq_inner(self.context).getPhysicalPath())
+        path = query.get('path')
+        if path is None:
+            path = '/'.join(aq_inner(self.context).getPhysicalPath())
+        depth = query.get('depth')
+        if depth:
+            path = {'query': path, 'depth': depth}
+        query['path'] = path
         return self._catalog()(query)
 
     def get_content_listing(self, interface=None, **query):

@@ -10,7 +10,6 @@ class TestSetup(IntegrationTestCase):
         self.installer = getToolByName(self.portal, 'portal_quickinstaller')
         self.catalog = getToolByName(self.portal, 'portal_catalog')
         self.types = getToolByName(self.portal, 'portal_types')
-        self.workflow = getToolByName(self.portal, 'portal_workflow')
         self.actions = getToolByName(self.portal, 'portal_actions')
         self.sm = getSecurityManager()
 
@@ -61,83 +60,6 @@ class TestSetup(IntegrationTestCase):
         navtree_properties = getattr(properties, 'navtree_properties')
         self.assertIn('collective.cart.core.CartArticle',
              navtree_properties.getProperty('metaTypesNotToList'))
-
-    ## worlflows.xml
-    def test_worlflow_installed(self):
-        for item in ['cart_default_workflow']:
-            self.failUnless(item in self.workflow.objectIds())
-
-    def test_cart_workflow_chain(self):
-        self.failUnless('cart_default_workflow' in self.workflow.getChainForPortalType('collective.cart.core.Cart'))
-
-    ## cart_default_workflow definition.xml
-    def test_cart_default_workflow_definition_permissions(self):
-        perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View')
-        for perm in perms:
-            self.failUnless(perm in self.workflow.cart_default_workflow.permissions)
-
-    def test_cart_default_workflow_definition_states(self):
-        states = ['canceled', 'shipped', 'charged', 'paid', 'created']
-        for state in states:
-            self.failUnless(state in self.workflow.cart_default_workflow.states.objectIds())
-        items = dict(self.workflow.cart_default_workflow.states.objectItems())
-        created = items.get('created')
-        charged = items.get('charged')
-        paid = items.get('paid')
-        shipped = items.get('shipped')
-        canceled = items.get('canceled')
-        for item in ['charge', 'cancel']:
-            self.failUnless(item in created.getTransitions())
-        for item in ['pay', 'cancel', 'create']:
-            self.failUnless(item in charged.getTransitions())
-        for item in ['ship', 'cancel']:
-            self.failUnless(item in paid.getTransitions())
-        self.assertEqual((), shipped.getTransitions())
-        self.assertEqual((), canceled.getTransitions())
-        objs = items.values()
-        perms = ('Access contents information', 'List folder contents', 'Modify portal content', 'View')
-        for obj in objs:
-            for perm in perms:
-                self.assertEqual(0, obj.getPermissionInfo(perm)['acquired'])
-        created_permission_roles = {
-            'Modify portal content': ('Authenticated',),
-            'List folder contents': ('Authenticated',),
-            'Access contents information': ('Authenticated',),
-            'View': ('Authenticated',),
-        }
-        self.assertEqual(created_permission_roles, created.permission_roles)
-        other_permission_roles = {
-            'Modify portal content': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'),
-            'List folder contents': (
-                'Contributor',
-                'Manager',
-                'Site Administrator'),
-            'Access contents information': ('Authenticated',),
-            'View': ('Authenticated',),
-        }
-        states.remove('created')
-        objs = [items[state] for state in states]
-        for obj in objs:
-            self.assertEqual(other_permission_roles, obj.permission_roles)
-
-    def test_cart_default_workflow_definition_transitions(self):
-        transitions = ['cancel', 'pay', 'charge', 'create', 'ship']
-        for transition in transitions:
-            self.failUnless(transition in self.workflow.cart_default_workflow.transitions.objectIds())
-        items = dict(self.workflow.cart_default_workflow.transitions.objectItems())
-        charge = items.get('charge')
-        pay = items.get('pay')
-        ship = items.get('ship')
-        cancel = items.get('cancel')
-        create = items.get('create')
-        self.assertEqual('charged', charge.new_state_id)
-        self.assertEqual('paid', pay.new_state_id)
-        self.assertEqual('shipped', ship.new_state_id)
-        self.assertEqual('canceled', cancel.new_state_id)
-        self.assertEqual('created', create.new_state_id)
 
     def test_actions__object_buttons__make_shopping_site__i18n_domain(self):
         actions = getToolByName(self.portal, 'portal_actions')
@@ -878,6 +800,569 @@ class TestSetup(IntegrationTestCase):
         ctype = types.getTypeInfo('collective.cart.core.CartArticle')
         action = ctype.getActionObject('object/edit')
         self.assertEqual(action.permissions, (u'Modify portal content',))
+
+    def test_workflow__type__collective_cart_core_Cart(self):
+        workflow = getToolByName(self.portal, 'portal_workflow')
+        self.assertEqual(workflow.getChainForPortalType('collective.cart.core.Cart'),
+            ('cart_default_workflow', ))
+
+    def get_workflow(self, name):
+        workflow = getToolByName(self.portal, 'portal_workflow')
+        return workflow[name]
+
+    def test_cart_default_workflow__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        self.assertEqual(workflow.description, '')
+
+    def test_cart_default_workflow__initial_state(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        self.assertEqual(workflow.initial_state, 'created')
+
+    def test_cart_default_workflow__manager_bypass(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        self.assertFalse(workflow.manager_bypass)
+
+    def test_cart_default_workflow__state_variable(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        self.assertEqual(workflow.state_var, 'review_state')
+
+    def test_cart_default_workflow__title(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        self.assertEqual(workflow.title, 'Cart Default Workflow')
+
+    def test_cart_default_workflow__permissions(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        self.assertEqual(workflow.permissions, (
+            'Access contents information',
+            'List folder contents',
+            'Modify portal content',
+            'View'))
+
+    def test_cart_default_workflow__states__created__title(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.created
+        self.assertEqual(state.title, 'Created')
+
+    def test_cart_default_workflow__states__created__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.created
+        self.assertEqual(state.description, '')
+
+    def test_cart_default_workflow__states__created__permission__Access_contents_information(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.created
+        self.assertEqual(state.getPermissionInfo('Access contents information'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__states__created__permission__List_folder_contents(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.created
+        self.assertEqual(state.getPermissionInfo('List folder contents'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__states__created__permission__Modify_portal_content(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.created
+        self.assertEqual(state.getPermissionInfo('Modify portal content'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__states__created__permission__View(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.created
+        self.assertEqual(state.getPermissionInfo('View'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__states__ordered__title(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.ordered
+        self.assertEqual(state.title, 'Ordered')
+
+    def test_cart_default_workflow__states__ordered__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.ordered
+        self.assertEqual(state.description, '')
+
+    def test_cart_default_workflow__states__ordered__permission__Access_contents_information(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.ordered
+        self.assertEqual(state.getPermissionInfo('Access contents information'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__states__ordered__permission__List_folder_contents(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.ordered
+        self.assertEqual(state.getPermissionInfo('List folder contents'), {
+            'acquired': 0,
+            'roles': ['Contributor', 'Manager', 'Site Administrator'],
+        })
+
+    def test_cart_default_workflow__states__ordered__permission__Modify_portal_content(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.ordered
+        self.assertEqual(state.getPermissionInfo('Modify portal content'), {
+            'acquired': 0,
+            'roles': ['Contributor', 'Manager', 'Site Administrator'],
+        })
+
+    def test_cart_default_workflow__states__ordered__permission__View(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.ordered
+        self.assertEqual(state.getPermissionInfo('View'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__states__paid__title(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.paid
+        self.assertEqual(state.title, 'Paid')
+
+    def test_cart_default_workflow__states__paid__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.paid
+        self.assertEqual(state.description, '')
+
+    def test_cart_default_workflow__states__paid__permission__Access_contents_information(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.paid
+        self.assertEqual(state.getPermissionInfo('Access contents information'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__states__paid__permission__List_folder_contents(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.paid
+        self.assertEqual(state.getPermissionInfo('List folder contents'), {
+            'acquired': 0,
+            'roles': ['Contributor', 'Manager', 'Site Administrator'],
+        })
+
+    def test_cart_default_workflow__states__paid__permission__Modify_portal_content(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.paid
+        self.assertEqual(state.getPermissionInfo('Modify portal content'), {
+            'acquired': 0,
+            'roles': ['Contributor', 'Manager', 'Site Administrator'],
+        })
+
+    def test_cart_default_workflow__states__paid__permission__View(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.paid
+        self.assertEqual(state.getPermissionInfo('View'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__states__shipped__title(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.shipped
+        self.assertEqual(state.title, 'Shipped')
+
+    def test_cart_default_workflow__states__shipped__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.shipped
+        self.assertEqual(state.description, '')
+
+    def test_cart_default_workflow__states__shipped__permission__Access_contents_information(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.shipped
+        self.assertEqual(state.getPermissionInfo('Access contents information'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__states__shipped__permission__List_folder_contents(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.shipped
+        self.assertEqual(state.getPermissionInfo('List folder contents'), {
+            'acquired': 0,
+            'roles': ['Contributor', 'Manager', 'Site Administrator'],
+        })
+
+    def test_cart_default_workflow__states__shipped__permission__Modify_portal_content(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.shipped
+        self.assertEqual(state.getPermissionInfo('Modify portal content'), {
+            'acquired': 0,
+            'roles': ['Contributor', 'Manager', 'Site Administrator'],
+        })
+
+    def test_cart_default_workflow__states__shipped__permission__View(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        state = workflow.states.shipped
+        self.assertEqual(state.getPermissionInfo('View'), {
+            'acquired': 0,
+            'roles': ['Authenticated'],
+        })
+
+    def test_cart_default_workflow__transitions__created__after_script(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertEqual(transition.after_script_name, '')
+
+    def test_cart_default_workflow__transitions__created__before_script(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertEqual(transition.script_name, '')
+
+    def test_cart_default_workflow__transitions__created__new_state(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertEqual(transition.new_state_id, 'created')
+
+    def test_cart_default_workflow__transitions__created__title(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertEqual(transition.title, 'State to Created')
+
+    def test_cart_default_workflow__transitions__created__trigger(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertEqual(transition.trigger_type, 1)
+
+    def test_cart_default_workflow__transitions__created__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertEqual(transition.description, 'Created cart can be canceled or ordered.')
+
+    def test_cart_default_workflow__transitions__created__action__category(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertEqual(transition.actbox_category, 'workflow')
+
+    def test_cart_default_workflow__transitions__created__action__icon(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertEqual(transition.actbox_icon, '')
+
+    def test_cart_default_workflow__transitions__created__action__url(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertEqual(transition.actbox_url,
+            '%(content_url)s/content_status_modify?workflow_action=created')
+
+    def test_cart_default_workflow__transitions__created__guard(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.created
+        self.assertIsNone(transition.guard)
+
+    def test_cart_default_workflow__transitions__ordered__after_script(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertEqual(transition.after_script_name, '')
+
+    def test_cart_default_workflow__transitions__ordered__before_script(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertEqual(transition.script_name, '')
+
+    def test_cart_default_workflow__transitions__ordered__new_state(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertEqual(transition.new_state_id, 'ordered')
+
+    def test_cart_default_workflow__transitions__ordered__title(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertEqual(transition.title, 'State to Ordered')
+
+    def test_cart_default_workflow__transitions__ordered__trigger(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertEqual(transition.trigger_type, 1)
+
+    def test_cart_default_workflow__transitions__ordered__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertEqual(transition.description, 'Ordered cart can be canceled or paid.')
+
+    def test_cart_default_workflow__transitions__ordered__action__category(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertEqual(transition.actbox_category, 'workflow')
+
+    def test_cart_default_workflow__transitions__ordered__action__icon(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertEqual(transition.actbox_icon, '')
+
+    def test_cart_default_workflow__transitions__ordered__action__url(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertEqual(transition.actbox_url,
+            '%(content_url)s/content_status_modify?workflow_action=ordered')
+
+    def test_cart_default_workflow__transitions__ordered__guard(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.ordered
+        self.assertIsNone(transition.guard)
+
+    def test_cart_default_workflow__transitions__paid__after_script(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertEqual(transition.after_script_name, '')
+
+    def test_cart_default_workflow__transitions__paid__before_script(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertEqual(transition.script_name, '')
+
+    def test_cart_default_workflow__transitions__paid__new_state(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertEqual(transition.new_state_id, 'paid')
+
+    def test_cart_default_workflow__transitions__paid__title(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertEqual(transition.title, 'State to Paid')
+
+    def test_cart_default_workflow__transitions__paid__trigger(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertEqual(transition.trigger_type, 1)
+
+    def test_cart_default_workflow__transitions__paid__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertEqual(transition.description, 'Paid cart can be canceled or shipped.')
+
+    def test_cart_default_workflow__transitions__paid__action__category(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertEqual(transition.actbox_category, 'workflow')
+
+    def test_cart_default_workflow__transitions__paid__action__icon(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertEqual(transition.actbox_icon, '')
+
+    def test_cart_default_workflow__transitions__paid__action__url(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertEqual(transition.actbox_url,
+            '%(content_url)s/content_status_modify?workflow_action=paid')
+
+    def test_cart_default_workflow__transitions__paid__guard(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.paid
+        self.assertIsNone(transition.guard)
+
+    def test_cart_default_workflow__transitions__shipped__after_script(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertEqual(transition.after_script_name, '')
+
+    def test_cart_default_workflow__transitions__shipped__before_script(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertEqual(transition.script_name, '')
+
+    def test_cart_default_workflow__transitions__shipped__new_state(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertEqual(transition.new_state_id, 'shipped')
+
+    def test_cart_default_workflow__transitions__shipped__title(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertEqual(transition.title, 'State to Shipped')
+
+    def test_cart_default_workflow__transitions__shipped__trigger(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertEqual(transition.trigger_type, 1)
+
+    def test_cart_default_workflow__transitions__shipped__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertEqual(transition.description, 'Shipped cart can be ...')
+
+    def test_cart_default_workflow__transitions__shipped__action__category(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertEqual(transition.actbox_category, 'workflow')
+
+    def test_cart_default_workflow__transitions__shipped__action__icon(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertEqual(transition.actbox_icon, '')
+
+    def test_cart_default_workflow__transitions__shipped__action__url(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertEqual(transition.actbox_url,
+            '%(content_url)s/content_status_modify?workflow_action=shipped')
+
+    def test_cart_default_workflow__transitions__shipped__guard(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        transition = workflow.transitions.shipped
+        self.assertIsNone(transition.guard)
+
+    def test_cart_default_workflow__variables__action__for_catalog(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.action
+        self.assertFalse(variable.for_catalog)
+
+    def test_cart_default_workflow__variables__action__for_status(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.action
+        self.assertTrue(variable.for_status)
+
+    def test_cart_default_workflow__variables__action__updata_always(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.action
+        self.assertTrue(variable.update_always)
+
+    def test_cart_default_workflow__variables__action__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.action
+        self.assertEqual(variable.description, 'Previous transition')
+
+    def test_cart_default_workflow__variables__action__default(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.action
+        self.assertEqual(variable.getDefaultExprText(), 'transition/getId|nothing')
+
+    def test_cart_default_workflow__variables__action__guard(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.action
+        self.assertIsNone(variable.info_guard)
+
+    def test_cart_default_workflow__variables__actor__for_catalog(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.actor
+        self.assertFalse(variable.for_catalog)
+
+    def test_cart_default_workflow__variables__actor__for_status(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.actor
+        self.assertTrue(variable.for_status)
+
+    def test_cart_default_workflow__variables__actor__updata_always(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.actor
+        self.assertTrue(variable.update_always)
+
+    def test_cart_default_workflow__variables__actor__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.actor
+        self.assertEqual(variable.description, 'The ID of the user who performed the last transition')
+
+    def test_cart_default_workflow__variables__actor__default(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.actor
+        self.assertEqual(variable.getDefaultExprText(), 'user/getId')
+
+    def test_cart_default_workflow__variables__actor__guard(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.actor
+        self.assertIsNone(variable.info_guard)
+
+    def test_cart_default_workflow__variables__comments__for_catalog(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.comments
+        self.assertFalse(variable.for_catalog)
+
+    def test_cart_default_workflow__variables__comments__for_status(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.comments
+        self.assertTrue(variable.for_status)
+
+    def test_cart_default_workflow__variables__comments__updata_always(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.comments
+        self.assertTrue(variable.update_always)
+
+    def test_cart_default_workflow__variables__comments__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.comments
+        self.assertEqual(variable.description, 'Comment about the last transition')
+
+    def test_cart_default_workflow__variables__comments__default(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.comments
+        self.assertEqual(variable.getDefaultExprText(),
+            "python:state_change.kwargs.get('comment', '')")
+
+    def test_cart_default_workflow__variables__comments__guard(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.comments
+        self.assertIsNone(variable.info_guard)
+
+    def test_cart_default_workflow__variables__review_history__for_catalog(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.review_history
+        self.assertFalse(variable.for_catalog)
+
+    def test_cart_default_workflow__variables__review_history__for_status(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.review_history
+        self.assertFalse(variable.for_status)
+
+    def test_cart_default_workflow__variables__review_history__updata_always(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.review_history
+        self.assertFalse(variable.update_always)
+
+    def test_cart_default_workflow__variables__review_history__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.review_history
+        self.assertEqual(variable.description, 'Provides access to workflow history')
+
+    def test_cart_default_workflow__variables__review_history__default(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.review_history
+        self.assertEqual(variable.getDefaultExprText(),
+            "state_change/getHistory")
+
+    def test_cart_default_workflow__variables__review_history__guard(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.review_history
+        self.assertEqual(variable.info_guard.permissions,
+            ('Request review', 'Review portal content'))
+
+    def test_cart_default_workflow__variables__time__for_catalog(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.time
+        self.assertFalse(variable.for_catalog)
+
+    def test_cart_default_workflow__variables__time__for_status(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.time
+        self.assertTrue(variable.for_status)
+
+    def test_cart_default_workflow__variables__time__updata_always(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.time
+        self.assertTrue(variable.update_always)
+
+    def test_cart_default_workflow__variables__time__description(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.time
+        self.assertEqual(variable.description, 'When the previous transition was performed')
+
+    def test_cart_default_workflow__variables__time__default(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.time
+        self.assertEqual(variable.getDefaultExprText(),
+            "state_change/getDateTime")
+
+    def test_cart_default_workflow__variables__time__guard(self):
+        workflow = self.get_workflow('cart_default_workflow')
+        variable = workflow.variables.time
+        self.assertIsNone(variable.info_guard)
 
     def test_uninstall__package(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')

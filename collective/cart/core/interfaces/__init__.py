@@ -50,6 +50,7 @@ class ICartAdapter(IBaseAdapter):
     def get_article(oid):
         """Get CartArticle form cart by ID."""
 
+
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""
 
