@@ -24,7 +24,7 @@
     class=".miscellaneous.Miscellaneous"
     for="*"
     name="is-shopping-site"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     />
 
   <browser:page
@@ -32,7 +32,7 @@
     class=".miscellaneous.Miscellaneous"
     for="*"
     name="not-shopping-site"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     />
 
 </configure>

@@ -25,6 +25,99 @@ class TestSetup(IntegrationTestCase):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         self.failUnless(installer.isProductInstalled('collective.behavior.salable'))
 
+    def get_action(self, category, action):
+        return getattr(getattr(getToolByName(self.portal, 'portal_actions'), category), action)
+
+    def test_actions__object_orders__meta_type(self):
+        action = self.get_action('object', 'orders')
+        self.assertEqual(action.meta_type, 'CMF Action')
+
+    def test_actions__object_orders__title(self):
+        action = self.get_action('object', 'orders')
+        self.assertEqual(action.title, 'Orders')
+
+    def test_actions__object_orders__description(self):
+        action = self.get_action('object', 'orders')
+        self.assertEqual(action.description, 'Show list of orders.')
+
+    def test_actions__object_orders__url_expr(self):
+        action = self.get_action('object', 'orders')
+        self.assertEqual(
+            action.url_expr, 'string:${globals_view/getCurrentFolderUrl}/@@orders')
+
+    def test_actions__object_orders__available_expr(self):
+        action = self.get_action('object', 'orders')
+        self.assertEqual(
+            action.available_expr, 'python: object.restrictedTraverse("is-shopping-site")()')
+
+    def test_actions__object_orders__permissions(self):
+        action = self.get_action('object', 'orders')
+        self.assertEqual(action.permissions, ('Modify portal content',))
+
+    def test_actions__object_orders__visible(self):
+        action = self.get_action('object', 'orders')
+        self.assertTrue(action.visible)
+
+    def test_actions__object_buttons__make_shopping_site__meta_type(self):
+        action = self.get_action('object_buttons', 'make_shopping_site')
+        self.assertEqual(action.meta_type, 'CMF Action')
+
+    def test_actions__object_buttons__make_shopping_site__title(self):
+        action = self.get_action('object_buttons', 'make_shopping_site')
+        self.assertEqual(action.title, 'Make Shopping Site')
+
+    def test_actions__object_buttons__make_shopping_site__description(self):
+        action = self.get_action('object_buttons', 'make_shopping_site')
+        self.assertEqual(action.description, 'Make this container shopping site.')
+
+    def test_actions__object_buttons__make_shopping_site__url_expr(self):
+        action = self.get_action('object_buttons', 'make_shopping_site')
+        self.assertEqual(
+            action.url_expr, 'string:${globals_view/getCurrentFolderUrl}/@@make-shopping-site')
+
+    def test_actions__object_buttons__make_shopping_site__available_expr(self):
+        action = self.get_action('object_buttons', 'make_shopping_site')
+        self.assertEqual(
+            action.available_expr, 'python: object.restrictedTraverse("not-shopping-site")()')
+
+    def test_actions__object_buttons__make_shopping_site__permissions(self):
+        action = self.get_action('object_buttons', 'make_shopping_site')
+        self.assertEqual(action.permissions, ('Manage portal',))
+
+    def test_actions__object_buttons__make_shopping_site__visible(self):
+        action = self.get_action('object_buttons', 'make_shopping_site')
+        self.assertTrue(action.visible)
+
+    def test_actions__object_buttons__unmake_shopping_site__meta_type(self):
+        action = self.get_action('object_buttons', 'unmake_shopping_site')
+        self.assertEqual(action.meta_type, 'CMF Action')
+
+    def test_actions__object_buttons__unmake_shopping_site__title(self):
+        action = self.get_action('object_buttons', 'unmake_shopping_site')
+        self.assertEqual(action.title, 'Unmake Shopping Site')
+
+    def test_actions__object_buttons__unmake_shopping_site__description(self):
+        action = self.get_action('object_buttons', 'unmake_shopping_site')
+        self.assertEqual(action.description, 'Unmake this container shopping site.')
+
+    def test_actions__object_buttons__unmake_shopping_site__url_expr(self):
+        action = self.get_action('object_buttons', 'unmake_shopping_site')
+        self.assertEqual(
+            action.url_expr, 'string:${globals_view/getCurrentFolderUrl}/@@unmake-shopping-site')
+
+    def test_actions__object_buttons__unmake_shopping_site__available_expr(self):
+        action = self.get_action('object_buttons', 'unmake_shopping_site')
+        self.assertEqual(
+            action.available_expr, 'python: object.restrictedTraverse("is-shopping-site")()')
+
+    def test_actions__object_buttons__unmake_shopping_site__permissions(self):
+        action = self.get_action('object_buttons', 'unmake_shopping_site')
+        self.assertEqual(action.permissions, ('Manage portal',))
+
+    def test_actions__object_buttons__unmake_shopping_site__visible(self):
+        action = self.get_action('object_buttons', 'unmake_shopping_site')
+        self.assertTrue(action.visible)
+
     def test_site_properties__types_not_searchable__collective_cart_core_CartContainer(self):
         properties = getToolByName(self.portal, 'portal_properties')
         site_properties = getattr(properties, 'site_properties')
@@ -60,90 +153,6 @@ class TestSetup(IntegrationTestCase):
         navtree_properties = getattr(properties, 'navtree_properties')
         self.assertIn('collective.cart.core.CartArticle',
              navtree_properties.getProperty('metaTypesNotToList'))
-
-    def test_actions__object_buttons__make_shopping_site__i18n_domain(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').make_shopping_site
-        self.assertEqual(action.i18n_domain, 'collective.cart.core')
-
-    def test_actions__object_buttons__make_shopping_site__meta_type(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').make_shopping_site
-        self.assertEqual(action.meta_type, 'CMF Action')
-
-    def test_actions__object_buttons__make_shopping_site__title(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').make_shopping_site
-        self.assertEqual(action.title, 'Make Shopping Site')
-
-    def test_actions__object_buttons__make_shopping_site__description(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').make_shopping_site
-        self.assertEqual(action.description, 'Make this container shopping site.')
-
-    def test_actions__object_buttons__make_shopping_site__url_expr(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').make_shopping_site
-        self.assertEqual(
-            action.url_expr, 'string:${globals_view/getCurrentObjectUrl}/@@make-shopping-site')
-
-    def test_actions__object_buttons__make_shopping_site__available_expr(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').make_shopping_site
-        self.assertEqual(
-            action.available_expr, 'python: object.restrictedTraverse("not-shopping-site")()')
-
-    def test_actions__object_buttons__make_shopping_site__permissions(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').make_shopping_site
-        self.assertEqual(action.permissions, ('Manage portal',))
-
-    def test_actions__object_buttons__make_shopping_site__visible(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').make_shopping_site
-        self.assertTrue(action.visible)
-
-    def test_actions__object_buttons__unmake_shopping_site__i18n_domain(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').unmake_shopping_site
-        self.assertEqual(action.i18n_domain, 'collective.cart.core')
-
-    def test_actions__object_buttons__unmake_shopping_site__meta_type(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').unmake_shopping_site
-        self.assertEqual(action.meta_type, 'CMF Action')
-
-    def test_actions__object_buttons__unmake_shopping_site__title(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').unmake_shopping_site
-        self.assertEqual(action.title, 'Unmake Shopping Site')
-
-    def test_actions__object_buttons__unmake_shopping_site__description(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').unmake_shopping_site
-        self.assertEqual(action.description, 'Unmake this container shopping site.')
-
-    def test_actions__object_buttons__unmake_shopping_site__url_expr(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').unmake_shopping_site
-        self.assertEqual(
-            action.url_expr, 'string:${globals_view/getCurrentObjectUrl}/@@unmake-shopping-site')
-
-    def test_actions__object_buttons__unmake_shopping_site__available_expr(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').unmake_shopping_site
-        self.assertEqual(
-            action.available_expr, 'python: object.restrictedTraverse("is-shopping-site")()')
-
-    def test_actions__object_buttons__unmake_shopping_site__permissions(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').unmake_shopping_site
-        self.assertEqual(action.permissions, ('Manage portal',))
-
-    def test_actions__object_buttons__unmake_shopping_site__visible(self):
-        actions = getToolByName(self.portal, 'portal_actions')
-        action = getattr(actions, 'object_buttons').unmake_shopping_site
-        self.assertTrue(action.visible)
 
     def test_browserlayer(self):
         from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
@@ -1374,14 +1383,14 @@ class TestSetup(IntegrationTestCase):
         installer.uninstallProducts(['collective.cart.core'])
         actions = getToolByName(self.portal, 'portal_actions')
         self.assertRaises(
-            AttributeError, lambda: getattr(actions, 'object_buttons').make_shopping_site)
+            AttributeError, lambda: self.get_action('object_buttons', 'make_shopping_site'))
 
     def test_uninstall__actions__object_buttons__unmake_shopping_site(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         installer.uninstallProducts(['collective.cart.core'])
         actions = getToolByName(self.portal, 'portal_actions')
         self.assertRaises(
-            AttributeError, lambda: getattr(actions, 'object_buttons').unmake_shopping_site)
+            AttributeError, lambda: self.get_action('object_buttons', 'unmake_shopping_site'))
 
     def test_uninstall__browserlayer(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
