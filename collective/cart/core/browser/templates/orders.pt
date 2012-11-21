@@ -1,0 +1,47 @@
+<html
+  i18n:domain="collective.cart.core"
+  lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <body>
+    <div metal:fill-slot="main">
+      <section id="cart-container">
+        <h1 i18n:translate="">Orders</h1>
+        <p id="next-cart-id" i18n:translate="">
+          The next cart ID: <span i18n:name="next_cart_id" tal:replace="view/cart_container/next_cart_id" />
+        </p>
+        <p
+          i18n:translate=""
+          id="no-carts"
+          tal:condition="not: view/carts">
+          There are no carts.
+        </p>
+        <table class="listing" id="cart-list" tal:condition="view/carts">
+          <thead>
+            <tr>
+              <th i18n:translate="">Cart ID</th>
+              <th i18n:translate="">State</th>
+              <th i18n:translate="">Last Modified</th>
+              <th i18n:translate="">Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tal:repeat="item view/carts">
+              <td class="cart-id">
+                <a
+                  tal:attributes="href item/url"
+                  tal:content="item/id" />
+              </td>
+              <td class="cart-state" i18n:translate="" tal:content="item/state_title" />
+              <td class="cart-modified" tal:content="item/modified" />
+              <td class="cart-owner" tal:content="item/owner" />
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </body>
+</html>

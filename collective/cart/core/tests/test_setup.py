@@ -118,6 +118,10 @@ class TestSetup(IntegrationTestCase):
         action = self.get_action('object_buttons', 'unmake_shopping_site')
         self.assertTrue(action.visible)
 
+    def test_metadata__version(self):
+        setup = getToolByName(self.portal, 'portal_setup')
+        self.assertEqual(setup.getVersionForProfile('profile-collective.cart.core:default'), u'2')
+
     def test_site_properties__types_not_searchable__collective_cart_core_CartContainer(self):
         properties = getToolByName(self.portal, 'portal_properties')
         site_properties = getattr(properties, 'site_properties')
@@ -1381,14 +1385,12 @@ class TestSetup(IntegrationTestCase):
     def test_uninstall__actions__object_buttons__make_shopping_site(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         installer.uninstallProducts(['collective.cart.core'])
-        actions = getToolByName(self.portal, 'portal_actions')
         self.assertRaises(
             AttributeError, lambda: self.get_action('object_buttons', 'make_shopping_site'))
 
     def test_uninstall__actions__object_buttons__unmake_shopping_site(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         installer.uninstallProducts(['collective.cart.core'])
-        actions = getToolByName(self.portal, 'portal_actions')
         self.assertRaises(
             AttributeError, lambda: self.get_action('object_buttons', 'unmake_shopping_site'))
 

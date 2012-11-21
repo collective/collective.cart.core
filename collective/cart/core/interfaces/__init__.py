@@ -61,7 +61,7 @@ class IShoppingSiteRoot(form.Schema):
     """Marker interface for Shopping Site Root."""
 
 
-class IShoppingSite(Interface):
+class IShoppingSite(IBaseAdapter):
     """Adapter Interface for Shopping Site."""
 
     shop = Attribute("Shop Site Root object.")
@@ -79,7 +79,7 @@ class IShoppingSite(Interface):
         """Remove articles of ids from current cart."""
 
 
-class ICartContainerAdapter(Interface):
+class ICartContainerAdapter(IBaseAdapter):
     """Adapter Interface for CartContainer."""
 
     def update_next_cart_id():  # pragma: no cover
@@ -96,7 +96,7 @@ class IArticleAdapter(Interface):
         """Add Article to Cart."""
 
 
-class ICartArticleAdapter(Interface):
+class ICartArticleAdapter(IBaseAdapter):
     """Adapter Interface for CartArticle."""
 
     orig_article = Attribute('Originar Article object.')

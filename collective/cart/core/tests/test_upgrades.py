@@ -23,7 +23,6 @@ class TestCase(IntegrationTestCase):
 
         self.assertTrue(action.visible)
 
-
     def test_reimport_workflows(self):
         workflow = getToolByName(self.portal, 'portal_workflow')
         workflow.setChainForPortalTypes(('collective.cart.core.Cart', ), '')
