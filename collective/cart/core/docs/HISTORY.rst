@@ -1,7 +1,7 @@
 Change log
 ----------
 
-0.5.2.3 (2012-11-13)
+0.5.2.4 (2012-11-21)
 ====================
 
 - Finnish translations updated. [taito]
