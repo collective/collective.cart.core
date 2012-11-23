@@ -44,8 +44,7 @@ setup(
         'plone.app.dexterity',
         'plone.app.portlets',
         'plone.directives.form',
-        'setuptools',
-        'zope.i18nmessageid'],
+        'setuptools'],
     entry_points="""
     # -*- Entry points: -*-
 
