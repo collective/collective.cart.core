@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-20 18:49+0000\n"
+"POT-Creation-Date: 2012-11-23 13:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,6 @@ msgstr "Ostoskori"
 msgid "Cart Article"
 msgstr "Ostoskorituote"
 
-#: ./browser/templates/cart-container.pt:12
 #: ./profiles/default/types/collective.cart.core.CartContainer.xml
 msgid "Cart Container"
 msgstr "Ostoskorikonteineri"
@@ -49,7 +48,7 @@ msgstr "Ostoskorikonteineri"
 msgid "Cart Default Workflow"
 msgstr "Oostoskori-oletusworkflow"
 
-#: ./browser/templates/cart-container.pt:26
+#: ./browser/templates/orders.pt:25
 msgid "Cart ID"
 msgstr "Ostoskoritunnus"
 
@@ -85,7 +84,7 @@ msgstr "Siirry ostoskoriin"
 msgid "ID"
 msgstr "Tunnus"
 
-#: ./browser/templates/cart-container.pt:28
+#: ./browser/templates/orders.pt:27
 msgid "Last Modified"
 msgstr "Viimeksi päivitetty"
 
@@ -118,7 +117,12 @@ msgstr "Tilattu"
 msgid "Ordered cart can be canceled or paid."
 msgstr "Tilattu ostoskori voi perua tai maksaa."
 
-#: ./browser/templates/cart-container.pt:29
+#: ./browser/templates/orders.pt:12
+#: ./profiles/default/actions.xml
+msgid "Orders"
+msgstr "Tilaukset"
+
+#: ./browser/templates/orders.pt:28
 msgid "Owner"
 msgstr "Omistaja"
 
@@ -146,7 +150,11 @@ msgstr "Lähetetty"
 msgid "Shipped cart can be ..."
 msgstr "Lähetetty ostoskori voi ..."
 
-#: ./browser/templates/cart-container.pt:27
+#: ./profiles/default/actions.xml
+msgid "Show list of orders."
+msgstr "Näytä tilauksien lista."
+
+#: ./browser/templates/orders.pt:26
 msgid "State"
 msgstr "Tila"
 
@@ -170,7 +178,7 @@ msgstr "Lähetetty tilaan"
 msgid "The cart ID is already in use."
 msgstr "Sama ostoskoritunnus on jo olemassa."
 
-#: ./browser/templates/cart-container.pt:14
+#: ./browser/templates/orders.pt:14
 msgid "The next cart ID: ${next_cart_id}"
 msgstr "Seuraava ostoskoritunnus: ${next_cart_id}"
 
@@ -178,7 +186,7 @@ msgstr "Seuraava ostoskoritunnus: ${next_cart_id}"
 msgid "There are no articles within this cart."
 msgstr "Tässä ostoskorissa ei ole yhtään tuotetta."
 
-#: ./browser/templates/cart-container.pt:16
+#: ./browser/templates/orders.pt:16
 msgid "There are no carts."
 msgstr "Ei ole ostoskoria."
 

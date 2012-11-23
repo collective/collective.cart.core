@@ -1,6 +1,11 @@
 Change log
 ----------
 
+0.5.2.5 (2012-11-XX)
+====================
+
+- Added testing integration to Travis CI. [taito]
+
 0.5.2.4 (2012-11-21)
 ====================
 

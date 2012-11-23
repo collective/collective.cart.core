@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-20 18:49+0000\n"
+"POT-Creation-Date: 2012-11-23 13:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,6 @@ msgstr ""
 msgid "Cart Article"
 msgstr ""
 
-#: ./browser/templates/cart-container.pt:12
 #: ./profiles/default/types/collective.cart.core.CartContainer.xml
 msgid "Cart Container"
 msgstr ""
@@ -52,7 +51,7 @@ msgstr ""
 msgid "Cart Default Workflow"
 msgstr ""
 
-#: ./browser/templates/cart-container.pt:26
+#: ./browser/templates/orders.pt:25
 msgid "Cart ID"
 msgstr ""
 
@@ -88,7 +87,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: ./browser/templates/cart-container.pt:28
+#: ./browser/templates/orders.pt:27
 msgid "Last Modified"
 msgstr ""
 
@@ -121,7 +120,12 @@ msgstr ""
 msgid "Ordered cart can be canceled or paid."
 msgstr ""
 
-#: ./browser/templates/cart-container.pt:29
+#: ./browser/templates/orders.pt:12
+#: ./profiles/default/actions.xml
+msgid "Orders"
+msgstr ""
+
+#: ./browser/templates/orders.pt:28
 msgid "Owner"
 msgstr ""
 
@@ -149,7 +153,11 @@ msgstr ""
 msgid "Shipped cart can be ..."
 msgstr ""
 
-#: ./browser/templates/cart-container.pt:27
+#: ./profiles/default/actions.xml
+msgid "Show list of orders."
+msgstr ""
+
+#: ./browser/templates/orders.pt:26
 msgid "State"
 msgstr ""
 
@@ -173,7 +181,7 @@ msgstr ""
 msgid "The cart ID is already in use."
 msgstr ""
 
-#: ./browser/templates/cart-container.pt:14
+#: ./browser/templates/orders.pt:14
 msgid "The next cart ID: ${next_cart_id}"
 msgstr ""
 
@@ -181,7 +189,7 @@ msgstr ""
 msgid "There are no articles within this cart."
 msgstr ""
 
-#: ./browser/templates/cart-container.pt:16
+#: ./browser/templates/orders.pt:16
 msgid "There are no carts."
 msgstr ""
 

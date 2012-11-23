@@ -12,7 +12,9 @@
     title="collective.cart.core: View Cart Content"
     />
 
-  <includeDependencies package="." />
+  <include package="five.pt"/>
+  <include package="plone.app.dexterity"/>
+  <include package="collective.behavior.salable"/>
   <grok:grok package="." />
   <i18n:registerTranslations directory="locales" />
 

@@ -6,10 +6,10 @@ import os
 
 long_description = (
     open("README.rst").read() + "\n" +
-    open(os.path.join("collective", "cart", "core", "docs", "INSTALL.rst")).read() + "\n" +
-    open(os.path.join("collective", "cart", "core", "docs", "HISTORY.rst")).read() + "\n" +
-    open(os.path.join("collective", "cart", "core", "docs", "CONTRIBUTORS.rst")).read() + "\n" +
-    open(os.path.join("collective", "cart", "core", "docs", "CREDITS.rst")).read())
+    open(os.path.join("src", "collective", "cart", "core", "docs", "INSTALL.rst")).read() + "\n" +
+    open(os.path.join("src", "collective", "cart", "core", "docs", "HISTORY.rst")).read() + "\n" +
+    open(os.path.join("src", "collective", "cart", "core", "docs", "CONTRIBUTORS.rst")).read() + "\n" +
+    open(os.path.join("src", "collective", "cart", "core", "docs", "CREDITS.rst")).read())
 
 
 setup(
@@ -17,8 +17,6 @@ setup(
     version='0.5.2.4',
     description="Yet another cart for Plone.",
     long_description=long_description,
-    # Get more strings from
-    # http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Framework :: Plone",
         "Framework :: Plone :: 4.2",
@@ -31,13 +29,16 @@ setup(
     author_email='taito.horiuchi@gmail.com',
     url='https://github.com/collective/collective.cart.core/',
     license='BSD',
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages('src', exclude=['ez_setup']),
+    package_dir={'': 'src'},
     namespace_packages=['collective', 'collective.cart'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
+        'Products.CMFPlone>=4.2',
         'collective.behavior.salable',
         'five.grok',
+        'five.pt',
         'hexagonit.testing',
         'plone.app.contentlisting',
         'plone.app.dexterity',
