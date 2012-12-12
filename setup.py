@@ -40,9 +40,7 @@ setup(
         'five.grok',
         'five.pt',
         'hexagonit.testing',
-        'plone.app.contentlisting',
         'plone.app.dexterity',
-        'plone.app.portlets',
         'plone.directives.form',
         'setuptools'],
     entry_points="""
