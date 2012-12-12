@@ -14,7 +14,7 @@ long_description = (
 
 setup(
     name='collective.cart.core',
-    version='0.5.2.6',
+    version='0.5.2.7',
     description="Yet another cart for Plone.",
     long_description=long_description,
     classifiers=[
@@ -35,7 +35,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'Products.CMFPlone>=4.2',
+        'Products.CMFPlone',
         'collective.behavior.salable',
         'five.grok',
         'five.pt',
