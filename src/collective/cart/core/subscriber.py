@@ -2,6 +2,7 @@ from Acquisition import aq_inner
 from Acquisition import aq_parent
 from Products.statusmessages.interfaces import IStatusMessage
 from collective.cart.core import _
+from collective.cart.core.interfaces import ICartArticle
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import IMakeShoppingSiteEvent
 from collective.cart.core.interfaces import IShoppingSite
@@ -11,6 +12,7 @@ from plone.dexterity.utils import createContentInContainer
 from zope.interface import noLongerProvides
 from zope.lifecycleevent import modified
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
+from Products.CMFCore.interfaces import IActionSucceededEvent
 
 
 @grok.subscribe(ICartContainer, IObjectRemovedEvent)
@@ -31,3 +33,12 @@ def add_cart_container(event):
             context, 'collective.cart.core.CartContainer',
             id="cart-container", title="Cart Container", checkConstraints=False)
         modified(container)
+
+
+@grok.subscribe(ICartArticle, IActionSucceededEvent)
+def set_state_canceled(context, event):
+    import pdb; pdb.set_trace()
+    article = ICartArticleAdapter(context).orig_article
+    if article:
+        IStock(article).add_stock(context.quantity)
+        modified(article)

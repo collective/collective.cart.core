@@ -120,7 +120,7 @@ class TestSetup(IntegrationTestCase):
 
     def test_metadata__version(self):
         setup = getToolByName(self.portal, 'portal_setup')
-        self.assertEqual(setup.getVersionForProfile('profile-collective.cart.core:default'), u'2')
+        self.assertEqual(setup.getVersionForProfile('profile-collective.cart.core:default'), u'3')
 
     def test_site_properties__types_not_searchable__collective_cart_core_CartContainer(self):
         properties = getToolByName(self.portal, 'portal_properties')
@@ -1037,17 +1037,12 @@ class TestSetup(IntegrationTestCase):
     def test_cart_default_workflow__transitions__created__title(self):
         workflow = self.get_workflow('cart_default_workflow')
         transition = workflow.transitions.created
-        self.assertEqual(transition.title, 'State to Created')
+        self.assertEqual(transition.title, 'State to created')
 
     def test_cart_default_workflow__transitions__created__trigger(self):
         workflow = self.get_workflow('cart_default_workflow')
         transition = workflow.transitions.created
         self.assertEqual(transition.trigger_type, 1)
-
-    def test_cart_default_workflow__transitions__created__description(self):
-        workflow = self.get_workflow('cart_default_workflow')
-        transition = workflow.transitions.created
-        self.assertEqual(transition.description, 'Created cart can be canceled or ordered.')
 
     def test_cart_default_workflow__transitions__created__action__category(self):
         workflow = self.get_workflow('cart_default_workflow')
@@ -1088,17 +1083,12 @@ class TestSetup(IntegrationTestCase):
     def test_cart_default_workflow__transitions__ordered__title(self):
         workflow = self.get_workflow('cart_default_workflow')
         transition = workflow.transitions.ordered
-        self.assertEqual(transition.title, 'State to Ordered')
+        self.assertEqual(transition.title, 'State to ordered')
 
     def test_cart_default_workflow__transitions__ordered__trigger(self):
         workflow = self.get_workflow('cart_default_workflow')
         transition = workflow.transitions.ordered
         self.assertEqual(transition.trigger_type, 1)
-
-    def test_cart_default_workflow__transitions__ordered__description(self):
-        workflow = self.get_workflow('cart_default_workflow')
-        transition = workflow.transitions.ordered
-        self.assertEqual(transition.description, 'Ordered cart can be canceled or paid.')
 
     def test_cart_default_workflow__transitions__ordered__action__category(self):
         workflow = self.get_workflow('cart_default_workflow')
@@ -1146,11 +1136,6 @@ class TestSetup(IntegrationTestCase):
         transition = workflow.transitions.paid
         self.assertEqual(transition.trigger_type, 1)
 
-    def test_cart_default_workflow__transitions__paid__description(self):
-        workflow = self.get_workflow('cart_default_workflow')
-        transition = workflow.transitions.paid
-        self.assertEqual(transition.description, 'Paid cart can be canceled or shipped.')
-
     def test_cart_default_workflow__transitions__paid__action__category(self):
         workflow = self.get_workflow('cart_default_workflow')
         transition = workflow.transitions.paid
@@ -1196,11 +1181,6 @@ class TestSetup(IntegrationTestCase):
         workflow = self.get_workflow('cart_default_workflow')
         transition = workflow.transitions.shipped
         self.assertEqual(transition.trigger_type, 1)
-
-    def test_cart_default_workflow__transitions__shipped__description(self):
-        workflow = self.get_workflow('cart_default_workflow')
-        transition = workflow.transitions.shipped
-        self.assertEqual(transition.description, 'Shipped cart can be ...')
 
     def test_cart_default_workflow__transitions__shipped__action__category(self):
         workflow = self.get_workflow('cart_default_workflow')

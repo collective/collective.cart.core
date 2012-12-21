@@ -23,4 +23,14 @@
     title="Reimport actions"
     />
 
+  <genericsetup:upgradeStep
+    description="Update workflow for collective.cart.core.Cart."
+    destination="3"
+    handler="collective.cart.core.upgrades.reimport_workflows"
+    profile="collective.cart.core:default"
+    sortkey="1"
+    source="2"
+    title="Reimport workflows"
+    />
+
 </configure>
