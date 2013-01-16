@@ -1,10 +1,12 @@
 Change log
 ----------
 
-0.5.2.9 (2012-12-xx)
+0.5.2.9 (2013-01-16)
 ====================
 
 - Updated workflows. [taito]
+- Added event subscriber to return stock to the original article
+  when state transit to cancel successfully. [taito]
 
 0.5.2.8 (2012-12-20)
 ====================
