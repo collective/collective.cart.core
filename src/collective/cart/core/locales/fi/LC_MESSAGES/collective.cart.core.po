@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-12-19 20:24+0000\n"
+"POT-Creation-Date: 2013-01-14 05:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,10 +21,6 @@ msgstr "Lisää koriin"
 #: ./profiles/default/types/collective.cart.core.Article.xml
 msgid "Article"
 msgstr "Tuote"
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Cancel the order"
-msgstr "Peru tilausta"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Canceled"
@@ -61,12 +57,12 @@ msgid "Cart is empty."
 msgstr "Ostoskori on tyhjä"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Created"
-msgstr "Luotu"
+msgid "Charged"
+msgstr "Laskutettu"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Created cart can be canceled or ordered."
-msgstr "Luotu ostoskori voi perua tai tilata."
+msgid "Created"
+msgstr "Luotu"
 
 #: ./browser/viewlets/cart-articles.pt:11
 msgid "Delete"
@@ -113,10 +109,6 @@ msgstr "Seuraavaan"
 msgid "Ordered"
 msgstr "Tilattu"
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Ordered cart can be canceled or paid."
-msgstr "Tilattu ostoskori voi perua tai maksaa."
-
 #: ./browser/templates/orders.pt:12
 #: ./profiles/default/actions.xml
 msgid "Orders"
@@ -130,10 +122,6 @@ msgstr "Omistaja"
 msgid "Paid"
 msgstr "Maksettu"
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Paid cart can be canceled or shipped."
-msgstr "Maksettu ostoskori voi perua tai ĺähettää."
-
 #: ./browser/viewlets/product_values.pt:6
 msgid "Price"
 msgstr "Hinta"
@@ -143,12 +131,12 @@ msgid "Quantity"
 msgstr "Määrä"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Shipped"
-msgstr "Lähetetty"
+msgid "Returned"
+msgstr "Palautettu"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Shipped cart can be ..."
-msgstr "Lähetetty ostoskori voi ..."
+msgid "Shipped"
+msgstr "Lähetetty"
 
 #: ./profiles/default/actions.xml
 msgid "Show list of orders."
@@ -159,20 +147,32 @@ msgid "State"
 msgstr "Tila"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "State to Created"
-msgstr "Luotu tilaan"
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "State to Ordered"
-msgstr "Tilattu tilaan"
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "State to Paid"
 msgstr "Maksettu tilaan"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to Returned"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "State to Shipped"
 msgstr "Lähetetty tilaan"
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to canceled"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to charged"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to created"
+msgstr ""
+
+#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+msgid "State to ordered"
+msgstr ""
 
 #: ./validator.py:26
 msgid "The cart ID is already in use."
@@ -190,7 +190,7 @@ msgstr "Tässä ostoskorissa ei ole yhtään tuotetta."
 msgid "There are no carts."
 msgstr "Ei ole ostoskoria."
 
-#: ./subscriber.py:22
+#: ./subscriber.py:27
 msgid "This container is no longer a shopping site."
 msgstr "Tämä konteineri ei enää ole kauppa."
 
