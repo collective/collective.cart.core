@@ -20,6 +20,7 @@
 
   <include package=".browser" />
   <include package=".portlets" />
+  <include package=".utility" />
 
   <genericsetup:registerProfile
     description="Installs the collective.cart.core package"

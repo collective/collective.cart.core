@@ -1,11 +1,6 @@
-from collective.cart.core.config import CURRENCY_DECIMAL
-from collective.cart.core.interfaces import IDecimalPlaces
 from collective.cart.core.interfaces import IPrice
-from collective.cart.core.interfaces import IPriceInString
-from collective.cart.core.interfaces import IPriceWithCurrency
 from decimal import Decimal
 from decimal import ROUND_HALF_UP
-from zope.component import getUtility
 from zope.interface import implements
 
 
@@ -50,42 +45,42 @@ decimal_price = Price("decimal")
 string_price = Price("string")
 
 
-class PriceInString(object):
+# class PriceInString(object):
 
-    implements(IPriceInString)
+#     implements(IPriceInString)
 
-    def __call__(self, price, currency="EUR", point='.'):
-        """Returns price in string."""
-        places = getUtility(IDecimalPlaces)(currency)
-        price = getUtility(IPrice, name="string")(price, places)
-        if point == ',':
-            price = price.replace('.', ',')
-        return price
-
-
-class PriceWithCurrency(object):
-
-    implements(IPriceWithCurrency)
-
-    def __call__(self, price, currency='EUR', position='front', point='.', symbol=None):
-        """Returns price with currency."""
-        places = getUtility(IDecimalPlaces)(currency)
-        price = getUtility(IPrice, name="string")(price, places)
-        if point == ',':
-            price = price.replace('.', ',')
-        symbol = symbol or currency
-        if position == 'front':
-            return '%s %s' % (symbol, price)
-        else:
-            return '%s %s' % (price, symbol)
+#     def __call__(self, price, currency="EUR", point='.'):
+#         """Returns price in string."""
+#         places = getUtility(IDecimalPlaces)(currency)
+#         price = getUtility(IPrice, name="string")(price, places)
+#         if point == ',':
+#             price = price.replace('.', ',')
+#         return price
 
 
-class DecimalPlaces(object):
-    implements(IDecimalPlaces)
+# class PriceWithCurrency(object):
 
-    def __call__(self, currency):
-        places = CURRENCY_DECIMAL.get(currency)
-        if places is not None:
-            return CURRENCY_DECIMAL.get(currency)
-        else:
-            return 2
+#     implements(IPriceWithCurrency)
+
+#     def __call__(self, price, currency='EUR', position='front', point='.', symbol=None):
+#         """Returns price with currency."""
+#         places = getUtility(IDecimalPlaces)(currency)
+#         price = getUtility(IPrice, name="string")(price, places)
+#         if point == ',':
+#             price = price.replace('.', ',')
+#         symbol = symbol or currency
+#         if position == 'front':
+#             return '%s %s' % (symbol, price)
+#         else:
+#             return '%s %s' % (price, symbol)
+
+
+# class DecimalPlaces(object):
+#     implements(IDecimalPlaces)
+
+#     def __call__(self, currency):
+#         places = CURRENCY_DECIMAL.get(currency)
+#         if places is not None:
+#             return CURRENCY_DECIMAL.get(currency)
+#         else:
+#             return 2

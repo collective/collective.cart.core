@@ -1,16 +1,16 @@
-from collective.cart.core.interfaces import IRegularExpression
-from collective.cart.core.interfaces import ISelectRange
-from zope.interface import implements
+# from collective.cart.core.interfaces import IRegularExpression
+# from collective.cart.core.interfaces import ISelectRange
+# from zope.interface import implements
 
-import re
+# import re
 
 
-class SelectRange(object):
-    implements(ISelectRange)
+# class SelectRange(object):
+#     implements(ISelectRange)
 
-    def __call__(self, number):
-        if number is not None and number > 0:
-            return range(1, number + 1)
+#     def __call__(self, number):
+#         if number is not None and number > 0:
+#             return range(1, number + 1)
 
 
 # class RandomDigits(object):
@@ -36,33 +36,33 @@ class SelectRange(object):
 #             return digits
 
 
-class RegularExpression(object):
+# class RegularExpression(object):
 
-    implements(IRegularExpression)
+#     implements(IRegularExpression)
 
-    def email(self, string):
-        check = re.compile(
-            r"[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z]{2,4}"
-        ).match
-        if check(string):
-            return True
-        else:
-            return False
+#     def email(self, string):
+#         check = re.compile(
+#             r"[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z]{2,4}"
+#         ).match
+#         if check(string):
+#             return True
+#         else:
+#             return False
 
-    def integer(self, string):
-        check = re.compile(
-            r"^[0-9]+$"
-        ).match
-        if check(string):
-            return True
-        else:
-            return False
+#     def integer(self, string):
+#         check = re.compile(
+#             r"^[0-9]+$"
+#         ).match
+#         if check(string):
+#             return True
+#         else:
+#             return False
 
-    def float(self, string):
-        if ',' in string:
-            string = string.replace(',', '.')
-        try:
-            float(string)
-            return True
-        except ValueError:
-            return False
+#     def float(self, string):
+#         if ',' in string:
+#             string = string.replace(',', '.')
+#         try:
+#             float(string)
+#             return True
+#         except ValueError:
+#             return False

@@ -108,3 +108,7 @@ class IMakeShoppingSiteEvent(Interface):
 
 class IUnmakeShoppingSiteEvent(Interface):
     """An event unmaking shopping site."""
+
+
+class IPrice(Interface):
+    """Utility interface for price."""
