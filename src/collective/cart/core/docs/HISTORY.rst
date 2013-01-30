@@ -1,6 +1,11 @@
 Change log
 ----------
 
+0.5.2.11 (2013-01-30)
+=====================
+
+- Moved subscriber: return_stock_to_original to collective.cart.shopping. [taito]
+
 0.5.2.10 (2013-01-30)
 =====================
 
