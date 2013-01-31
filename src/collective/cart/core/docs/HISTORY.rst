@@ -1,7 +1,7 @@
 Change log
 ----------
 
-0.5.2.12 (2013-01-xx)
+0.5.2.12 (2013-01-31)
 =====================
 
 - Moved get_action method to function. [taito]
