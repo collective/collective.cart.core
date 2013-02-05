@@ -20,6 +20,9 @@ class ICartContainer(form.Schema):
     def update_next_cart_id():  # pragma: no cover
         """Update next_cart_id"""
 
+    def clear_created(minutes):  # pragma: no cover
+        """Clear cart state with created if it is older than minutes"""
+
 
 class ICart(form.Schema):
     """Schema for Cart content type."""
@@ -68,6 +71,9 @@ class IShoppingSite(IBaseAdapter):
     cart_container = Attribute("Cart Container object of Shop Site Root.")
     cart = Attribute('Current Cart object.')
     cart_articles = Attribute('List of cart articles within current cart.')
+
+    def get_cart(cart_id):  # pragma: no cover
+        """Get cart by its id."""
 
     def get_cart_article(cid):  # pragma: no cover
         """Get cart article by cid."""

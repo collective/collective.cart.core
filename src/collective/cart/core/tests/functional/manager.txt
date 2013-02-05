@@ -29,13 +29,13 @@ Make Shopping Site::
     >>> browser.open('/cart-container')
     >>> print browser.bycss('#next-cart-id')
     --- 1 ---
-    <p id="next-cart-id">The next cart ID: 1</p>
+    <div class="documentDescription" id="next-cart-id">The next cart ID: 1</div>
 
-    >>> print browser.bycss('#no-carts')
+    >>> print browser.bycss('#no-orders')
     --- 1 ---
-    <p id="no-carts">There are no carts.</p>
+    <p id="no-orders">There are no orders.</p>
 
-    >>> print browser.bycss('#cart-list')
+    >>> print browser.bycss('#order-list')
 
 Unmake Shopping Site::
 
@@ -50,13 +50,13 @@ Unmake Shopping Site::
     >>> browser.open('/cart-container')
     >>> print browser.bycss('#next-cart-id')
     --- 1 ---
-    <p id="next-cart-id">The next cart ID: 1</p>
+    <div class="documentDescription" id="next-cart-id">The next cart ID: 1</div>
 
-    >>> print browser.bycss('#no-carts')
+    >>> print browser.bycss('#no-orders')
     --- 1 ---
-    <p id="no-carts">There are no carts.</p>
+    <p id="no-orders">There are no orders.</p>
 
-    >>> print browser.bycss('#cart-list')
+    >>> print browser.bycss('#order-list')
 
 Make Shopping Site once again::
 
@@ -165,22 +165,28 @@ Check Cart Container::
     >>> browser.open('/cart-container')
     >>> print browser.bycss('#next-cart-id')
     --- 1 ---
-    <p id="next-cart-id">The next cart ID: 2</p>
+    <div class="documentDescription" id="next-cart-id">The next cart ID: 2</div>
 
-    >>> print browser.bycss('#no-carts')
+    >>> print browser.bycss('#no-orders')
 
-    >>> print browser.bycss('#cart-list')
+    >>> print browser.bycss('#order-list')
     --- 1 ---
-    <table class="listing" id="cart-list"><thead><tr><th>Cart ID</th>
-    <th>State</th>
-    <th>Last Modified</th>
+    <table class="listing" id="order-list"><thead><tr><th>No.</th>
+    <th>Updated</th>
     <th>Owner</th>
+    <th>State</th>
+    <th>Change State</th>
     </tr></thead><tbody><tr><td class="cart-id">
     <a href="http://nohost/plone/cart-container/1">1</a>
     </td>
-    <td class="cart-state">Created</td>
-    <td class="cart-modified">...</td>
+    <td class="cart-updated">...</td>
     <td class="cart-owner">test_user_1_</td>
+    <td class="cart-state">Created</td>
+    <td>
+    <form id="transition" method="post" action="http://nohost/plone/cart-container">
+    <input name="cart-id" type="hidden" value="1"><button name="form.buttons.ChangeState" type="submit" value="canceled">Canceled</button>
+    </form>
+    </td>
     </tr></tbody></table>
 
     >>> browser.open('/cart-container/1')
@@ -243,7 +249,7 @@ Go to see Cart Container::
     >>> browser.open('/cart-container')
     >>> print browser.bycss('#next-cart-id')
     --- 1 ---
-    <p id="next-cart-id">The next cart ID: 2</p>
+    <div class="documentDescription" id="next-cart-id">The next cart ID: 2</div>
 
 Add Ärticle02::
 

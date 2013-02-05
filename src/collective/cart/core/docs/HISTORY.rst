@@ -1,6 +1,11 @@
 Change log
 ----------
 
+0.5.2.13 (2013-02-05)
+=====================
+
+- Automatically clean created, but not processed cart when visiting shop top. [taito]
+
 0.5.2.12 (2013-01-31)
 =====================
 

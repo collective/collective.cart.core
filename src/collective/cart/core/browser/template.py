@@ -6,6 +6,7 @@ from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from five import grok
+from zope.lifecycleevent import modified
 
 
 grok.templatedir('templates')
@@ -39,10 +40,6 @@ class OrdersView(BaseView):
     grok.require('collective.cart.core.ViewCartContent')
     grok.template('orders')
 
-    def update(self):
-        self.request.set('disable_plone.leftcolumn', True)
-        self.request.set('disable_plone.rightcolumn', True)
-
     @property
     def cart_container(self):
         if ICartContainer.providedBy(self.context):
@@ -54,7 +51,7 @@ class OrdersView(BaseView):
             result = []
             workflow = getToolByName(self.context, 'portal_workflow')
             adapter = ICartContainerAdapter(self.cart_container)
-            for item in adapter.get_content_listing(ICart):
+            for item in adapter.get_content_listing(ICart, sort_on="modified", sort_order="descending"):
                 res = {
                     'id': item.getId(),
                     'title': item.Title(),
@@ -62,9 +59,47 @@ class OrdersView(BaseView):
                     'state_title': workflow.getTitleForStateOnType(item.review_state(), item.portal_type),
                     'modified': adapter.localized_time(item),
                     'owner': item.Creator(),
+                    'transitions': self.transitions(item),
+                    'is_canceled': item.review_state() == 'canceled',
                 }
                 result.append(res)
             return result
+
+    def transitions(self, item):
+        workflow = getToolByName(self.context, 'portal_workflow')
+        obj = item.getObject()
+        res = []
+        for trans in workflow.getTransitionsFor(obj):
+            available = True
+            if item.review_state() == 'created' and trans['id'] != 'canceled':
+                available = False
+            res.append({
+                'id': trans['id'],
+                'name': trans['name'],
+                'available': available,
+            })
+        return res
+
+    def update(self):
+        self.request.set('disable_plone.leftcolumn', True)
+        self.request.set('disable_plone.rightcolumn', True)
+
+        form = self.request.form
+        if form.get('form.buttons.ClearCreated', None) is not None:
+            return ICartContainerAdapter(self.cart_container).clear_created()
+
+        value = form.get('form.buttons.ChangeState')
+        cart_id = form.get('cart-id')
+
+        if value is not None and cart_id is not None:
+            cart = IShoppingSite(self.context).get_cart(cart_id)
+            if cart:
+                workflow = getToolByName(self.context, 'portal_workflow')
+                workflow.doActionFor(cart, value)
+                modified(cart)
+
+        elif form.get('form.buttons.RemoveCart') is not None and cart_id is not None:
+            self.cart_container.manage_delObjects([cart_id])
 
 
 class CartContainerView(OrdersView):

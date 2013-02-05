@@ -60,6 +60,11 @@ class ShoppingSite(BaseAdapter):
         if self.cart:
             return ICartAdapter(self.cart).articles
 
+    def get_cart(self, cart_id):
+        """Get cart by its id."""
+        if self.cart_container:
+            return self.cart_container.get(cart_id)
+
     def get_cart_article(self, cid):
         if self.cart_articles:
             return ICartAdapter(self.cart).get_article(cid)

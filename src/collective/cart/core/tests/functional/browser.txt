@@ -31,11 +31,11 @@ Make Shopping Site::
     >>> browser.open('/cart-container')
     >>> print browser.bycss('#next-cart-id')
     --- 1 ---
-    <p id="next-cart-id">The next cart ID: 1</p>
+    <div class="documentDescription" id="next-cart-id">The next cart ID: 1</div>
 
-    >>> print browser.bycss('#no-carts')
+    >>> print browser.bycss('#no-orders')
     --- 1 ---
-    <p id="no-carts">There are no carts.</p>
+    <p id="no-orders">There are no orders.</p>
 
     >>> print browser.bycss('#cart-list')
 
@@ -387,6 +387,6 @@ Check Cart Container::
     >>> browser.open('/cart-container')
     >>> print browser.bycss('#next-cart-id')
     --- 1 ---
-    <p id="next-cart-id">The next cart ID: 4</p>
+    <div class="documentDescription" id="next-cart-id">The next cart ID: 4</div>
 
-    >>> print browser.bycss('#no-carts')
+    >>> print browser.bycss('#no-orders')

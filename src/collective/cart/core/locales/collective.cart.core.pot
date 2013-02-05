@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-01-31 04:04+0000\n"
+"POT-Creation-Date: 2013-02-05 16:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,10 +47,6 @@ msgstr ""
 msgid "Cart Default Workflow"
 msgstr ""
 
-#: ./browser/templates/orders.pt:25
-msgid "Cart ID"
-msgstr ""
-
 #: ./browser/templates/cart-content.pt:12
 msgid "Cart ID: ${cart_id}"
 msgstr ""
@@ -59,8 +55,16 @@ msgstr ""
 msgid "Cart is empty."
 msgstr ""
 
+#: ./browser/templates/orders.pt:39
+msgid "Change State"
+msgstr ""
+
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Charged"
+msgstr ""
+
+#: ./browser/templates/orders.pt:26
+msgid "Clear Created"
 msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
@@ -71,7 +75,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ./interfaces/__init__.py:28
+#: ./interfaces/__init__.py:31
 msgid "Description"
 msgstr ""
 
@@ -81,10 +85,6 @@ msgstr ""
 
 #: ./browser/viewlets/cart-content.pt:11
 msgid "ID"
-msgstr ""
-
-#: ./browser/templates/orders.pt:27
-msgid "Last Modified"
 msgstr ""
 
 #: ./profiles/default/actions.xml
@@ -108,16 +108,20 @@ msgstr ""
 msgid "Next Step"
 msgstr ""
 
+#: ./browser/templates/orders.pt:35
+msgid "No."
+msgstr ""
+
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Ordered"
 msgstr ""
 
-#: ./browser/templates/orders.pt:12
+#: ./browser/templates/orders.pt:11
 #: ./profiles/default/actions.xml
 msgid "Orders"
 msgstr ""
 
-#: ./browser/templates/orders.pt:28
+#: ./browser/templates/orders.pt:37
 msgid "Owner"
 msgstr ""
 
@@ -145,7 +149,7 @@ msgstr ""
 msgid "Show list of orders."
 msgstr ""
 
-#: ./browser/templates/orders.pt:26
+#: ./browser/templates/orders.pt:38
 msgid "State"
 msgstr ""
 
@@ -181,7 +185,7 @@ msgstr ""
 msgid "The cart ID is already in use."
 msgstr ""
 
-#: ./browser/templates/orders.pt:14
+#: ./browser/templates/orders.pt:13
 msgid "The next cart ID: ${next_cart_id}"
 msgstr ""
 
@@ -189,8 +193,8 @@ msgstr ""
 msgid "There are no articles within this cart."
 msgstr ""
 
-#: ./browser/templates/orders.pt:16
-msgid "There are no carts."
+#: ./browser/templates/orders.pt:15
+msgid "There are no orders."
 msgstr ""
 
 #: ./subscriber.py:22
@@ -203,5 +207,9 @@ msgstr ""
 
 #: ./profiles/default/actions.xml
 msgid "Unmake this container shopping site."
+msgstr ""
+
+#: ./browser/templates/orders.pt:36
+msgid "Updated"
 msgstr ""
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-01-31 04:04+0000\n"
+"POT-Creation-Date: 2013-02-05 16:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,10 +44,6 @@ msgstr "Ostoskorikonteineri"
 msgid "Cart Default Workflow"
 msgstr "Oostoskori-oletusworkflow"
 
-#: ./browser/templates/orders.pt:25
-msgid "Cart ID"
-msgstr "Ostoskoritunnus"
-
 #: ./browser/templates/cart-content.pt:12
 msgid "Cart ID: ${cart_id}"
 msgstr "Ostoskoritunnus: ${cart_id}"
@@ -56,9 +52,17 @@ msgstr "Ostoskoritunnus: ${cart_id}"
 msgid "Cart is empty."
 msgstr "Ostoskori on tyhjä"
 
+#: ./browser/templates/orders.pt:39
+msgid "Change State"
+msgstr "Muuta tilaa"
+
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Charged"
 msgstr "Laskutettu"
+
+#: ./browser/templates/orders.pt:26
+msgid "Clear Created"
+msgstr "Poista luotu"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Created"
@@ -68,7 +72,7 @@ msgstr "Luotu"
 msgid "Delete"
 msgstr "Poista"
 
-#: ./interfaces/__init__.py:28
+#: ./interfaces/__init__.py:31
 msgid "Description"
 msgstr "Kuvaus"
 
@@ -79,10 +83,6 @@ msgstr "Siirry ostoskoriin"
 #: ./browser/viewlets/cart-content.pt:11
 msgid "ID"
 msgstr "Tunnus"
-
-#: ./browser/templates/orders.pt:27
-msgid "Last Modified"
-msgstr "Viimeksi päivitetty"
 
 #: ./profiles/default/actions.xml
 msgid "Make Shopping Site"
@@ -105,16 +105,20 @@ msgstr "Seuraava ostoskoritunnus"
 msgid "Next Step"
 msgstr "Seuraavaan"
 
+#: ./browser/templates/orders.pt:35
+msgid "No."
+msgstr "Nr."
+
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Ordered"
 msgstr "Tilattu"
 
-#: ./browser/templates/orders.pt:12
+#: ./browser/templates/orders.pt:11
 #: ./profiles/default/actions.xml
 msgid "Orders"
 msgstr "Tilaukset"
 
-#: ./browser/templates/orders.pt:28
+#: ./browser/templates/orders.pt:37
 msgid "Owner"
 msgstr "Omistaja"
 
@@ -142,7 +146,7 @@ msgstr "Lähetetty"
 msgid "Show list of orders."
 msgstr "Näytä tilauksien lista."
 
-#: ./browser/templates/orders.pt:26
+#: ./browser/templates/orders.pt:38
 msgid "State"
 msgstr "Tila"
 
@@ -152,7 +156,7 @@ msgstr "Maksettu tilaan"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "State to Returned"
-msgstr ""
+msgstr "Palautettu tilaan"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "State to Shipped"
@@ -160,25 +164,25 @@ msgstr "Lähetetty tilaan"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "State to canceled"
-msgstr ""
+msgstr "Peruttu tilaan"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "State to charged"
-msgstr ""
+msgstr "Laskutettu tilaan"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "State to created"
-msgstr ""
+msgstr "Luotu tilaan"
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "State to ordered"
-msgstr ""
+msgstr "Tilattu tilaan"
 
 #: ./validator.py:26
 msgid "The cart ID is already in use."
 msgstr "Sama ostoskoritunnus on jo olemassa."
 
-#: ./browser/templates/orders.pt:14
+#: ./browser/templates/orders.pt:13
 msgid "The next cart ID: ${next_cart_id}"
 msgstr "Seuraava ostoskoritunnus: ${next_cart_id}"
 
@@ -186,9 +190,9 @@ msgstr "Seuraava ostoskoritunnus: ${next_cart_id}"
 msgid "There are no articles within this cart."
 msgstr "Tässä ostoskorissa ei ole yhtään tuotetta."
 
-#: ./browser/templates/orders.pt:16
-msgid "There are no carts."
-msgstr "Ei ole ostoskoria."
+#: ./browser/templates/orders.pt:15
+msgid "There are no orders."
+msgstr "Ei ole tilausta."
 
 #: ./subscriber.py:22
 msgid "This container is no longer a shopping site."
@@ -201,4 +205,8 @@ msgstr "Lopeta kauppa"
 #: ./profiles/default/actions.xml
 msgid "Unmake this container shopping site."
 msgstr "Otetaan tästä konteinerista kauppa ominaisuus pois."
+
+#: ./browser/templates/orders.pt:36
+msgid "Updated"
+msgstr "Päivitetty"
 
