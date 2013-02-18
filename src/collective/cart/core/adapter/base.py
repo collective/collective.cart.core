@@ -29,6 +29,16 @@ class BaseAdapter(grok.Adapter):
         query['path'] = path
         return self._catalog()(query)
 
+    def get_brain(self, interface=None, **query):
+        brains = self.get_brains(interface=interface, **query)
+        if brains:
+            return brains[0]
+
+    def get_object(self, interface=None, **query):
+        brain = self.get_brain(interface=interface, **query)
+        if brain:
+            return brain.getObject()
+
     def get_content_listing(self, interface=None, **query):
         return IContentListing(self.get_brains(interface, **query))
 

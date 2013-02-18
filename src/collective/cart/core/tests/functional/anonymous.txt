@@ -49,6 +49,10 @@ Check cart::
 
     >>> browser.open('/@@cart')
     >>> print browser.bycss('.name')
+    --- 1 ---
+    <td class="name">
+    <a href="http://nohost/plone/article01">&#196;rticle01</a>
+    </td>
 
     >>> 'Cart is empty' in browser.contents
-    True
+    False

@@ -61,11 +61,11 @@ Go to Cart Container::
     >>> 'Insufficient Privileges' in browser.contents
     True
 
-Go to Cart::
+# Go to Cart::
 
-    >>> browser.open('/cart-container/1')
-    >>> 'Insufficient Privileges' in browser.contents
-    True
+#     >>> browser.open('/cart-container/1')
+#     >>> 'Insufficient Privileges' in browser.contents
+#     True
 
 Check cart::
 
@@ -107,14 +107,13 @@ Log out and log in as member1::
     >>> browser.getLink('Log out').click()
     >>> browser.login(member1, member1)
 
-There should be Ärticle01 in cart.::
+The session is invalidated::
 
     >>> browser.open('/@@cart')
     >>> print browser.bycss('.name')
-    --- 1 ---
-    <td class="name">
-    <a href="http://nohost/plone/article01">&#196;rticle01</a>
-    </td>
+
+    >>> 'Cart is empty' in browser.contents
+    True
 
 Add Ärticle01::
 
@@ -168,44 +167,34 @@ Log out, log in as admin, remove Article02::
     >>> 'rticle02 has been deleted.' in browser.contents
     True
 
-Log out, log in as member1 and go to cart::
+Log out, log in as member1 invalidates cart::
 
     >>> browser.getLink('Log out').click()
     >>> browser.login(member1, member1)
+    >>> browser.open('/@@cart')
+    >>> print browser.bycss('.name')
+
+Add Ärticle01::
+
+    >>> browser.open('/article01')
+    >>> browser.getControl(name="form.addtocart").click()
+
     >>> browser.open('/@@cart')
     >>> print browser.bycss('.name')
     --- 1 ---
     <td class="name">
     <a href="http://nohost/plone/article01">&#196;rticle01</a>
     </td>
-    --- 2 ---
-    <td class="name">
-    &#196;rticle02
-    </td>
 
     >>> print browser.bycss('.remove')
     --- 1 ---
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="1">Delete</button>
-    </td>
-    --- 2 ---
-    <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="2">Delete</button>
-    </td>
-
-Delete Article02::
-
-    >>> browser.getControl(name="form.delete.article", index=1).click()
-    >>> print browser.bycss('.name')
-    --- 1 ---
-    <td class="name">
-    <a href="http://nohost/plone/article01">&#196;rticle01</a>
+    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
     </td>
 
 Delete Article01::
 
     >>> browser.getControl(name="form.delete.article").click()
-
     >>> print browser.bycss('.name')
 
     >>> browser.open('/@@cart')

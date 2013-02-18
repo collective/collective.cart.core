@@ -151,8 +151,8 @@ Add Article01 To Cart::
     True
     >>> browser.getControl(name="form.addtocart").click()
 
-    >>> portal['cart-container']['1']
-    <Container at /plone/cart-container/1>
+    # >>> portal['cart-container']['1']
+    # <Container at /plone/cart-container/1>
 
 Check cart::
 
@@ -173,16 +173,16 @@ Go to Cart Container and save next cart ID with existing cart ID::
     >>> browser.getControl(name="form.widgets.next_cart_id").value = '1'
     >>> browser.getControl(name="form.buttons.save").click()
 
-    >>> 'The cart ID is already in use.' in browser.contents
-    True
+    # >>> 'The cart ID is already in use.' in browser.contents
+    # True
 
-Save with non-existing cart ID:
+# Save with non-existing cart ID:
 
-    >>> browser.getControl(name="form.widgets.next_cart_id").value = '2'
-    >>> browser.getControl(name="form.buttons.save").click()
+#     >>> browser.getControl(name="form.widgets.next_cart_id").value = '2'
+#     >>> browser.getControl(name="form.buttons.save").click()
 
-    >>> 'The cart ID is already in use.' in browser.contents
-    False
+    # >>> 'The cart ID is already in use.' in browser.contents
+    # False
 
 Log out::
 
@@ -221,172 +221,172 @@ Log out::
 
     >>> browser.getLink('Log out').click()
 
-Log in as admin::
+# Log in as admin::
 
-    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+#     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
 
-Go to see Cart Container::
+# Go to see Cart Container::
 
-    >>> browser.open('/cart-container/edit')
-    >>> 'value="3"' in browser.contents
-    True
+#     >>> browser.open('/cart-container/edit')
+#     >>> 'value="3"' in browser.contents
+#     True
 
-    >>> portal['cart-container']['2']
-    <Container at /plone/cart-container/2>
+#     >>> portal['cart-container']['2']
+#     <Container at /plone/cart-container/2>
 
-Log out and log in as member1 again::
+# Log out and log in as member1 again::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member1, member1)
+#     >>> browser.getLink('Log out').click()
+#     >>> browser.login(member1, member1)
 
-Go to Article and add it again::
+# Go to Article and add it again::
 
-    >>> browser.open('/article01')
-    >>> browser.getControl(name="form.addtocart").click()
+#     >>> browser.open('/article01')
+#     >>> browser.getControl(name="form.addtocart").click()
 
-    >>> portal['cart-container']['3']
-    Traceback (most recent call last):
-    ...
-    KeyError: '3'
+#     >>> portal['cart-container']['3']
+#     Traceback (most recent call last):
+#     ...
+#     KeyError: '3'
 
-    >>> portal['cart-container']['2']['1']
-    <Container at /plone/cart-container/2/1>
+#     >>> portal['cart-container']['2']['1']
+#     <Container at /plone/cart-container/2/1>
 
-    >>> portal['cart-container']['2']['2']
-    Traceback (most recent call last):
-    ...
-    KeyError: '2'
+#     >>> portal['cart-container']['2']['2']
+#     Traceback (most recent call last):
+#     ...
+#     KeyError: '2'
 
-Log out and log in as member2::
+# Log out and log in as member2::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member2, member2)
+#     >>> browser.getLink('Log out').click()
+#     >>> browser.login(member2, member2)
 
-Cart should be empty::
+# Cart should be empty::
 
-    >>> browser.open('/@@cart')
-    >>> 'Cart is empty' in browser.contents
-    True
+#     >>> browser.open('/@@cart')
+#     >>> 'Cart is empty' in browser.contents
+#     True
 
-Go to Article and add it::
+# Go to Article and add it::
 
-    >>> browser.open('/article01')
-    >>> browser.getControl(name="form.addtocart").click()
+#     >>> browser.open('/article01')
+#     >>> browser.getControl(name="form.addtocart").click()
 
-    >>> portal['cart-container']['3']
-    <Container at /plone/cart-container/3>
+#     >>> portal['cart-container']['3']
+#     <Container at /plone/cart-container/3>
 
-Log out and log in as member1 again::
+# Log out and log in as member1 again::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member1, member1)
+#     >>> browser.getLink('Log out').click()
+#     >>> browser.login(member1, member1)
 
-Go to Article and add it again::
+# Go to Article and add it again::
 
-    >>> browser.open('/article01')
-    >>> browser.getControl(name="form.addtocart").click()
+#     >>> browser.open('/article01')
+#     >>> browser.getControl(name="form.addtocart").click()
 
-    >>> portal['cart-container']['4']
-    Traceback (most recent call last):
-    ...
-    KeyError: '4'
+#     >>> portal['cart-container']['4']
+#     Traceback (most recent call last):
+#     ...
+#     KeyError: '4'
 
-Log out, log in as adming and add Article01::
+# Log out, log in as adming and add Article01::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
-    >>> browser.open('/++add++collective.cart.core.Article')
-    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Article02'
-    >>> browser.getControl(name="form.widgets.IDublinCore.description").value = 'Description of Article02'
-    >>> browser.getControl(name="form.buttons.save").click()
+#     >>> browser.getLink('Log out').click()
+#     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+#     >>> browser.open('/++add++collective.cart.core.Article')
+#     >>> browser.getControl(name="form.widgets.IDublinCore.title").value = 'Article02'
+#     >>> browser.getControl(name="form.widgets.IDublinCore.description").value = 'Description of Article02'
+#     >>> browser.getControl(name="form.buttons.save").click()
 
-Publish the Article::
+# Publish the Article::
 
-    >>> browser.getLink('Publish').click()
+#     >>> browser.getLink('Publish').click()
 
-Log out, log in as member1 and add Article02 to Cart::
+# Log out, log in as member1 and add Article02 to Cart::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member1, member1)
-    >>> browser.open('/article02')
-    >>> browser.getControl(name="form.addtocart").click()
+#     >>> browser.getLink('Log out').click()
+#     >>> browser.login(member1, member1)
+#     >>> browser.open('/article02')
+#     >>> browser.getControl(name="form.addtocart").click()
 
-Check cart::
+# Check cart::
 
-    >>> browser.open('/@@cart')
-    >>> print browser.bycss('.name')
-    --- 1 ---
-    <td class="name">
-    <a href="http://nohost/plone/article01">Article01</a>
-    </td>
-    --- 2 ---
-    <td class="name">
-    <a href="http://nohost/plone/article02">Article02</a>
-    </td>
+#     >>> browser.open('/@@cart')
+#     >>> print browser.bycss('.name')
+#     --- 1 ---
+#     <td class="name">
+#     <a href="http://nohost/plone/article01">Article01</a>
+#     </td>
+#     --- 2 ---
+#     <td class="name">
+#     <a href="http://nohost/plone/article02">Article02</a>
+#     </td>
 
-Log out, log in as admin, remove Article02::
+# Log out, log in as admin, remove Article02::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
-    >>> browser.open('/article02/delete_confirmation')
-    >>> browser.getControl('Delete').click()
+#     >>> browser.getLink('Log out').click()
+#     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+#     >>> browser.open('/article02/delete_confirmation')
+#     >>> browser.getControl('Delete').click()
 
-    >>> 'Article02 has been deleted.' in browser.contents
-    True
+#     >>> 'Article02 has been deleted.' in browser.contents
+#     True
 
-Log out, log in as member1 and go to cart::
+# Log out, log in as member1 and go to cart::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(member1, member1)
-    >>> browser.open('/@@cart')
-    >>> print browser.bycss('.name')
-    --- 1 ---
-    <td class="name">
-    <a href="http://nohost/plone/article01">Article01</a>
-    </td>
-    --- 2 ---
-    <td class="name">
-    Article02
-    </td>
+#     >>> browser.getLink('Log out').click()
+#     >>> browser.login(member1, member1)
+#     >>> browser.open('/@@cart')
+#     >>> print browser.bycss('.name')
+#     --- 1 ---
+#     <td class="name">
+#     <a href="http://nohost/plone/article01">Article01</a>
+#     </td>
+#     --- 2 ---
+#     <td class="name">
+#     Article02
+#     </td>
 
-    >>> print browser.bycss('.remove')
-    --- 1 ---
-    <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="1">Delete</button>
-    </td>
-    --- 2 ---
-    <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="2">Delete</button>
-    </td>
+#     >>> print browser.bycss('.remove')
+#     --- 1 ---
+#     <td class="remove">
+#     <button class="standalone" name="form.delete.article" type="submit" value="1">Delete</button>
+#     </td>
+#     --- 2 ---
+#     <td class="remove">
+#     <button class="standalone" name="form.delete.article" type="submit" value="2">Delete</button>
+#     </td>
 
-Delete Article02::
+# Delete Article02::
 
-    >>> browser.getControl(name="form.delete.article", index=1).click()
-    >>> print browser.bycss('.name')
-    --- 1 ---
-    <td class="name">
-    <a href="http://nohost/plone/article01">Article01</a>
-    </td>
+#     >>> browser.getControl(name="form.delete.article", index=1).click()
+#     >>> print browser.bycss('.name')
+#     --- 1 ---
+#     <td class="name">
+#     <a href="http://nohost/plone/article01">Article01</a>
+#     </td>
 
-Delete Article01::
+# Delete Article01::
 
-    >>> browser.getControl(name="form.delete.article").click()
+#     >>> browser.getControl(name="form.delete.article").click()
 
-    >>> print browser.bycss('.name')
+#     >>> print browser.bycss('.name')
 
-    >>> browser.open('/@@cart')
+#     >>> browser.open('/@@cart')
 
-    >>> 'Cart is empty' in browser.contents
-    True
+#     >>> 'Cart is empty' in browser.contents
+#     True
 
-Check Cart Container::
+# Check Cart Container::
 
-    >>> browser.getLink('Log out').click()
-    >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+#     >>> browser.getLink('Log out').click()
+#     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
 
-    >>> browser.open('/cart-container')
-    >>> print browser.bycss('#next-cart-id')
-    --- 1 ---
-    <div class="documentDescription" id="next-cart-id">The next cart ID: 4</div>
+#     >>> browser.open('/cart-container')
+#     >>> print browser.bycss('#next-cart-id')
+#     --- 1 ---
+#     <div class="documentDescription" id="next-cart-id">The next cart ID: 4</div>
 
-    >>> print browser.bycss('#no-orders')
+#     >>> print browser.bycss('#no-orders')

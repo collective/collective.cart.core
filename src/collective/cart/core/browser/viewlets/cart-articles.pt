@@ -40,7 +40,7 @@
               i18n:translate=""
               name="form.delete.article"
               type="submit"
-              tal:attributes="value item/id"
+              tal:attributes="value item/uuid"
               value="form.delete.article"
               >
               Delete

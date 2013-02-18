@@ -35,10 +35,16 @@ class ICart(form.Schema):
 class IBaseAdapter(Interface):
     """Base interface for adapters"""
 
-    def get_brains(self, interface, **query):
+    def get_brains(interface, **query):
         """Get brains which provides interface under the context."""
 
-    def get_content_listing(self, interface, **query):
+    def get_brain(interface, **query):
+        """Get one brain which provides interface under the context."""
+
+    def get_object(interface, **query):
+        """Get one object which provides interface under the context."""
+
+    def get_content_listing(interface, **query):
         """Get ContentListing from brains gotten from get_brains method."""
 
     def localized_time(item, long_format=False):
@@ -70,13 +76,14 @@ class IShoppingSite(IBaseAdapter):
     shop = Attribute("Shop Site Root object.")
     cart_container = Attribute("Cart Container object of Shop Site Root.")
     cart = Attribute('Current Cart object.')
-    cart_articles = Attribute('List of cart articles within current cart.')
+    cart_articles = Attribute('List of ordered dictionary of cart articles.')
+    cart_article_listing = Attribute('List of cart articles for views.')
 
     def get_cart(cart_id):  # pragma: no cover
         """Get cart by its id."""
 
-    def get_cart_article(cid):  # pragma: no cover
-        """Get cart article by cid."""
+    def get_cart_article(uuid):  # pragma: no cover
+        """Get cart article by uuid."""
 
     def update_next_cart_id():  # pragma: no cover
         """Update next cart ID for the cart container."""
@@ -118,3 +125,7 @@ class IUnmakeShoppingSiteEvent(Interface):
 
 class IPrice(Interface):
     """Utility interface for price."""
+
+
+class ISessionCart(Interface):
+    """Interface for cart in session."""

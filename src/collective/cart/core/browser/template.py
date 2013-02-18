@@ -20,19 +20,45 @@ class BaseView(grok.View):
     grok.require('zope2.View')
 
 
-class CartView(BaseView):
-    """Cart View"""
-    grok.name('cart')
-    grok.template('cart')
+class BaseCheckOutView(BaseView):
+    """Base class for check out view"""
+    grok.baseclass()
 
     def update(self):
         self.request.set('disable_border', True)
-        super(CartView, self).update()
+
+        articles = self.cart_articles
+        if articles:
+            number_of_articles = len(articles)
+            for key in articles:
+                if not self.shopping_site.get_brain(UID=key):
+                    del articles[key]
+
+            if len(articles) != number_of_articles:
+                session_data_manager = getToolByName(self.context, 'session_data_manager')
+                session = session_data_manager.getSessionData(create=False)
+                session.set('collective.cart.core', {'articles': articles})
+
+    @property
+    def shopping_site(self):
+        return IShoppingSite(self.context)
 
     @property
     def cart_articles(self):
         """List of CartArticles within cart."""
-        return IShoppingSite(self.context).cart_articles
+        return self.shopping_site.cart_articles
+
+    # @property
+    # def has_cart_articles(self):
+    #     if self.cart_articles:
+    #         import pdb; pdb.set_trace()
+    #         return len(self.cart_articles)
+
+
+class CartView(BaseCheckOutView):
+    """Cart View"""
+    grok.name('cart')
+    grok.template('cart')
 
 
 class OrdersView(BaseView):

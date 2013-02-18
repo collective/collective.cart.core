@@ -55,42 +55,18 @@ class CartArticlesViewlet(grok.Viewlet):
 
     def update(self):
         form = self.request.form
-        oid = form.get('form.delete.article', None)
-        if oid is not None:
-            IShoppingSite(self.context).remove_cart_articles(oid)
+        uuid = form.get('form.delete.article', None)
+        if uuid is not None:
+            IShoppingSite(self.context).remove_cart_articles(uuid)
             if self.view.cart_articles:
                 return self.render()
             else:
                 return self.request.response.redirect(self.view.url())
 
-    def _items(self, item):
-        """Returns dictionary of content listing items.
-
-        :param item: Iterated object of IContentListing.
-        :type item: plone.app.contentlisting.catalog.CatalogContentListingObject
-
-        :rtype dict:
-        """
-        items = {
-            'id': item.getId(),
-            'title': item.Title(),
-            'description': item.Description(),
-            'url': None,
-        }
-        # If the original object still exists.
-        obj = item.getObject()
-        orig_article = ICartArticleAdapter(obj).orig_article
-        if orig_article:
-            items['url'] = orig_article.absolute_url()
-        return items
-
     @property
     def articles(self):
         """Returns list of articles to show in cart."""
-        results = []
-        for item in IContentListing(self.view.cart_articles):
-            results.append(self._items(item))
-        return results
+        return IShoppingSite(self.context).cart_article_listing
 
 
 class CartContentViewletManager(OrderedViewletManager, grok.ViewletManager):
