@@ -9,8 +9,10 @@ from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from five import grok
+from plone.dexterity.utils import createContentInContainer
 from zope.component import getMultiAdapter
 from zope.interface import Interface
+from zope.lifecycleevent import modified
 
 
 class ShoppingSite(BaseAdapter):
@@ -40,7 +42,7 @@ class ShoppingSite(BaseAdapter):
 
     @property
     def cart(self):
-        """Returns current Cart object."""
+        """Returns current cart in session."""
         # return self._member_cart
         session_data_manager = getToolByName(self.context, 'session_data_manager')
         session = session_data_manager.getSessionData(create=False)
@@ -105,3 +107,15 @@ class ShoppingSite(BaseAdapter):
             cart = session.get('collective.cart.core')
             cart['articles'] = articles
             session.set('collective.cart.core', cart)
+
+    def create_cart(self):
+        """Create cart instance from cart in session"""
+        container = self.cart_container
+        if self.cart_container:
+            oid = str(container.next_cart_id)
+            cart = createContentInContainer(
+                container, 'collective.cart.core.Cart', id=oid, checkConstraints=False)
+            modified(cart)
+            ICartContainerAdapter(container).update_next_cart_id()
+            # self._create_cart_article(cart, '1', **kwargs)
+

@@ -35,20 +35,20 @@ class ICart(form.Schema):
 class IBaseAdapter(Interface):
     """Base interface for adapters"""
 
-    def get_brains(interface, **query):
+    def get_brains(interface, **query):  # pragma: no cover
         """Get brains which provides interface under the context."""
 
-    def get_brain(interface, **query):
+    def get_brain(interface, **query):  # pragma: no cover
         """Get one brain which provides interface under the context."""
 
-    def get_object(interface, **query):
+    def get_object(interface, **query):  # pragma: no cover
         """Get one object which provides interface under the context."""
 
-    def get_content_listing(interface, **query):
+    def get_content_listing(interface, **query):  # pragma: no cover
         """Get ContentListing from brains gotten from get_brains method."""
 
-    def localized_time(item, long_format=False):
-        """Returns localized time."""
+    # def localized_time(item, long_format=False):
+    #     """Returns localized time."""
 
 
 class ICartAdapter(IBaseAdapter):
@@ -75,7 +75,7 @@ class IShoppingSite(IBaseAdapter):
 
     shop = Attribute("Shop Site Root object.")
     cart_container = Attribute("Cart Container object of Shop Site Root.")
-    cart = Attribute('Current Cart object.')
+    cart = Attribute('Current cart in session.')
     cart_articles = Attribute('List of ordered dictionary of cart articles.')
     cart_article_listing = Attribute('List of cart articles for views.')
 
@@ -90,6 +90,9 @@ class IShoppingSite(IBaseAdapter):
 
     def remove_cart_articles(ids):  # pragma: no cover
         """Remove articles of ids from current cart."""
+
+    def create_cart():  # pragma: no cover
+        """Create cart instance from cart in session."""
 
 
 class ICartContainerAdapter(IBaseAdapter):
