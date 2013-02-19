@@ -1,14 +1,11 @@
 from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
-from collective.cart.core.browser.base import BaseListingObject
+# from collective.cart.core.browser.base import BaseListingObject
 from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IArticleAdapter
 from collective.cart.core.interfaces import ICart
-from collective.cart.core.interfaces import ICartArticle
-from collective.cart.core.interfaces import ICartArticleAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from five import grok
-from plone.app.contentlisting.interfaces import IContentListing
 from plone.app.layout.globals.interfaces import IViewView
 from plone.app.layout.viewlets.interfaces import IBelowContentTitle
 from plone.app.viewletmanager.manager import OrderedViewletManager
@@ -76,7 +73,8 @@ class CartContentViewletManager(OrderedViewletManager, grok.ViewletManager):
     grok.name('collective.cart.core.cartcontentviewletmanager')
 
 
-class CartContentViewlet(grok.Viewlet, BaseListingObject):
+# class CartContentViewlet(grok.Viewlet, BaseListingObject):
+class CartContentViewlet(grok.Viewlet):
     """Viewlet to show cart content in cart container."""
     grok.context(ICart)
     grok.layer(ICollectiveCartCoreLayer)
@@ -85,20 +83,20 @@ class CartContentViewlet(grok.Viewlet, BaseListingObject):
     grok.template('cart-content')
     grok.viewletmanager(CartContentViewletManager)
 
-    @property
-    def articles(self):
-        """List of CartArticles within cart."""
-        result = []
-        for item in self._listing(ICartArticle):
-            res = {
-                'id': item.getId(),
-                'title': item.Title(),
-                'url': None,
-                'modification': self._localized_time(item),
-            }
-            obj = item.getObject()
-            article = ICartArticleAdapter(obj).orig_article
-            if article:
-                res['url'] = article.absolute_url()
-            result.append(res)
-        return result
+    # @property
+    # def articles(self):
+    #     """List of CartArticles within cart."""
+    #     result = []
+    #     for item in self._listing(ICartArticle):
+    #         res = {
+    #             'id': item.getId(),
+    #             'title': item.Title(),
+    #             'url': None,
+    #             'modification': self._localized_time(item),
+    #         }
+    #         obj = item.getObject()
+    #         article = ICartArticleAdapter(obj).orig_article
+    #         if article:
+    #             res['url'] = article.absolute_url()
+    #         result.append(res)
+    #     return result

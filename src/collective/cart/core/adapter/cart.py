@@ -18,6 +18,4 @@ class CartAdapter(BaseAdapter):
 
     def get_article(self, oid):
         """Get CartArticle form cart by ID."""
-        brains = self.get_brains(ICartArticle, id=oid)
-        if brains:
-            return brains[0].getObject()
+        return self.get_object(ICartArticle, id=oid)

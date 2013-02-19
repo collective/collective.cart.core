@@ -2,35 +2,22 @@ from collective.cart.core.tests.base import IntegrationTestCase
 from plone.dexterity.utils import createContentInContainer
 from zope.lifecycleevent import modified
 
-import unittest
 
-
-class ICartAdapterTestCase(unittest.TestCase):
-
-    def test_subclass(self):
-        from zope.interface import Interface
-        from collective.cart.core.interfaces import ICartAdapter
-        self.assertTrue(issubclass(ICartAdapter, Interface))
-
-    def test_articles(self):
-        from collective.cart.core.interfaces import ICartAdapter
-        self.assertEqual(ICartAdapter.get('articles').getDoc(),
-            'List of brains of CartArticle.')
-
-
-class CartAdapterTestSetup(IntegrationTestCase):
+class TestCartAdapter(IntegrationTestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
 
-    def test_subclass__CartAdapter(self):
+    def test_subclass(self):
+        from collective.cart.core.adapter.base import BaseAdapter
         from collective.cart.core.adapter.cart import CartAdapter
-        from five import grok
-        self.assertTrue(issubclass(CartAdapter, grok.Adapter))
+        self.assertTrue(issubclass(CartAdapter, BaseAdapter))
+        from collective.cart.core.interfaces import IBaseAdapter
+        from collective.cart.core.interfaces import ICartAdapter
+        self.assertTrue(issubclass(ICartAdapter, IBaseAdapter))
 
     def create_cart(self):
         """Create cart."""
-        # Create cart.
         cart = createContentInContainer(self.portal, 'collective.cart.core.Cart', id='1',
             checkConstraints=False)
         modified(cart)
@@ -41,6 +28,17 @@ class CartAdapterTestSetup(IntegrationTestCase):
         from collective.cart.core.interfaces import ICartAdapter
         cart = self.create_cart()
         self.assertIsInstance(ICartAdapter(cart), CartAdapter)
+
+    def test_instance__context(self):
+        from collective.cart.core.interfaces import ICart
+        from collective.cart.core.interfaces import ICartAdapter
+        cart = self.create_cart()
+        self.assertEqual(getattr(ICartAdapter(cart), 'grokcore.component.directive.context'), ICart)
+
+    def test_instance__provides(self):
+        from collective.cart.core.interfaces import ICartAdapter
+        cart = self.create_cart()
+        self.assertEqual(getattr(ICartAdapter(cart), 'grokcore.component.directive.provides'), ICartAdapter)
 
     def test_articles__None(self):
         """Test property: articles when there are no articles in the cart."""
@@ -53,9 +51,20 @@ class CartAdapterTestSetup(IntegrationTestCase):
         from collective.cart.core.interfaces import ICartAdapter
         cart = self.create_cart()
         article1 = createContentInContainer(cart, 'collective.cart.core.CartArticle',
-            id='article1', checkConstraints=False)
+            id='1', checkConstraints=False)
         modified(article1)
         article2 = createContentInContainer(cart, 'collective.cart.core.CartArticle',
-            id='article2', checkConstraints=False)
+            id='2', checkConstraints=False)
         modified(article2)
         self.assertEqual(len(ICartAdapter(cart).articles), 2)
+
+    def test_get_article(self):
+        from collective.cart.core.interfaces import ICartAdapter
+        cart = self.create_cart()
+        self.assertIsNone(ICartAdapter(cart).get_article('1'))
+
+        article1 = createContentInContainer(cart, 'collective.cart.core.CartArticle',
+            id='1', checkConstraints=False)
+        modified(article1)
+        self.assertIsNone(ICartAdapter(cart).get_article('2'))
+        self.assertEqual(ICartAdapter(cart).get_article('1'), article1)

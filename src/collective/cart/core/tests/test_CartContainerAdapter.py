@@ -6,6 +6,14 @@ class TestSetup(IntegrationTestCase):
     def setUp(self):
         self.portal = self.layer['portal']
 
+    def test_subclass(self):
+        from collective.cart.core.adapter.base import BaseAdapter
+        from collective.cart.core.adapter.cartcontainer import CartContainerAdapter
+        self.assertTrue(issubclass(CartContainerAdapter, BaseAdapter))
+        from collective.cart.core.interfaces import IBaseAdapter
+        from collective.cart.core.interfaces import ICartContainerAdapter
+        self.assertTrue(issubclass(ICartContainerAdapter, IBaseAdapter))
+
     def create_cart_container(self):
         from plone.dexterity.utils import createContentInContainer
         from zope.lifecycleevent import modified
@@ -13,6 +21,23 @@ class TestSetup(IntegrationTestCase):
             id="cart-container", title="Cart Container", checkConstraints=False)
         modified(container)
         return container
+
+    def test_instance(self):
+        from collective.cart.core.adapter.cartcontainer import CartContainerAdapter
+        from collective.cart.core.interfaces import ICartContainerAdapter
+        container = self.create_cart_container()
+        self.assertIsInstance(ICartContainerAdapter(container), CartContainerAdapter)
+
+    def test_instance__context(self):
+        from collective.cart.core.interfaces import ICartContainer
+        from collective.cart.core.interfaces import ICartContainerAdapter
+        container = self.create_cart_container()
+        self.assertEqual(getattr(ICartContainerAdapter(container), 'grokcore.component.directive.context'), ICartContainer)
+
+    def test_instance__provides(self):
+        from collective.cart.core.interfaces import ICartContainerAdapter
+        container = self.create_cart_container()
+        self.assertEqual(getattr(ICartContainerAdapter(container), 'grokcore.component.directive.provides'), ICartContainerAdapter)
 
     def test_update_next_cart_id(self):
         """Updating next_cart_id set one number added to the current next_cart_id."""

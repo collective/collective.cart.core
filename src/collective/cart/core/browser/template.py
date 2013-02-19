@@ -48,12 +48,6 @@ class BaseCheckOutView(BaseView):
         """List of CartArticles within cart."""
         return self.shopping_site.cart_articles
 
-    # @property
-    # def has_cart_articles(self):
-    #     if self.cart_articles:
-    #         import pdb; pdb.set_trace()
-    #         return len(self.cart_articles)
-
 
 class CartView(BaseCheckOutView):
     """Cart View"""

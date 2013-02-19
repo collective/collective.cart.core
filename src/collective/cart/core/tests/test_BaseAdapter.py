@@ -12,18 +12,18 @@ class TestBaseAdapter(IntegrationTestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
     def test_instance(self):
-        from collective.cart.core.interfaces import IBaseAdapter
         from collective.cart.core.adapter.base import BaseAdapter
-        self.assertIsInstance(IBaseAdapter(self.portal), BaseAdapter)
-
-    def test_instance__provides(self):
         from collective.cart.core.interfaces import IBaseAdapter
-        self.assertEqual(getattr(IBaseAdapter(self.portal), 'grokcore.component.directive.provides'), IBaseAdapter)
+        self.assertIsInstance(IBaseAdapter(self.portal), BaseAdapter)
 
     def test_instance__context(self):
         from collective.cart.core.interfaces import IBaseAdapter
         from zope.interface import Interface
         self.assertEqual(getattr(IBaseAdapter(self.portal), 'grokcore.component.directive.context'), Interface)
+
+    def test_instance__provides(self):
+        from collective.cart.core.interfaces import IBaseAdapter
+        self.assertEqual(getattr(IBaseAdapter(self.portal), 'grokcore.component.directive.provides'), IBaseAdapter)
 
     def create_doc(self, context=None, oid=None):
         if context is None:
@@ -72,7 +72,7 @@ class TestBaseAdapter(IntegrationTestCase):
         path = '/'.join(folder1.getPhysicalPath())
         self.create_doc(context=folder1)
         folder2 = self.create_folder(folder1, 'folder2')
-        folder3 = self.create_folder(folder2, 'folder3')
+        self.create_folder(folder2, 'folder3')
         from collective.cart.core.interfaces import IBaseAdapter
         from Products.ATContentTypes.interfaces.folder import IATFolder
         base = IBaseAdapter(self.portal)
@@ -81,7 +81,6 @@ class TestBaseAdapter(IntegrationTestCase):
         self.assertIn('folder2', ids)
         self.assertIn('doc', ids)
         self.assertIn('folder3', ids)
-
 
         ids = [brain.id for brain in base.get_brains(path=path, depth=0)]
         self.assertIn('folder1', ids)
@@ -105,7 +104,7 @@ class TestBaseAdapter(IntegrationTestCase):
         base.get_brains(interface=IATFolder, path=path, depth=1, sort_order="descending")
         base._catalog().assert_called_with({
             'object_provides': IATFolder.__identifier__,
-            'path': {'query': '/plone/folder1', 'depth':1},
+            'path': {'query': '/plone/folder1', 'depth': 1},
             'sort_order': 'descending'
         })
 

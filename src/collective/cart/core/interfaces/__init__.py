@@ -51,15 +51,6 @@ class IBaseAdapter(Interface):
     #     """Returns localized time."""
 
 
-class ICartAdapter(IBaseAdapter):
-    """Adapter interface for Cart."""
-
-    articles = Attribute('List of brains of CartArticle.')
-
-    def get_article(oid):
-        """Get CartArticle form cart by ID."""
-
-
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""
 
@@ -74,25 +65,27 @@ class IShoppingSite(IBaseAdapter):
     """Adapter Interface for Shopping Site."""
 
     shop = Attribute("Shop Site Root object.")
-    cart_container = Attribute("Cart Container object of Shop Site Root.")
+    cart_container = Attribute("Cart Container object located directly under Shop Site Root.")
     cart = Attribute('Current cart in session.')
-    cart_articles = Attribute('List of ordered dictionary of cart articles.')
-    cart_article_listing = Attribute('List of cart articles for views.')
-
-    def get_cart(cart_id):  # pragma: no cover
-        """Get cart by its id."""
+    cart_articles = Attribute('List of ordered dictionary of cart articles in session.')
+    cart_article_listing = Attribute('List of cart articles in session for views.')
 
     def get_cart_article(uuid):  # pragma: no cover
         """Get cart article by uuid."""
 
-    def update_next_cart_id():  # pragma: no cover
-        """Update next cart ID for the cart container."""
-
     def remove_cart_articles(ids):  # pragma: no cover
         """Remove articles of ids from current cart."""
 
-    def create_cart():  # pragma: no cover
-        """Create cart instance from cart in session."""
+    # CartContainer related methods comes here::
+
+    def get_cart(cart_id):  # pragma: no cover
+        """Get cart by its id."""
+
+    def update_next_cart_id():  # pragma: no cover
+        """Update next cart ID for the cart container."""
+
+    # def create_cart():  # pragma: no cover
+    #     """Create cart instance from cart in session."""
 
 
 class ICartContainerAdapter(IBaseAdapter):
@@ -102,20 +95,29 @@ class ICartContainerAdapter(IBaseAdapter):
         """Update next_cart_id based on numbering_method."""
 
 
-class IArticleAdapter(Interface):
-    """Adapter Interface for Article."""
+class ICartAdapter(IBaseAdapter):
+    """Adapter interface for Cart."""
 
-    addable_to_cart = Attribute('True if the Article is addable to cart.')
-    cart_articles = Attribute('Cart Article brains which is originally from this Article.')
+    articles = Attribute('List of brains of CartArticle.')
 
-    def add_to_cart():  # pragma: no cover
-        """Add Article to Cart."""
+    def get_article(oid):
+        """Get CartArticle form cart by ID."""
 
 
 class ICartArticleAdapter(IBaseAdapter):
     """Adapter Interface for CartArticle."""
 
     orig_article = Attribute('Originar Article object.')
+
+
+class IArticleAdapter(IBaseAdapter):
+    """Adapter Interface for Article."""
+
+    addable_to_cart = Attribute('True if the Article is addable to cart.')
+    # cart_articles = Attribute('Cart Article brains which is originally from this Article.')
+
+    def add_to_cart():  # pragma: no cover
+        """Add Article to Cart."""
 
 
 class IMakeShoppingSiteEvent(Interface):
