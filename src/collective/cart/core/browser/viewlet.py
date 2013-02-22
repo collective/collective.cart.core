@@ -14,12 +14,17 @@ from plone.app.viewletmanager.manager import OrderedViewletManager
 grok.templatedir('viewlets')
 
 
-class AddToCartViewlet(grok.Viewlet):
+class BaseViewlet(grok.Viewlet):
+    """Base class for all the viewlets"""
+    grok.baseclass()
+    grok.layer(ICollectiveCartCoreLayer)
+    grok.require('zope2.View')
+
+
+class AddToCartViewlet(BaseViewlet):
     """Viewlet to show add to cart form for salable article."""
     grok.context(IArticle)
-    grok.layer(ICollectiveCartCoreLayer)
     grok.name('collective.cart.core.add.to.cart')
-    grok.require('zope2.View')
     grok.template('add-to-cart')
     grok.view(IViewView)
     grok.viewletmanager(IBelowContentTitle)
@@ -30,6 +35,7 @@ class AddToCartViewlet(grok.Viewlet):
             IArticleAdapter(self.context).add_to_cart()
             return self.render()
 
+    @property
     def available(self):
         return IArticleAdapter(self.context).addable_to_cart
 

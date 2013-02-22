@@ -7,6 +7,10 @@ class TestBaseView(IntegrationTestCase):
     def setUp(self):
         self.portal = self.layer['portal']
 
+    def test_templatedir(self):
+        from collective.cart.core.browser import template
+        self.assertEqual(getattr(template, 'grokcore.view.directive.templatedir'), 'templates')
+
     def test_subclass(self):
         from five.grok import View
         from collective.cart.core.browser.template import BaseView
