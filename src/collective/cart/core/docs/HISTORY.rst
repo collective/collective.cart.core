@@ -5,6 +5,7 @@ Change log
 =====================
 
 - Updated cart to use session. [taito]
+- Covered tests. [taito]
 
 0.5.2.13 (2013-02-05)
 =====================

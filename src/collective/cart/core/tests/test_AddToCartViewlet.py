@@ -63,33 +63,17 @@ class TestAddToCartViewlet(IntegrationTestCase):
         instance = self.create_instance()
         self.assertEqual(instance.available, 'AVAILABLE')
 
+    @mock.patch('collective.cart.core.browser.viewlet.getMultiAdapter')
+    @mock.patch('collective.cart.core.browser.viewlet.IArticleAdapter')
+    def test_update(self, IArticleAdapter, getMultiAdapter):
+        instance = self.create_instance()
+        instance.request = mock.Mock()
+        instance.request.form = {}
+        instance.update()
+        self.assertFalse(IArticleAdapter().add_to_cart.called)
+        self.assertFalse(instance.request.response.redirect.called)
 
-
-
-
-
-
-
-
-
-
-
-
-# class AddToCartViewlet(grok.Viewlet):
-#     """Viewlet to show add to cart form for salable article."""
-#     grok.context(IArticle)
-#     grok.layer(ICollectiveCartCoreLayer)
-#     grok.name('collective.cart.core.add.to.cart')
-#     grok.require('zope2.View')
-#     grok.template('add-to-cart')
-#     grok.view(IViewView)
-#     grok.viewletmanager(IBelowContentTitle)
-
-#     def update(self):
-#         form = self.request.form
-#         if form.get('form.addtocart', None) is not None:
-#             IArticleAdapter(self.context).add_to_cart()
-#             return self.render()
-
-#     def available(self):
-#         return IArticleAdapter(self.context).addable_to_cart
+        instance.request.form = {'form.addtocart': True}
+        instance.update()
+        self.assertTrue(IArticleAdapter().add_to_cart.called)
+        self.assertTrue(instance.request.response.redirect.called)

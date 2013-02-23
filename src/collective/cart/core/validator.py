@@ -1,5 +1,5 @@
-from Products.CMFCore.utils import getToolByName
 from collective.cart.core import _
+from collective.cart.core.interfaces import IBaseAdapter
 from collective.cart.core.interfaces import ICartContainer
 from five import grok
 from z3c.form.validator import SimpleFieldValidator
@@ -14,14 +14,7 @@ class ValidateCartIDUniqueness(SimpleFieldValidator):
         super(ValidateCartIDUniqueness, self).validate(value)
 
         if value is not None:
-            catalog = getToolByName(self.context, 'portal_catalog')
-            brains = catalog({
-                'id': str(value),
-                'path': {
-                    'query': '/'.join(self.context.getPhysicalPath()),
-                    'depth': 1,
-                }
-            })
+            brains = IBaseAdapter(self.context).get_brains(depth=1, id=str(value))
             if brains:
                 raise Invalid(_(u'The cart ID is already in use.'))
 

@@ -3,12 +3,13 @@ from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
 from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IArticleAdapter
 from collective.cart.core.interfaces import ICart
-from collective.cart.core.interfaces import IShoppingSite
+# from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from five import grok
 from plone.app.layout.globals.interfaces import IViewView
 from plone.app.layout.viewlets.interfaces import IBelowContentTitle
 from plone.app.viewletmanager.manager import OrderedViewletManager
+from zope.component import getMultiAdapter
 
 
 grok.templatedir('viewlets')
@@ -33,7 +34,9 @@ class AddToCartViewlet(BaseViewlet):
         form = self.request.form
         if form.get('form.addtocart', None) is not None:
             IArticleAdapter(self.context).add_to_cart()
-            return self.render()
+            context_state = getMultiAdapter((self.context, self.request), name="plone_context_state")
+            return self.request.response.redirect(context_state.current_base_url())
+            # return self.render()
 
     @property
     def available(self):
@@ -47,12 +50,10 @@ class CartViewletManager(OrderedViewletManager, grok.ViewletManager):
     grok.name('collective.cart.core.cartviewletmanager')
 
 
-class CartArticlesViewlet(grok.Viewlet):
+class CartArticlesViewlet(BaseViewlet):
     """Cart Articles Viewlet Class."""
     grok.context(IShoppingSiteRoot)
-    grok.layer(ICollectiveCartCoreLayer)
     grok.name('collective.cart.core.cartarticles')
-    grok.require('zope2.View')
     grok.template('cart-articles')
     grok.viewletmanager(CartViewletManager)
 
@@ -60,16 +61,14 @@ class CartArticlesViewlet(grok.Viewlet):
         form = self.request.form
         uuid = form.get('form.delete.article', None)
         if uuid is not None:
-            IShoppingSite(self.context).remove_cart_articles(uuid)
-            if self.view.cart_articles:
-                return self.render()
-            else:
+            self.view.shopping_site.remove_cart_articles(uuid)
+            if not self.view.cart_articles:
                 return self.request.response.redirect(self.view.url())
 
     @property
     def articles(self):
         """Returns list of articles to show in cart."""
-        return IShoppingSite(self.context).cart_article_listing
+        return self.view.shopping_site.cart_article_listing
 
 
 class CartContentViewletManager(OrderedViewletManager, grok.ViewletManager):
@@ -80,12 +79,10 @@ class CartContentViewletManager(OrderedViewletManager, grok.ViewletManager):
 
 
 # class CartContentViewlet(grok.Viewlet, BaseListingObject):
-class CartContentViewlet(grok.Viewlet):
+class CartContentViewlet(BaseViewlet):
     """Viewlet to show cart content in cart container."""
     grok.context(ICart)
-    grok.layer(ICollectiveCartCoreLayer)
     grok.name('collective.cart.core.cart-content')
-    grok.require('zope2.View')
     grok.template('cart-content')
     grok.viewletmanager(CartContentViewletManager)
 

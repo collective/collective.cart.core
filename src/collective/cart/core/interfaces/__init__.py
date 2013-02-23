@@ -128,9 +128,5 @@ class IUnmakeShoppingSiteEvent(Interface):
     """An event unmaking shopping site."""
 
 
-class IPrice(Interface):
-    """Utility interface for price."""
-
-
 class ISessionCart(Interface):
     """Interface for cart in session."""

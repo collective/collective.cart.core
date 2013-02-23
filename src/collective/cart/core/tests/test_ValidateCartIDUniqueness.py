@@ -1,5 +1,4 @@
-from Products.CMFCore.utils import getToolByName
-from Testing import ZopeTestCase as ztc
+# -*- coding: utf-8 -*-
 from collective.cart.core.tests.base import FUNCTIONAL_TESTING
 from hexagonit.testing.browser import Browser
 from plone.app.testing import TEST_USER_ID
@@ -36,38 +35,27 @@ def setUp(self):
         'browser': browser,
         'portal': portal,
     })
-    ztc.utils.setupCoreSessions(layer['app'])
     browser.setBaseUrl(portal.absolute_url())
-
     browser.handleErrors = True
     portal.error_log._ignored_exceptions = ()
 
     setRoles(portal, TEST_USER_ID, ['Manager'])
 
-    folder01 = portal[
-        portal.invokeFactory(
-            'Folder',
-            'folder01',
-            title='Folder01'
-        )]
-    folder01.reindexObject()
+    from collective.cart.core.interfaces import IShoppingSiteRoot
+    from zope.interface import alsoProvides
+    from plone.dexterity.utils import createContentInContainer
+    from zope.lifecycleevent import modified
 
-    regtool = getToolByName(portal, 'portal_registration')
+    alsoProvides(portal, IShoppingSiteRoot)
+    portal.reindexObject()
 
-    editor = 'editor'
-    regtool.addMember(editor, editor)
-    setRoles(portal, editor, ['Editor'])
-    self.globs['editor'] = editor
+    container = createContentInContainer(portal, 'collective.cart.core.CartContainer', checkConstraints=False,
+        id='cart-container', title='Cärt Cöntäiner')
+    modified(container)
 
-    member1 = 'member1'
-    regtool.addMember(member1, member1)
-    setRoles(portal, member1, ['Member'])
-    self.globs['member1'] = member1
-
-    member2 = 'member2'
-    regtool.addMember(member2, member2)
-    setRoles(portal, member2, ['Member'])
-    self.globs['member2'] = member2
+    cart1 = createContentInContainer(container, 'collective.cart.core.Cart', checkConstraints=False,
+        id='1')
+    modified(cart1)
 
     transaction.commit()
 
@@ -98,7 +86,4 @@ def DocFileSuite(testfile, flags=FLAGS, setUp=setUp, layer=FUNCTIONAL_TESTING):
 
 
 def test_suite():
-    return unittest.TestSuite([
-        DocFileSuite('functional/browser.txt'),
-        DocFileSuite('functional/cart.txt'),
-        DocFileSuite('functional/orders.txt')])
+    return unittest.TestSuite([DocFileSuite('functional/ValidateCartIDUniqueness.txt')])
