@@ -2,8 +2,6 @@ from collective.cart.core.tests.base import IntegrationTestCase
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 
-import mock
-
 
 class TestBaseAdapter(IntegrationTestCase):
 
@@ -46,7 +44,7 @@ class TestBaseAdapter(IntegrationTestCase):
     def test__catalog(self):
         self.create_doc()
         from collective.cart.core.interfaces import IBaseAdapter
-        catalog = IBaseAdapter(self.portal)._catalog()
+        catalog = IBaseAdapter(self.portal)._catalog
         self.assertEqual(catalog(id='doc')[0].id, 'doc')
 
     def test_get_brains__zero(self):
@@ -99,14 +97,6 @@ class TestBaseAdapter(IntegrationTestCase):
         self.assertIn('folder2', ids)
         self.assertNotIn('doc', ids)
         self.assertNotIn('folder3', ids)
-
-        base._catalog = mock.Mock()
-        base.get_brains(interface=IATFolder, path=path, depth=1, sort_order="descending")
-        base._catalog().assert_called_with({
-            'object_provides': IATFolder.__identifier__,
-            'path': {'query': '/plone/folder1', 'depth': 1},
-            'sort_order': 'descending'
-        })
 
     def test_get_brain__None(self):
         from collective.cart.core.interfaces import IBaseAdapter

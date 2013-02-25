@@ -20,25 +20,6 @@ class ArticleAdapter(BaseAdapter):
         """True if the Article is addable to cart."""
         return IShoppingSite(self.context).shop and ISalable(self.context).salable
 
-    # @property
-    # def cart_articles(self, review_state=None):
-    #     """Returns Cart Article brains which is originally from this Article.
-
-    #     :param review_state: review_state for catalog query.
-    #     :type review_state: str or list
-
-    #     :rtype: list
-    #     """
-    #     catalog = getToolByName(self.context, 'portal_catalog')
-    #     query = {
-    #         'path': '/'.join(IShoppingSite(self.context).cart_container.getPhysicalPath()),
-    #         'object_provides': ICartArticle.__identifier__,
-    #         'orig_uuid': IUUID(self.context),
-    #     }
-    #     if review_state is not None:
-    #         query['review_state'] = review_state
-    #     return catalog(query)
-
     def _update_existing_cart_article(self, items, **kwargs):
         """Update cart article which already exists in current cart.
         """

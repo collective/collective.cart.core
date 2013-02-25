@@ -36,7 +36,6 @@ class AddToCartViewlet(BaseViewlet):
             IArticleAdapter(self.context).add_to_cart()
             context_state = getMultiAdapter((self.context, self.request), name="plone_context_state")
             return self.request.response.redirect(context_state.current_base_url())
-            # return self.render()
 
     @property
     def available(self):

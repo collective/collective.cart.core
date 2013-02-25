@@ -47,9 +47,6 @@ class IBaseAdapter(Interface):
     def get_content_listing(interface, **query):  # pragma: no cover
         """Get ContentListing from brains gotten from get_brains method."""
 
-    # def localized_time(item, long_format=False):
-    #     """Returns localized time."""
-
 
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""
@@ -114,7 +111,6 @@ class IArticleAdapter(IBaseAdapter):
     """Adapter Interface for Article."""
 
     addable_to_cart = Attribute('True if the Article is addable to cart.')
-    # cart_articles = Attribute('Cart Article brains which is originally from this Article.')
 
     def add_to_cart():  # pragma: no cover
         """Add Article to Cart."""

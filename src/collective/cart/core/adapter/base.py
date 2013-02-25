@@ -13,6 +13,7 @@ class BaseAdapter(grok.Adapter):
     grok.context(Interface)
     grok.provides(IBaseAdapter)
 
+    @property
     @memoize
     def _catalog(self):
         return getToolByName(self.context, 'portal_catalog')
@@ -26,7 +27,7 @@ class BaseAdapter(grok.Adapter):
         if query.get('depth') is not None:
             path = {'query': path, 'depth': query.pop('depth')}
         query['path'] = path
-        return self._catalog()(query)
+        return self._catalog(query)
 
     def get_brain(self, interface=None, **query):
         brains = self.get_brains(interface=interface, **query)
@@ -40,17 +41,3 @@ class BaseAdapter(grok.Adapter):
 
     def get_content_listing(self, interface=None, **query):
         return IContentListing(self.get_brains(interface, **query))
-
-    # @memoize
-    # def _ulocalized_time(self):
-    #     """Return ulocalized_time method.
-
-    #     :rtype: method
-    #     """
-    #     translation_service = getToolByName(self.context, 'translation_service')
-    #     return translation_service.ulocalized_time
-
-    # def localized_time(self, item, long_format=False):
-    #     ulocalized_time = self._ulocalized_time()
-    #     return ulocalized_time(item.ModificationDate(),
-    #         long_format=long_format, context=self.context)
