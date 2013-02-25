@@ -1,4 +1,3 @@
-from Products.CMFCore.utils import getToolByName
 from Testing import ZopeTestCase as ztc
 from collective.cart.core.tests.base import IntegrationTestCase
 from plone.app.testing import TEST_USER_ID
@@ -84,61 +83,59 @@ class TestShoppingSite(IntegrationTestCase):
 
     def test_cart(self):
         from collective.cart.core.interfaces import IShoppingSite
-        self.assertIsNone(IShoppingSite(self.portal).cart)
+        shopping_site = IShoppingSite(self.portal)
+        self.assertIsNone(shopping_site.cart)
 
-        session_data_manager = getToolByName(self.portal, 'session_data_manager')
-        session = session_data_manager.getSessionData(create=True)
+        session = shopping_site.getSessionData(create=True)
         session.set('collective.cart.core', 'CART')
-
-        self.assertEqual(IShoppingSite(self.portal).cart, 'CART')
+        self.assertEqual(shopping_site.cart, 'CART')
 
     def test_cart_articles(self):
         from collective.cart.core.interfaces import IShoppingSite
-        self.assertIsNone(IShoppingSite(self.portal).cart_articles)
+        shopping_site = IShoppingSite(self.portal)
+        self.assertIsNone(shopping_site.cart_articles)
 
-        session_data_manager = getToolByName(self.portal, 'session_data_manager')
-        session = session_data_manager.getSessionData(create=True)
+        session = shopping_site.getSessionData(create=True)
         session.set('collective.cart.core', {})
-        self.assertIsNone(IShoppingSite(self.portal).cart_articles)
+        self.assertIsNone(shopping_site.cart_articles)
 
         session.set('collective.cart.core', {'articles': 'ARTICLES'})
-        self.assertEqual(IShoppingSite(self.portal).cart_articles, 'ARTICLES')
+        self.assertEqual(shopping_site.cart_articles, 'ARTICLES')
 
     def test_cart_article_listing(self):
         from collective.cart.core.interfaces import IShoppingSite
-        self.assertEqual(IShoppingSite(self.portal).cart_article_listing, [])
+        shopping_site = IShoppingSite(self.portal)
+        self.assertEqual(shopping_site.cart_article_listing, [])
 
-        session_data_manager = getToolByName(self.portal, 'session_data_manager')
-        session = session_data_manager.getSessionData(create=True)
+        session = shopping_site.getSessionData(create=True)
         session.set('collective.cart.core', {'articles': {'1': 'ARTICLE1', '2': 'ARTICLE2'}})
-        self.assertEqual(IShoppingSite(self.portal).cart_article_listing, ['ARTICLE1', 'ARTICLE2'])
+        self.assertEqual(shopping_site.cart_article_listing, ['ARTICLE1', 'ARTICLE2'])
 
     def test_get_cart_article(self):
         from collective.cart.core.interfaces import IShoppingSite
+        shopping_site = IShoppingSite(self.portal)
+        self.assertIsNone(shopping_site.get_cart_article('1'))
 
-        self.assertIsNone(IShoppingSite(self.portal).get_cart_article('1'))
-
-        session_data_manager = getToolByName(self.portal, 'session_data_manager')
-        session = session_data_manager.getSessionData(create=True)
+        session = shopping_site.getSessionData(create=True)
         session.set('collective.cart.core', {'articles': {'1': 'ARTICLE1', '2': 'ARTICLE2'}})
 
-        self.assertIsNone(IShoppingSite(self.portal).get_cart_article('3'))
-        self.assertEqual(IShoppingSite(self.portal).get_cart_article('2'), 'ARTICLE2')
+        self.assertIsNone(shopping_site.get_cart_article('3'))
+        self.assertEqual(shopping_site.get_cart_article('2'), 'ARTICLE2')
 
     def test_remove_cart_articles(self):
         from collective.cart.core.interfaces import IShoppingSite
-        session_data_manager = getToolByName(self.portal, 'session_data_manager')
-        session = session_data_manager.getSessionData(create=True)
+        shopping_site = IShoppingSite(self.portal)
+        session = shopping_site.getSessionData(create=True)
         session.set('collective.cart.core', {'articles': {'1': 'ARTICLE1', '2': 'ARTICLE2', '3': 'ARTICLE3'}})
 
-        IShoppingSite(self.portal).remove_cart_articles('4')
-        self.assertEqual(IShoppingSite(self.portal).cart_articles, {'1': 'ARTICLE1', '2': 'ARTICLE2', '3': 'ARTICLE3'})
+        shopping_site.remove_cart_articles('4')
+        self.assertEqual(shopping_site.cart_articles, {'1': 'ARTICLE1', '2': 'ARTICLE2', '3': 'ARTICLE3'})
 
-        IShoppingSite(self.portal).remove_cart_articles(['2', '3'])
-        self.assertEqual(IShoppingSite(self.portal).cart_articles, {'1': 'ARTICLE1'})
+        shopping_site.remove_cart_articles(['2', '3'])
+        self.assertEqual(shopping_site.cart_articles, {'1': 'ARTICLE1'})
 
-        IShoppingSite(self.portal).remove_cart_articles('1')
-        self.assertEqual(IShoppingSite(self.portal).cart_articles, {})
+        shopping_site.remove_cart_articles('1')
+        self.assertEqual(shopping_site.cart_articles, {})
 
     # CartContainer related methods
 

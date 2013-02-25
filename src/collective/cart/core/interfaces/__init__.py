@@ -47,6 +47,9 @@ class IBaseAdapter(Interface):
     def get_content_listing(interface, **query):  # pragma: no cover
         """Get ContentListing from brains gotten from get_brains method."""
 
+    ulocalized_time = Attribute("ulocalized_time method from translation_service")
+    getSessionData = Attribute("getSessionData method from session_data_manager")
+
 
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""

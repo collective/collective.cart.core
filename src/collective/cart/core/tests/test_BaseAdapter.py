@@ -2,6 +2,8 @@ from collective.cart.core.tests.base import IntegrationTestCase
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 
+import mock
+
 
 class TestBaseAdapter(IntegrationTestCase):
 
@@ -131,3 +133,13 @@ class TestBaseAdapter(IntegrationTestCase):
         self.assertEqual(len(content_listing), 1)
         self.assertIsInstance(content_listing, ContentListing)
         self.assertEqual([item.getObject() for item in content_listing][0], doc)
+
+    @mock.patch('collective.cart.core.adapter.base.getToolByName')
+    def test_ulocalized_time(self, getToolByName):
+        from collective.cart.core.interfaces import IBaseAdapter
+        self.assertEqual(IBaseAdapter(self.portal).ulocalized_time, getToolByName().ulocalized_time)
+
+    @mock.patch('collective.cart.core.adapter.base.getToolByName')
+    def test_getSessionData(self, getToolByName):
+        from collective.cart.core.interfaces import IBaseAdapter
+        self.assertEqual(IBaseAdapter(self.portal).getSessionData, getToolByName().getSessionData)

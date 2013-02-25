@@ -1,6 +1,5 @@
 from Acquisition import aq_chain
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 from collective.cart.core.adapter.base import BaseAdapter
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import ICartContainerAdapter
@@ -33,8 +32,7 @@ class ShoppingSite(BaseAdapter):
     @property
     def cart(self):
         """Returns current cart in session."""
-        session_data_manager = getToolByName(self.context, 'session_data_manager')
-        session = session_data_manager.getSessionData(create=False)
+        session = self.getSessionData(create=False)
         if session:
             return session.get('collective.cart.core')
 
@@ -74,11 +72,11 @@ class ShoppingSite(BaseAdapter):
                 if deleting is not None:
                     deleted.append(deleting)
             if deleted:
-                session_data_manager = getToolByName(self.context, 'session_data_manager')
-                session = session_data_manager.getSessionData(create=False)
-                cart = session.get('collective.cart.core')
-                cart['articles'] = articles
-                session.set('collective.cart.core', cart)
+                session = self.getSessionData(create=False)
+                if session:
+                    cart = session.get('collective.cart.core')
+                    cart['articles'] = articles
+                    session.set('collective.cart.core', cart)
 
     # CartContainer related methods comes here::
 

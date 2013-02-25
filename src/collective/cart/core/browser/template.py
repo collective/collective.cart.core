@@ -36,9 +36,9 @@ class BaseCheckOutView(BaseView):
                     del articles[key]
 
             if len(articles) != number_of_articles:
-                session_data_manager = getToolByName(self.context, 'session_data_manager')
-                session = session_data_manager.getSessionData(create=False)
-                session.set('collective.cart.core', {'articles': articles})
+                session = self.shopping_site.getSessionData(create=False)
+                if session:
+                    session.set('collective.cart.core', {'articles': articles})
 
     @property
     def shopping_site(self):
