@@ -31,6 +31,17 @@ class ICart(form.Schema):
         title=_(u'Description'),
         required=False)
 
+class ICartArticle(form.Schema):
+    """Schema for CartArticle content type."""
+
+    orig_uuid = Attribute('Original UUID')
+
+
+class IShoppingSiteRoot(form.Schema):
+    """Marker interface for Shopping Site Root."""
+
+
+# Interfaces for adapters
 
 class IBaseAdapter(Interface):
     """Base interface for adapters"""
@@ -49,16 +60,8 @@ class IBaseAdapter(Interface):
 
     ulocalized_time = Attribute("ulocalized_time method from translation_service")
     getSessionData = Attribute("getSessionData method from session_data_manager")
-
-
-class ICartArticle(form.Schema):
-    """Schema for CartArticle content type."""
-
-    orig_uuid = Attribute('Original UUID')
-
-
-class IShoppingSiteRoot(form.Schema):
-    """Marker interface for Shopping Site Root."""
+    portal = Attribute('Portal object')
+    portal_path = Attribute('Portal path')
 
 
 class IShoppingSite(IBaseAdapter):

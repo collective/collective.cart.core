@@ -27,12 +27,11 @@ class ArticleAdapter(BaseAdapter):
     def add_to_cart(self, **kwargs):
         """Add Article to Cart."""
         articles = IShoppingSite(self.context).cart_articles
-        session_data_manager = getToolByName(self.context, 'session_data_manager')
         if not articles:
-            session = session_data_manager.getSessionData(create=True)
+            session = self.getSessionData(create=True)
             articles = SessionCart()
         else:
-            session = session_data_manager.getSessionData(create=False)
+            session = self.getSessionData(create=False)
 
         uuid = IUUID(self.context)
 
@@ -42,11 +41,12 @@ class ArticleAdapter(BaseAdapter):
 
         else:
             items = {
-                'id': self.context.getId(),
+                # 'id': self.context.getId(),
+                'id': uuid,
                 'title': self.context.Title(),
                 'description': self.context.Description(),
                 'url': self.context.absolute_url(),
-                'uuid': uuid,
+                # 'uuid': uuid,
             }
             items.update(kwargs)
 

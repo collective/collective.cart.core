@@ -11,6 +11,24 @@ class TestBaseAdapter(IntegrationTestCase):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
+    def test_subclass(self):
+        from collective.cart.core.adapter.base import BaseAdapter
+        from collective.cart.core.interfaces import IBaseAdapter
+        from five.grok import Adapter
+        from zope.interface import Interface
+        self.assertTrue(issubclass(BaseAdapter, Adapter))
+        self.assertTrue(issubclass(IBaseAdapter, Interface))
+
+    def test_context(self):
+        from collective.cart.core.adapter.base import BaseAdapter
+        from zope.interface import Interface
+        self.assertEqual(getattr(BaseAdapter, 'grokcore.component.directive.context'), Interface)
+
+    def test_provides(self):
+        from collective.cart.core.adapter.base import BaseAdapter
+        from collective.cart.core.interfaces import IBaseAdapter
+        self.assertEqual(getattr(BaseAdapter, 'grokcore.component.directive.provides'), IBaseAdapter)
+
     def test_instance(self):
         from collective.cart.core.adapter.base import BaseAdapter
         from collective.cart.core.interfaces import IBaseAdapter
@@ -143,3 +161,11 @@ class TestBaseAdapter(IntegrationTestCase):
     def test_getSessionData(self, getToolByName):
         from collective.cart.core.interfaces import IBaseAdapter
         self.assertEqual(IBaseAdapter(self.portal).getSessionData, getToolByName().getSessionData)
+
+    def test_portal(self):
+        from collective.cart.core.interfaces import IBaseAdapter
+        self.assertEqual(IBaseAdapter(self.portal).portal, self.portal)
+
+    def test_portal_path(self):
+        from collective.cart.core.interfaces import IBaseAdapter
+        self.assertEqual(IBaseAdapter(self.portal).portal_path, '/plone')

@@ -16,6 +16,16 @@ class TestCartArticleAdapter(IntegrationTestCase):
         from collective.cart.core.interfaces import ICartArticleAdapter
         self.assertTrue(issubclass(ICartArticleAdapter, IBaseAdapter))
 
+    def test_context(self):
+        from collective.cart.core.adapter.cartarticle import CartArticleAdapter
+        from collective.cart.core.interfaces import ICartArticle
+        self.assertEqual(getattr(CartArticleAdapter, 'grokcore.component.directive.context'), ICartArticle)
+
+    def test_provides(self):
+        from collective.cart.core.adapter.cartarticle import CartArticleAdapter
+        from collective.cart.core.interfaces import ICartArticleAdapter
+        self.assertEqual(getattr(CartArticleAdapter, 'grokcore.component.directive.provides'), ICartArticleAdapter)
+
     def create_cart_article(self, uuid=None):
         """Create cart."""
         cart = createContentInContainer(self.portal, 'collective.cart.core.Cart', id='1',

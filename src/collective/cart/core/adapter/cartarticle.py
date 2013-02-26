@@ -14,10 +14,7 @@ class CartArticleAdapter(BaseAdapter):
     @property
     def orig_article(self):
         """Returns riginar Article object."""
-        catalog = getToolByName(self.context, 'portal_catalog')
         uuid = getattr(self.context, 'orig_uuid', None)
         if uuid is None:
             uuid = self.context.id
-        brains = catalog(UID=uuid)
-        if brains:
-            return brains[0].getObject()
+        return self.get_object(path=self.portal_path, UID=uuid)

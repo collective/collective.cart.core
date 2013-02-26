@@ -21,6 +21,11 @@ class TestShoppingSite(IntegrationTestCase):
         from collective.cart.core.interfaces import IShoppingSite
         self.assertTrue(issubclass(IShoppingSite, IBaseAdapter))
 
+    def test_provides(self):
+        from collective.cart.core.adapter.interface import ShoppingSite
+        from collective.cart.core.interfaces import IShoppingSite
+        self.assertEqual(getattr(ShoppingSite, 'grokcore.component.directive.provides'), IShoppingSite)
+
     def test_instance(self):
         from collective.cart.core.adapter.interface import ShoppingSite
         from collective.cart.core.interfaces import IShoppingSite

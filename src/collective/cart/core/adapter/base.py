@@ -59,3 +59,13 @@ class BaseAdapter(grok.Adapter):
         :rtype: method
         """
         return getToolByName(self.context, 'session_data_manager').getSessionData
+
+    @property
+    @memoize
+    def portal(self):
+        return getToolByName(self.context, 'portal_url').getPortalObject()
+
+    @property
+    @memoize
+    def portal_path(self):
+        return '/'.join(self.portal.getPhysicalPath())

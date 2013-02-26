@@ -14,6 +14,16 @@ class TestSetup(IntegrationTestCase):
         from collective.cart.core.interfaces import ICartContainerAdapter
         self.assertTrue(issubclass(ICartContainerAdapter, IBaseAdapter))
 
+    def test_context(self):
+        from collective.cart.core.adapter.cartcontainer import CartContainerAdapter
+        from collective.cart.core.interfaces import ICartContainer
+        self.assertEqual(getattr(CartContainerAdapter, 'grokcore.component.directive.context'), ICartContainer)
+
+    def test_provides(self):
+        from collective.cart.core.adapter.cartcontainer import CartContainerAdapter
+        from collective.cart.core.interfaces import ICartContainerAdapter
+        self.assertEqual(getattr(CartContainerAdapter, 'grokcore.component.directive.provides'), ICartContainerAdapter)
+
     def create_cart_container(self):
         from plone.dexterity.utils import createContentInContainer
         from zope.lifecycleevent import modified

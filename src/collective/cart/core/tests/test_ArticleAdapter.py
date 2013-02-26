@@ -22,6 +22,16 @@ class TestArticleAdapter(IntegrationTestCase):
         from collective.cart.core.interfaces import IArticleAdapter
         self.assertTrue(issubclass(IArticleAdapter, IBaseAdapter))
 
+    def test_context(self):
+        from collective.cart.core.adapter.article import ArticleAdapter
+        from collective.cart.core.interfaces import IArticle
+        self.assertEqual(getattr(ArticleAdapter, 'grokcore.component.directive.context'), IArticle)
+
+    def test_provides(self):
+        from collective.cart.core.adapter.article import ArticleAdapter
+        from collective.cart.core.interfaces import IArticleAdapter
+        self.assertEqual(getattr(ArticleAdapter, 'grokcore.component.directive.provides'), IArticleAdapter)
+
     def create_article(self, number=1):
         """Create cart."""
         articles = []
@@ -87,10 +97,9 @@ class TestArticleAdapter(IntegrationTestCase):
         self.assertEqual(sorted(session.get('collective.cart.core').get('articles').get(uuid1).items()),
             [
                 ('description', 'Descriptiön of Ärticle1'),
-                ('id', 'article1'),
+                ('id', uuid1),
                 ('title', 'Ärticle1'),
-                ('url', 'http://nohost/plone/article1'),
-                ('uuid', uuid1)])
+                ('url', 'http://nohost/plone/article1')])
         self.assertFalse(adapter._update_existing_cart_article.called)
 
         adapter.add_to_cart()
@@ -98,10 +107,9 @@ class TestArticleAdapter(IntegrationTestCase):
         self.assertEqual(sorted(session.get('collective.cart.core').get('articles').get(uuid1).items()),
             [
                 ('description', 'Descriptiön of Ärticle1'),
-                ('id', 'article1'),
+                ('id', uuid1),
                 ('title', 'Ärticle1'),
-                ('url', 'http://nohost/plone/article1'),
-                ('uuid', uuid1)])
+                ('url', 'http://nohost/plone/article1')])
         self.assertTrue(adapter._update_existing_cart_article.called)
 
         adapter = IArticleAdapter(article2)
@@ -110,14 +118,12 @@ class TestArticleAdapter(IntegrationTestCase):
         self.assertEqual(sorted(session.get('collective.cart.core').get('articles').get(uuid1).items()),
             [
                 ('description', 'Descriptiön of Ärticle1'),
-                ('id', 'article1'),
+                ('id', uuid1),
                 ('title', 'Ärticle1'),
-                ('url', 'http://nohost/plone/article1'),
-                ('uuid', uuid1)])
+                ('url', 'http://nohost/plone/article1')])
         self.assertEqual(sorted(session.get('collective.cart.core').get('articles').get(uuid2).items()),
             [
                 ('description', 'Descriptiön of Ärticle2'),
-                ('id', 'article2'),
+                ('id', uuid2),
                 ('title', 'Ärticle2'),
-                ('url', 'http://nohost/plone/article2'),
-                ('uuid', uuid2)])
+                ('url', 'http://nohost/plone/article2')])
