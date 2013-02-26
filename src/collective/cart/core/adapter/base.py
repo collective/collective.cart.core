@@ -3,7 +3,7 @@ from Products.CMFCore.utils import getToolByName
 from collective.cart.core.interfaces import IBaseAdapter
 from five import grok
 from plone.app.contentlisting.interfaces import IContentListing
-from plone.memoize.forever import memoize
+from plone.memoize.instance import memoize
 from zope.interface import Interface
 
 
