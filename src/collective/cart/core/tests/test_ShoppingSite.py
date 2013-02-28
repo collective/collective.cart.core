@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Testing import ZopeTestCase as ztc
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
@@ -61,6 +62,22 @@ class TestShoppingSite(IntegrationTestCase):
         self.assertEqual(IShoppingSite(folder1).shop, folder1)
         self.assertEqual(IShoppingSite(folder2).shop, folder2)
         self.assertEqual(IShoppingSite(folder3).shop, folder2)
+
+    def test_shop_path(self):
+        folder1 = self.create_folder(oid='folder1')
+        folder2 = self.create_folder(folder1, 'folder2')
+        folder3 = self.create_folder(folder2, 'folder3')
+        alsoProvides(folder1, IShoppingSiteRoot)
+        self.assertIsNone(IShoppingSite(self.portal).shop_path)
+        self.assertEqual(IShoppingSite(folder1).shop_path, '/plone/folder1')
+        self.assertEqual(IShoppingSite(folder2).shop_path, '/plone/folder1')
+        self.assertEqual(IShoppingSite(folder3).shop_path, '/plone/folder1')
+
+        alsoProvides(folder2, IShoppingSiteRoot)
+        self.assertIsNone(IShoppingSite(self.portal).shop_path)
+        self.assertEqual(IShoppingSite(folder1).shop_path, '/plone/folder1')
+        self.assertEqual(IShoppingSite(folder2).shop_path, '/plone/folder1/folder2')
+        self.assertEqual(IShoppingSite(folder3).shop_path, '/plone/folder1/folder2')
 
     def test_cart_container(self):
         self.assertIsNone(IShoppingSite(self.portal).cart_container)
@@ -168,5 +185,40 @@ class TestShoppingSite(IntegrationTestCase):
 
     def test_create_cart(self):
         folder = self.create_folder()
+        adapter = IShoppingSite(folder)
+        adapter.create_cart()
+        self.assertIsNone(adapter.get_cart('1'))
+
         alsoProvides(folder, IShoppingSiteRoot)
+        adapter.create_cart()
+        self.assertIsNone(adapter.get_cart('1'))
+
         self.create_cart_container(folder)
+        adapter.create_cart()
+        self.assertIsNone(adapter.get_cart('1'))
+
+        items = {
+            'id': '1',
+            'title': 'Ärticle1',
+            'description': 'Description of Ärticle1',
+        }
+
+        session = adapter.getSessionData(create=True)
+        session.set('collective.cart.core', {'articles': {'1': items}})
+
+        self.assertEqual(adapter.cart_container.next_cart_id, 1)
+        adapter.create_cart()
+        cart = adapter.get_cart('1')
+        self.assertIsNotNone(cart)
+
+        carticle = cart.get('1')
+        self.assertEqual(carticle.title, items['title'])
+        self.assertEqual(carticle.description, items['description'])
+
+        adapter.create_cart('4')
+        cart = adapter.get_cart('4')
+        self.assertIsNotNone(cart)
+
+        carticle = cart.get('1')
+        self.assertEqual(carticle.title, items['title'])
+        self.assertEqual(carticle.description, items['description'])

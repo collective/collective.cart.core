@@ -47,6 +47,7 @@ class IShoppingSite(IBaseAdapter):
     """Adapter Interface for Shopping Site."""
 
     shop = Attribute("Shop Site Root object.")
+    shop_path = Attribute("Path of shop.")
     cart_container = Attribute("Cart Container object located directly under Shop Site Root.")
     cart = Attribute('Current cart in session.')
     cart_articles = Attribute('List of ordered dictionary of cart articles in session.')
@@ -66,8 +67,8 @@ class IShoppingSite(IBaseAdapter):
     def update_next_cart_id():  # pragma: no cover
         """Update next cart ID for the cart container."""
 
-    # def create_cart():  # pragma: no cover
-    #     """Create cart instance from cart in session."""
+    def create_cart(cart_id=None):  # pragma: no cover
+        """Create cart instance from cart in session."""
 
 
 class ICartContainerAdapter(IBaseAdapter):

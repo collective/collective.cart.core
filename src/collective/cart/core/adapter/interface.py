@@ -25,11 +25,15 @@ class ShoppingSite(BaseAdapter):
             return shops[0]
 
     @property
+    def shop_path(self):
+        if self.shop:
+            return '/'.join(self.shop.getPhysicalPath())
+
+    @property
     def cart_container(self):
         """Returns Cart Container object located directly under Shop Site Root."""
         if self.shop:
-            path = '/'.join(self.shop.getPhysicalPath())
-            return self.get_object(ICartContainer, path=path, depth=1)
+            return self.get_object(ICartContainer, path=self.shop_path, depth=1)
 
     @property
     def cart(self):
@@ -92,14 +96,17 @@ class ShoppingSite(BaseAdapter):
         if self.cart_container:
             ICartContainerAdapter(self.cart_container).update_next_cart_id()
 
-    def create_cart(self):
+    def create_cart(self, cart_id=None):
         """Create cart instance from cart in session into cart container."""
-        if self.cart_container:
-            oid = str(self.cart_container.next_cart_id)
+        if self.cart_container and self.cart_articles:
+            if cart_id is None:
+                cart_id = str(self.cart_container.next_cart_id)
             cart = createContentInContainer(
-                self.cart_container, 'collective.cart.core.Cart', id=oid, checkConstraints=False)
+                self.cart_container, 'collective.cart.core.Cart', id=cart_id, checkConstraints=False)
             modified(cart)
             self.update_next_cart_id()
             for uuid in self.cart_articles:
                 carticle = createContentInContainer(cart, 'collective.cart.core.CartArticle', checkConstraints=False, **self.cart_articles[uuid])
                 modified(carticle)
+
+            return cart_id

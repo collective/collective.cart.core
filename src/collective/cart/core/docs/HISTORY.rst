@@ -6,8 +6,8 @@ Change log
 
 - Updated cart to use session. [taito]
 - Covered tests. [taito]
-- Cached methods: ulocalized_time and getSessionData. [taito]
 - Added dependency to collective.base. [taito]
+- Added method: shop_path to ShoppingSite adapter. [taito]
 
 0.5.2.13 (2013-02-05)
 =====================
