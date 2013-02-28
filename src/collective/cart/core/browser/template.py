@@ -6,7 +6,6 @@ from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from five import grok
-from zope.component import getMultiAdapter
 from zope.lifecycleevent import modified
 
 
@@ -88,14 +87,13 @@ class OrdersView(BaseView):
             result = []
             workflow = getToolByName(self.context, 'portal_workflow')
             adapter = ICartContainerAdapter(self.cart_container)
-            plone = getMultiAdapter((self.context, self.request), name='plone')
             for item in adapter.get_content_listing(ICart, sort_on="modified", sort_order="descending"):
                 res = {
                     'id': item.getId(),
                     'title': item.Title(),
                     'url': item.getURL(),
                     'state_title': workflow.getTitleForStateOnType(item.review_state(), item.portal_type),
-                    'modified': plone.toLocalizedTime(item.ModificationDate()),
+                    'modified': adapter.ulocalized_time(item.ModificationDate()),
                     'owner': item.Creator(),
                     'transitions': self.transitions(item),
                     'is_canceled': item.review_state() == 'canceled',
@@ -108,9 +106,6 @@ class OrdersView(BaseView):
         self.request.set('disable_plone.rightcolumn', True)
 
         form = self.request.form
-        # if form.get('form.buttons.ClearCreated', None) is not None:
-        #     return ICartContainerAdapter(self.cart_container).clear_created()
-
         value = form.get('form.buttons.ChangeState')
         cart_id = form.get('cart-id')
 

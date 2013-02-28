@@ -1,11 +1,13 @@
 from Acquisition import aq_chain
 from Acquisition import aq_inner
-from collective.cart.core.adapter.base import BaseAdapter
+from collective.base.adapter import BaseAdapter
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from five import grok
+from plone.dexterity.utils import createContentInContainer
+from zope.lifecycleevent import modified
 
 
 class ShoppingSite(BaseAdapter):
@@ -27,7 +29,7 @@ class ShoppingSite(BaseAdapter):
         """Returns Cart Container object located directly under Shop Site Root."""
         if self.shop:
             path = '/'.join(self.shop.getPhysicalPath())
-            return self.get_object(interface=ICartContainer, path=path, depth=1)
+            return self.get_object(ICartContainer, path=path, depth=1)
 
     @property
     def cart(self):
@@ -90,13 +92,14 @@ class ShoppingSite(BaseAdapter):
         if self.cart_container:
             ICartContainerAdapter(self.cart_container).update_next_cart_id()
 
-    # def create_cart(self):
-    #     """Create cart instance from cart in session"""
-    #     container = self.cart_container
-    #     if self.cart_container:
-    #         oid = str(container.next_cart_id)
-    #         cart = createContentInContainer(
-    #             container, 'collective.cart.core.Cart', id=oid, checkConstraints=False)
-    #         modified(cart)
-    #         self.update_next_cart_id()
-    #         # self._create_cart_article(cart, '1', **kwargs)
+    def create_cart(self):
+        """Create cart instance from cart in session into cart container."""
+        if self.cart_container:
+            oid = str(self.cart_container.next_cart_id)
+            cart = createContentInContainer(
+                self.cart_container, 'collective.cart.core.Cart', id=oid, checkConstraints=False)
+            modified(cart)
+            self.update_next_cart_id()
+            for uuid in self.cart_articles:
+                carticle = createContentInContainer(cart, 'collective.cart.core.CartArticle', checkConstraints=False, **self.cart_articles[uuid])
+                modified(carticle)

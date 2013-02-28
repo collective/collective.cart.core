@@ -1,5 +1,4 @@
-from Products.CMFCore.utils import getToolByName
-from collective.cart.core.adapter.base import BaseAdapter
+from collective.base.adapter import BaseAdapter
 from collective.cart.core.interfaces import ICartArticle
 from collective.cart.core.interfaces import ICartArticleAdapter
 from five import grok

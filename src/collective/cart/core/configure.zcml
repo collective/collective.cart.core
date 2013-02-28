@@ -15,6 +15,7 @@
   <include package="five.pt"/>
   <include package="plone.app.dexterity"/>
   <include package="collective.behavior.salable"/>
+  <include package="collective.base"/>
   <grok:grok package="." />
   <i18n:registerTranslations directory="locales" />
 

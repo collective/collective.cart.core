@@ -1,3 +1,4 @@
+from collective.base.interfaces import IBaseAdapter
 from collective.cart.core import _
 from plone.directives import form
 from zope.interface import Attribute
@@ -31,6 +32,7 @@ class ICart(form.Schema):
         title=_(u'Description'),
         required=False)
 
+
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""
 
@@ -39,29 +41,6 @@ class ICartArticle(form.Schema):
 
 class IShoppingSiteRoot(form.Schema):
     """Marker interface for Shopping Site Root."""
-
-
-# Interfaces for adapters
-
-class IBaseAdapter(Interface):
-    """Base interface for adapters"""
-
-    def get_brains(interface, **query):  # pragma: no cover
-        """Get brains which provides interface under the context."""
-
-    def get_brain(interface, **query):  # pragma: no cover
-        """Get one brain which provides interface under the context."""
-
-    def get_object(interface, **query):  # pragma: no cover
-        """Get one object which provides interface under the context."""
-
-    def get_content_listing(interface, **query):  # pragma: no cover
-        """Get ContentListing from brains gotten from get_brains method."""
-
-    ulocalized_time = Attribute("ulocalized_time method from translation_service")
-    getSessionData = Attribute("getSessionData method from session_data_manager")
-    portal = Attribute('Portal object')
-    portal_path = Attribute('Portal path')
 
 
 class IShoppingSite(IBaseAdapter):

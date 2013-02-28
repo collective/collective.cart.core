@@ -9,10 +9,10 @@ class TestCartArticleAdapter(IntegrationTestCase):
         self.portal = self.layer['portal']
 
     def test_subclass(self):
-        from collective.cart.core.adapter.base import BaseAdapter
+        from collective.base.adapter import BaseAdapter
         from collective.cart.core.adapter.cartarticle import CartArticleAdapter
         self.assertTrue(issubclass(CartArticleAdapter, BaseAdapter))
-        from collective.cart.core.interfaces import IBaseAdapter
+        from collective.base.interfaces import IBaseAdapter
         from collective.cart.core.interfaces import ICartArticleAdapter
         self.assertTrue(issubclass(ICartArticleAdapter, IBaseAdapter))
 

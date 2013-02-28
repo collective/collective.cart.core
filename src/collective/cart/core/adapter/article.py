@@ -1,6 +1,5 @@
-from Products.CMFCore.utils import getToolByName
+from collective.base.adapter import BaseAdapter
 from collective.behavior.salable.interfaces import ISalable
-from collective.cart.core.adapter.base import BaseAdapter
 from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IArticleAdapter
 from collective.cart.core.interfaces import IShoppingSite

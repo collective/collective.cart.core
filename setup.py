@@ -35,8 +35,8 @@ setup(
     zip_safe=False,
     install_requires=[
         'Products.CMFPlone',
+        'collective.base',
         'collective.behavior.salable',
-        'five.grok',
         'five.pt',
         'hexagonit.testing',
         'plone.app.dexterity',

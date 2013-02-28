@@ -1,4 +1,4 @@
-from collective.cart.core.adapter.base import BaseAdapter
+from collective.base.adapter import BaseAdapter
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import ICartContainerAdapter
 from five import grok

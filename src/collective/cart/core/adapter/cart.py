@@ -1,4 +1,4 @@
-from collective.cart.core.adapter.base import BaseAdapter
+from collective.base.adapter import BaseAdapter
 from collective.cart.core.interfaces import ICart
 from collective.cart.core.interfaces import ICartArticle
 from collective.cart.core.interfaces import ICartAdapter
