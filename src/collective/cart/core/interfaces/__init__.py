@@ -110,5 +110,5 @@ class IUnmakeShoppingSiteEvent(Interface):
     """An event unmaking shopping site."""
 
 
-class ISessionCart(Interface):
+class ISessionArticles(Interface):
     """Interface for cart in session."""

@@ -3,7 +3,7 @@ from collective.behavior.salable.interfaces import ISalable
 from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IArticleAdapter
 from collective.cart.core.interfaces import IShoppingSite
-from collective.cart.core.session_cart import SessionCart
+from collective.cart.core.session import SessionArticles
 from five import grok
 from plone.uuid.interfaces import IUUID
 
@@ -28,7 +28,7 @@ class ArticleAdapter(BaseAdapter):
         articles = IShoppingSite(self.context).cart_articles
         if not articles:
             session = self.getSessionData(create=True)
-            articles = SessionCart()
+            articles = SessionArticles()
         else:
             session = self.getSessionData(create=False)
 
