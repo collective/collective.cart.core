@@ -8,6 +8,7 @@ Change log
 - Covered tests. [taito]
 - Added dependency to collective.base. [taito]
 - Added method: shop_path to ShoppingSite adapter. [taito]
+- Added redirection from other check out url to cart url when cart is empty. [taito]
 
 0.5.2.13 (2013-02-05)
 =====================

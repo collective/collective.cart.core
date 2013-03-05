@@ -109,4 +109,4 @@ class ShoppingSite(BaseAdapter):
                 carticle = createContentInContainer(cart, 'collective.cart.core.CartArticle', checkConstraints=False, **self.cart_articles[uuid])
                 modified(carticle)
 
-            return cart_id
+            return cart

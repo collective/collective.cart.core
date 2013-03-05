@@ -1,11 +1,10 @@
-from collective.cart.core.tests.base import IntegrationTestCase
-from zope.publisher.browser import TestRequest
+from collective.cart.core.browser.template import BaseView
+
+import unittest
 
 
-class TestBaseView(IntegrationTestCase):
-
-    def setUp(self):
-        self.portal = self.layer['portal']
+class BaseViewTestCase(unittest.TestCase):
+    """TestCase for BaseView"""
 
     def test_templatedir(self):
         from collective.cart.core.browser import template
@@ -13,27 +12,18 @@ class TestBaseView(IntegrationTestCase):
 
     def test_subclass(self):
         from five.grok import View
-        from collective.cart.core.browser.template import BaseView
         self.assertTrue(issubclass(BaseView, View))
 
-    def create_view(self):
-        from collective.cart.core.browser.template import BaseView
-        return BaseView(self.portal, TestRequest())
+    def test_baseclass(self):
+        self.assertTrue(getattr(BaseView, 'martian.martiandirective.baseclass'))
 
-    def test_instance__baseclass(self):
-        instance = self.create_view()
-        self.assertTrue(getattr(instance, 'martian.martiandirective.baseclass'))
-
-    def test_instance__context(self):
+    def test_context(self):
         from collective.cart.core.interfaces import IShoppingSiteRoot
-        instance = self.create_view()
-        self.assertEqual(getattr(instance, 'grokcore.component.directive.context'), IShoppingSiteRoot)
+        self.assertEqual(getattr(BaseView, 'grokcore.component.directive.context'), IShoppingSiteRoot)
 
-    def test_instance__layer(self):
+    def test_layer(self):
         from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
-        instance = self.create_view()
-        self.assertEqual(getattr(instance, 'grokcore.view.directive.layer'), ICollectiveCartCoreLayer)
+        self.assertEqual(getattr(BaseView, 'grokcore.view.directive.layer'), ICollectiveCartCoreLayer)
 
-    def test_instance__require(self):
-        instance = self.create_view()
-        self.assertEqual(getattr(instance, 'grokcore.security.directive.require'), ['zope2.View'])
+    def test_require(self):
+        self.assertEqual(getattr(BaseView, 'grokcore.security.directive.require'), ['zope2.View'])

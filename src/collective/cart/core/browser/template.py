@@ -27,10 +27,10 @@ class BaseCheckOutView(BaseView):
     def update(self):
         self.request.set('disable_border', True)
 
-        articles = self.cart_articles
-        if articles:
+        if self.cart_articles:
+            articles = self.cart_articles.copy()
             number_of_articles = len(articles)
-            for key in articles:
+            for key in self.cart_articles:
                 if not self.shopping_site.get_brain(UID=key):
                     del articles[key]
 
@@ -38,6 +38,12 @@ class BaseCheckOutView(BaseView):
                 session = self.shopping_site.getSessionData(create=False)
                 if session:
                     session.set('collective.cart.core', {'articles': articles})
+
+        else:
+            cart_url = '{}/@@cart'.format(self.context.absolute_url())
+            current_base_url = self.context.restrictedTraverse("plone_context_state").current_base_url()
+            if cart_url != current_base_url:
+                return self.request.response.redirect(cart_url)
 
     @property
     def shopping_site(self):
