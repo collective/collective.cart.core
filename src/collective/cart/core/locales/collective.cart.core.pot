@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-02-05 16:57+0000\n"
+"POT-Creation-Date: 2013-03-05 16:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,11 +71,11 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: ./browser/viewlets/cart-articles.pt:11
+#: ./browser/viewlets/cart-articles.pt:10
 msgid "Delete"
 msgstr ""
 
-#: ./interfaces/__init__.py:31
+#: ./interfaces/__init__.py:32
 msgid "Description"
 msgstr ""
 
@@ -95,12 +95,12 @@ msgstr ""
 msgid "Make this container shopping site."
 msgstr ""
 
-#: ./browser/viewlets/cart-articles.pt:8
+#: ./browser/viewlets/cart-articles.pt:7
 #: ./browser/viewlets/cart-content.pt:12
 msgid "Name"
 msgstr ""
 
-#: ./interfaces/__init__.py:16
+#: ./interfaces/__init__.py:17
 msgid "Next Cart ID"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 msgid "State to ordered"
 msgstr ""
 
-#: ./validator.py:26
+#: ./validator.py:19
 msgid "The cart ID is already in use."
 msgstr ""
 

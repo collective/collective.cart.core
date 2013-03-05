@@ -1,8 +1,8 @@
 Change log
 ----------
 
-0.5.2.14 (2013-02-xx)
-=====================
+0.5.3 (2013-02-05)
+==================
 
 - Updated cart to use session. [taito]
 - Covered tests. [taito]

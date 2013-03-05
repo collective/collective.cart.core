@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-02-05 16:57+0000\n"
+"POT-Creation-Date: 2013-03-05 16:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,11 +68,11 @@ msgstr "Poista luotu"
 msgid "Created"
 msgstr "Luotu"
 
-#: ./browser/viewlets/cart-articles.pt:11
+#: ./browser/viewlets/cart-articles.pt:10
 msgid "Delete"
 msgstr "Poista"
 
-#: ./interfaces/__init__.py:31
+#: ./interfaces/__init__.py:32
 msgid "Description"
 msgstr "Kuvaus"
 
@@ -92,12 +92,12 @@ msgstr "Luo kauppa"
 msgid "Make this container shopping site."
 msgstr "Tee tästä konteinerista kauppa."
 
-#: ./browser/viewlets/cart-articles.pt:8
+#: ./browser/viewlets/cart-articles.pt:7
 #: ./browser/viewlets/cart-content.pt:12
 msgid "Name"
 msgstr "Nimi"
 
-#: ./interfaces/__init__.py:16
+#: ./interfaces/__init__.py:17
 msgid "Next Cart ID"
 msgstr "Seuraava ostoskoritunnus"
 
@@ -178,7 +178,7 @@ msgstr "Luotu tilaan"
 msgid "State to ordered"
 msgstr "Tilattu tilaan"
 
-#: ./validator.py:26
+#: ./validator.py:19
 msgid "The cart ID is already in use."
 msgstr "Sama ostoskoritunnus on jo olemassa."
 
