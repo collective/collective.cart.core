@@ -147,6 +147,22 @@ class TestShoppingSite(IntegrationTestCase):
         shopping_site.remove_cart_articles('1')
         self.assertEqual(shopping_site.cart_articles, {})
 
+    def test_clear_cart(self):
+        shopping_site = IShoppingSite(self.portal)
+        self.assertIsNone(shopping_site.clear_cart())
+
+        session = shopping_site.getSessionData(create=True)
+        session.set('collective.cart.core', {'articles': {'1': 'ARTICLE1'}})
+        self.assertIsNone(shopping_site.clear_cart())
+        self.assertIsNone(session.get('collective.cart.core'))
+
+        session.set('collective.cart.core', {'articles': {'1': 'ARTICLE1'}})
+        self.assertIsNone(shopping_site.clear_cart('KEY'))
+        self.assertEqual(session.get('collective.cart.core'), {'articles': {'1': 'ARTICLE1'}})
+
+        self.assertEqual(shopping_site.clear_cart('articles'), {'1': 'ARTICLE1'})
+        self.assertEqual(session.get('collective.cart.core'), {})
+
     # CartContainer related methods
 
     def test_get_cart(self):

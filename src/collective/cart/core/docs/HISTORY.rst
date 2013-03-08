@@ -1,68 +1,18 @@
 Change log
 ----------
 
-0.5.3 (2013-02-05)
-==================
+0.6 (2013-03-xx)
+================
 
 - Updated cart to use session. [taito]
 - Covered tests. [taito]
 - Added dependency to collective.base. [taito]
 - Added method: shop_path to ShoppingSite adapter. [taito]
 - Added redirection from other check out url to cart url when cart is empty. [taito]
-
-0.5.2.13 (2013-02-05)
-=====================
-
-- Automatically clean created, but not processed cart when visiting shop top. [taito]
-
-0.5.2.12 (2013-01-31)
-=====================
-
-- Moved get_action method to function. [taito]
-
-0.5.2.11 (2013-01-30)
-=====================
-
-- Moved subscriber: return_stock_to_original to collective.cart.shopping. [taito]
-
-0.5.2.10 (2013-01-30)
-=====================
-
-- Made utility Price work. [taito]
-
-0.5.2.9 (2013-01-16)
-====================
-
+- Moved subscribers and utilities to collective.cart.shopping. [taito]
 - Updated workflows. [taito]
-- Added event subscriber to return stock to the original article
-  when state transit to cancel successfully. [taito]
-
-0.5.2.8 (2012-12-20)
-====================
-
-- Updated dependencies. [taito]
-
-0.5.2.7 (2012-12-12)
-====================
-
-- Updated translation. [taito]
-
-0.5.2.6 (2012-11-23)
-====================
-
-- Removed unnecessary files. [taito]
-
-0.5.2.5 (2012-11-23)
-====================
-
+- Updated translations. [taito]
 - Added testing integration to Travis CI. [taito]
-
-0.5.2.4 (2012-11-21)
-====================
-
-- Finnish translations updated. [taito]
-- Added owner to cart container view. [taito]
-- Updated workflows. [taito]
 
 0.5.2 (2012-09-24)
 ==================

@@ -59,6 +59,9 @@ class IShoppingSite(IBaseAdapter):
     def remove_cart_articles(ids):  # pragma: no cover
         """Remove articles of ids from current cart."""
 
+    def clear_cart(key=None):  # pragma: no cover
+        """Clear cart from session"""
+
     # CartContainer related methods comes here::
 
     def get_cart(cart_id):  # pragma: no cover

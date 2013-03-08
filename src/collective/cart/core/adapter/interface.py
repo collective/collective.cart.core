@@ -84,6 +84,22 @@ class ShoppingSite(BaseAdapter):
                     cart['articles'] = articles
                     session.set('collective.cart.core', cart)
 
+    def clear_cart(self, key=None):
+        """Clear cart from session.
+
+        :param key: key within cart session such as 'articles', 'shipping_method', 'billing' and 'shipping'
+        :type key: str
+        """
+        cart = self.cart
+        if cart:
+            session = self.getSessionData(create=False)
+            if key is not None:
+                value = cart.pop(key, None)
+                session.set('collective.cart.core', cart)
+                return value
+
+            del session['collective.cart.core']
+
     # CartContainer related methods comes here::
 
     def get_cart(self, cart_id):
