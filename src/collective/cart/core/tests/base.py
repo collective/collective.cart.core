@@ -65,10 +65,19 @@ class IntegrationTestCase(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
     def create_content(self, ctype, parent=None, **kwargs):
+        """Create instance of dexterity content type"""
         if parent is None:
             parent = self.portal
         content = createContentInContainer(parent, ctype, checkConstraints=False, **kwargs)
         modified(content)
+        return content
+
+    def create_atcontent(self, ctype, parent=None, **kwargs):
+        """Create instance of AT content type"""
+        if parent is None:
+            parent = self.portal
+        content = parent[parent.invokeFactory(ctype, **kwargs)]
+        content.reindexObject()
         return content
 
     def create_view(self, view, context=None):

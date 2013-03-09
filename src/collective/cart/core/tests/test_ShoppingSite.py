@@ -1,56 +1,38 @@
 # -*- coding: utf-8 -*-
-from Testing import ZopeTestCase as ztc
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from collective.cart.core.tests.base import IntegrationTestCase
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import setRoles
 from plone.dexterity.utils import createContentInContainer
 from zope.interface import alsoProvides
 from zope.interface import noLongerProvides
 from zope.lifecycleevent import modified
+from collective.cart.core.adapter.interface import ShoppingSite
 
 import mock
 
 
-class TestShoppingSite(IntegrationTestCase):
-
-    def setUp(self):
-        ztc.utils.setupCoreSessions(self.layer['app'])
-        self.portal = self.layer['portal']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+class ShoppingSiteTestCase(IntegrationTestCase):
+    """TestCase for ShoppingSite"""
 
     def test_subclass(self):
         from collective.base.adapter import BaseAdapter
-        from collective.cart.core.adapter.interface import ShoppingSite
         self.assertTrue(issubclass(ShoppingSite, BaseAdapter))
         from collective.base.interfaces import IBaseAdapter
         self.assertTrue(issubclass(IShoppingSite, IBaseAdapter))
 
     def test_provides(self):
-        from collective.cart.core.adapter.interface import ShoppingSite
         self.assertEqual(getattr(ShoppingSite, 'grokcore.component.directive.provides'), IShoppingSite)
 
     def test_instance(self):
-        from collective.cart.core.adapter.interface import ShoppingSite
         self.assertIsInstance(IShoppingSite(self.portal), ShoppingSite)
 
     def test_instance__provides(self):
         self.assertEqual(getattr(IShoppingSite(self.portal), 'grokcore.component.directive.provides'), IShoppingSite)
 
-    def create_folder(self, context=None, oid=None):
-        if context is None:
-            context = self.portal
-        if oid is None:
-            oid = 'folder'
-        folder = context[context.invokeFactory('Folder', oid)]
-        folder.reindexObject()
-        return folder
-
     def test_shop(self):
-        folder1 = self.create_folder(oid='folder1')
-        folder2 = self.create_folder(folder1, 'folder2')
-        folder3 = self.create_folder(folder2, 'folder3')
+        folder1 = self.create_atcontent('Folder', id='folder1')
+        folder2 = self.create_atcontent('Folder', folder1, id='folder2')
+        folder3 = self.create_atcontent('Folder', folder2, id='folder3')
         alsoProvides(folder1, IShoppingSiteRoot)
         self.assertIsNone(IShoppingSite(self.portal).shop)
         self.assertEqual(IShoppingSite(folder1).shop, folder1)
@@ -64,9 +46,9 @@ class TestShoppingSite(IntegrationTestCase):
         self.assertEqual(IShoppingSite(folder3).shop, folder2)
 
     def test_shop_path(self):
-        folder1 = self.create_folder(oid='folder1')
-        folder2 = self.create_folder(folder1, 'folder2')
-        folder3 = self.create_folder(folder2, 'folder3')
+        folder1 = self.create_atcontent('Folder', id='folder1')
+        folder2 = self.create_atcontent('Folder', folder1, id='folder2')
+        folder3 = self.create_atcontent('Folder', folder2, id='folder3')
         alsoProvides(folder1, IShoppingSiteRoot)
         self.assertIsNone(IShoppingSite(self.portal).shop_path)
         self.assertEqual(IShoppingSite(folder1).shop_path, '/plone/folder1')
@@ -82,7 +64,7 @@ class TestShoppingSite(IntegrationTestCase):
     def test_cart_container(self):
         self.assertIsNone(IShoppingSite(self.portal).cart_container)
 
-        folder = self.create_folder()
+        folder = self.create_atcontent('Folder', id='folder')
         self.assertIsNone(IShoppingSite(folder).cart_container)
 
         alsoProvides(folder, IShoppingSiteRoot)
@@ -147,6 +129,33 @@ class TestShoppingSite(IntegrationTestCase):
         shopping_site.remove_cart_articles('1')
         self.assertEqual(shopping_site.cart_articles, {})
 
+    def test_update_cart(self):
+        adapter = IShoppingSite(self.portal)
+        adapter.update_cart('name', 'NAME')
+        self.assertIsNone(adapter.getSessionData(create=False))
+
+        session = adapter.getSessionData(create=True)
+        session.set('collective.cart.core', {})
+        adapter.update_cart('name', 'NAME')
+        self.assertEqual(session.get('collective.cart.core'), {'name': 'NAME'})
+
+    def test_remove_from_cart(self):
+        adapter = IShoppingSite(self.portal)
+        self.assertIsNone(adapter.cart)
+        self.assertIsNone(adapter.remove_from_cart('name'))
+        self.assertIsNone(adapter.cart)
+
+        session = adapter.getSessionData(create=True)
+        session.set('collective.cart.core', {})
+        self.assertEqual(adapter.cart, {})
+        self.assertIsNone(adapter.remove_from_cart('name'))
+        self.assertEqual(adapter.cart, {})
+
+        session.set('collective.cart.core', {'name': 'Name'})
+        self.assertEqual(adapter.cart, {'name': 'Name'})
+        self.assertEqual(adapter.remove_from_cart('name'), 'Name')
+        self.assertEqual(adapter.cart, {})
+
     def test_clear_cart(self):
         shopping_site = IShoppingSite(self.portal)
         self.assertIsNone(shopping_site.clear_cart())
@@ -168,7 +177,7 @@ class TestShoppingSite(IntegrationTestCase):
     def test_get_cart(self):
         self.assertIsNone(IShoppingSite(self.portal).get_cart('1'))
 
-        folder = self.create_folder()
+        folder = self.create_atcontent('Folder', id='folder')
         alsoProvides(folder, IShoppingSiteRoot)
         container = createContentInContainer(
             folder, 'collective.cart.core.CartContainer', id='container', checkConstraints=False)
@@ -189,7 +198,7 @@ class TestShoppingSite(IntegrationTestCase):
 
     @mock.patch('collective.cart.core.adapter.interface.ICartContainerAdapter')
     def test_update_next_cart_id(self, ICartContainerAdapter):
-        folder = self.create_folder()
+        folder = self.create_atcontent('Folder', id='folder')
         alsoProvides(folder, IShoppingSiteRoot)
         adapter = IShoppingSite(folder)
         adapter.update_next_cart_id()
@@ -200,7 +209,7 @@ class TestShoppingSite(IntegrationTestCase):
         self.assertTrue(ICartContainerAdapter.called)
 
     def test_create_cart(self):
-        folder = self.create_folder()
+        folder = self.create_atcontent('Folder', id='folder')
         adapter = IShoppingSite(folder)
         adapter.create_cart()
         self.assertIsNone(adapter.get_cart('1'))

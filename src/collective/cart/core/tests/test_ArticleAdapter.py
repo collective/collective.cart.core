@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
-from Testing import ZopeTestCase as ztc
+from collective.cart.core.adapter.article import ArticleAdapter
+from collective.cart.core.interfaces import IArticleAdapter
 from collective.cart.core.tests.base import IntegrationTestCase
 from plone.dexterity.utils import createContentInContainer
 from zope.lifecycleevent import modified
@@ -9,27 +10,19 @@ import mock
 
 
 class TestArticleAdapter(IntegrationTestCase):
-
-    def setUp(self):
-        ztc.utils.setupCoreSessions(self.layer['app'])
-        self.portal = self.layer['portal']
+    """TestCase for ArticleAdapter"""
 
     def test_subclass(self):
         from collective.base.adapter import BaseAdapter
-        from collective.cart.core.adapter.article import ArticleAdapter
         self.assertTrue(issubclass(ArticleAdapter, BaseAdapter))
         from collective.base.interfaces import IBaseAdapter
-        from collective.cart.core.interfaces import IArticleAdapter
         self.assertTrue(issubclass(IArticleAdapter, IBaseAdapter))
 
     def test_context(self):
-        from collective.cart.core.adapter.article import ArticleAdapter
         from collective.cart.core.interfaces import IArticle
         self.assertEqual(getattr(ArticleAdapter, 'grokcore.component.directive.context'), IArticle)
 
     def test_provides(self):
-        from collective.cart.core.adapter.article import ArticleAdapter
-        from collective.cart.core.interfaces import IArticleAdapter
         self.assertEqual(getattr(ArticleAdapter, 'grokcore.component.directive.provides'), IArticleAdapter)
 
     def create_article(self, number=1):
@@ -48,24 +41,19 @@ class TestArticleAdapter(IntegrationTestCase):
         return articles
 
     def test_instance(self):
-        from collective.cart.core.adapter.article import ArticleAdapter
-        from collective.cart.core.interfaces import IArticleAdapter
         article = self.create_article()
         self.assertIsInstance(IArticleAdapter(article), ArticleAdapter)
 
     def test_instance__context(self):
         from collective.cart.core.interfaces import IArticle
-        from collective.cart.core.interfaces import IArticleAdapter
         article = self.create_article()
         self.assertEqual(getattr(IArticleAdapter(article), 'grokcore.component.directive.context'), IArticle)
 
     def test_instance__provides(self):
-        from collective.cart.core.interfaces import IArticleAdapter
         article = self.create_article()
         self.assertEqual(getattr(IArticleAdapter(article), 'grokcore.component.directive.provides'), IArticleAdapter)
 
     def test_addable_to_cart(self):
-        from collective.cart.core.interfaces import IArticleAdapter
         from collective.cart.core.interfaces import IShoppingSiteRoot
         from zope.interface import alsoProvides
         article = self.create_article()
@@ -78,7 +66,6 @@ class TestArticleAdapter(IntegrationTestCase):
         self.assertFalse(IArticleAdapter(article).addable_to_cart)
 
     def test_add_to_cart(self):
-        from collective.cart.core.interfaces import IArticleAdapter
         from plone.uuid.interfaces import IUUID
         session_data_manager = getToolByName(self.portal, 'session_data_manager')
         session = session_data_manager.getSessionData(create=False)

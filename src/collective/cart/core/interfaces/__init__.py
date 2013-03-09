@@ -59,6 +59,12 @@ class IShoppingSite(IBaseAdapter):
     def remove_cart_articles(ids):  # pragma: no cover
         """Remove articles of ids from current cart."""
 
+    def update_cart(name, items):  # pragma: no cover
+        """Update cart"""
+
+    def remove_from_cart(name):  # pragma: no cover
+        """Remove name from cart"""
+
     def clear_cart(key=None):  # pragma: no cover
         """Clear cart from session"""
 
