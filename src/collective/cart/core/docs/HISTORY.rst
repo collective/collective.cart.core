@@ -1,7 +1,7 @@
 Change log
 ----------
 
-0.6 (2013-03-xx)
+0.6 (2013-03-11)
 ================
 
 - Updated cart to use session. [taito]
