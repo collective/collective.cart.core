@@ -15,10 +15,10 @@ class ShoppingSiteTestCase(IntegrationTestCase):
     """TestCase for ShoppingSite"""
 
     def test_subclass(self):
-        from collective.base.adapter import BaseAdapter
-        self.assertTrue(issubclass(ShoppingSite, BaseAdapter))
-        from collective.base.interfaces import IBaseAdapter
-        self.assertTrue(issubclass(IShoppingSite, IBaseAdapter))
+        from collective.base.adapter import Adapter
+        self.assertTrue(issubclass(ShoppingSite, Adapter))
+        from collective.base.interfaces import IAdapter
+        self.assertTrue(issubclass(IShoppingSite, IAdapter))
 
     def test_provides(self):
         self.assertEqual(getattr(ShoppingSite, 'grokcore.component.directive.provides'), IShoppingSite)

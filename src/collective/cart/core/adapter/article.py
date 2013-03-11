@@ -1,4 +1,4 @@
-from collective.base.adapter import BaseAdapter
+from collective.base.adapter import Adapter
 from collective.behavior.salable.interfaces import ISalable
 from collective.cart.core.interfaces import IArticle
 from collective.cart.core.interfaces import IArticleAdapter
@@ -8,7 +8,7 @@ from five import grok
 from plone.uuid.interfaces import IUUID
 
 
-class ArticleAdapter(BaseAdapter):
+class ArticleAdapter(Adapter):
     """Adapter to handle Article."""
 
     grok.context(IArticle)
@@ -54,4 +54,3 @@ class ArticleAdapter(BaseAdapter):
 
         articles[uuid] = items
         shopping_site.update_cart('articles', articles)
-        # session.set('collective.cart.core', {'articles': articles})

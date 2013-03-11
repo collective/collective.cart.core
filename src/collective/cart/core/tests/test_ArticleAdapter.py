@@ -13,10 +13,10 @@ class TestArticleAdapter(IntegrationTestCase):
     """TestCase for ArticleAdapter"""
 
     def test_subclass(self):
-        from collective.base.adapter import BaseAdapter
-        self.assertTrue(issubclass(ArticleAdapter, BaseAdapter))
-        from collective.base.interfaces import IBaseAdapter
-        self.assertTrue(issubclass(IArticleAdapter, IBaseAdapter))
+        from collective.base.adapter import Adapter
+        self.assertTrue(issubclass(ArticleAdapter, Adapter))
+        from collective.base.interfaces import IAdapter
+        self.assertTrue(issubclass(IArticleAdapter, IAdapter))
 
     def test_context(self):
         from collective.cart.core.interfaces import IArticle

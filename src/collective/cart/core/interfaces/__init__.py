@@ -1,4 +1,4 @@
-from collective.base.interfaces import IBaseAdapter
+from collective.base.interfaces import IAdapter
 from collective.cart.core import _
 from plone.directives import form
 from zope.interface import Attribute
@@ -43,7 +43,7 @@ class IShoppingSiteRoot(form.Schema):
     """Marker interface for Shopping Site Root."""
 
 
-class IShoppingSite(IBaseAdapter):
+class IShoppingSite(IAdapter):
     """Adapter Interface for Shopping Site."""
 
     shop = Attribute("Shop Site Root object.")
@@ -80,14 +80,14 @@ class IShoppingSite(IBaseAdapter):
         """Create cart instance from cart in session."""
 
 
-class ICartContainerAdapter(IBaseAdapter):
+class ICartContainerAdapter(IAdapter):
     """Adapter Interface for CartContainer."""
 
     def update_next_cart_id():  # pragma: no cover
         """Update next_cart_id based on numbering_method."""
 
 
-class ICartAdapter(IBaseAdapter):
+class ICartAdapter(IAdapter):
     """Adapter interface for Cart."""
 
     articles = Attribute('List of brains of CartArticle.')
@@ -96,13 +96,13 @@ class ICartAdapter(IBaseAdapter):
         """Get CartArticle form cart by ID."""
 
 
-class ICartArticleAdapter(IBaseAdapter):
+class ICartArticleAdapter(IAdapter):
     """Adapter Interface for CartArticle."""
 
     orig_article = Attribute('Originar Article object.')
 
 
-class IArticleAdapter(IBaseAdapter):
+class IArticleAdapter(IAdapter):
     """Adapter Interface for Article."""
 
     addable_to_cart = Attribute('True if the Article is addable to cart.')

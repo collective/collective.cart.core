@@ -1,6 +1,6 @@
 from Acquisition import aq_chain
 from Acquisition import aq_inner
-from collective.base.adapter import BaseAdapter
+from collective.base.adapter import Adapter
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import ICartContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
@@ -10,7 +10,7 @@ from plone.dexterity.utils import createContentInContainer
 from zope.lifecycleevent import modified
 
 
-class ShoppingSite(BaseAdapter):
+class ShoppingSite(Adapter):
     """Adapter to provide shopping site."""
 
     grok.provides(IShoppingSite)

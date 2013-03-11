@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
-from collective.base.interfaces import IBaseAdapter
 from collective.cart.core.interfaces import ICart
+from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
 from collective.cart.core.tests.base import IntegrationTestCase
 from plone.dexterity.utils import createContentInContainer
@@ -70,7 +70,7 @@ class TestOrdersView(IntegrationTestCase):
         container = self.create_cart_container(self.portal)
         instance = self.create_view(self.portal)
         self.create_carts(container)
-        for item in IBaseAdapter(self.portal).get_content_listing(ICart):
+        for item in IShoppingSite(self.portal).get_content_listing(ICart):
             self.assertEqual(instance.transitions(item), [
                 {'available': True, 'id': 'canceled', 'name': 'Canceled'},
                 {'available': False, 'id': 'ordered', 'name': 'Ordered'}])
@@ -85,7 +85,7 @@ class TestOrdersView(IntegrationTestCase):
 
         self.create_carts(container)
         instance.transitions = mock.Mock(return_value="TRANSITIONS")
-        today = IBaseAdapter(self.portal).ulocalized_time(DateTime())
+        today = IShoppingSite(self.portal).ulocalized_time(DateTime())
         self.assertEqual(sorted(instance.carts), [{
             'owner': 'test_user_1_',
             'state_title': 'Created',

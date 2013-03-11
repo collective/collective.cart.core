@@ -1,10 +1,10 @@
-from collective.base.adapter import BaseAdapter
+from collective.base.adapter import Adapter
 from collective.cart.core.interfaces import ICartContainer
 from collective.cart.core.interfaces import ICartContainerAdapter
 from five import grok
 
 
-class CartContainerAdapter(BaseAdapter):
+class CartContainerAdapter(Adapter):
     """Adapter to provide methods for CartContainer."""
 
     grok.context(ICartContainer)
