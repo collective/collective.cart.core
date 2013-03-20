@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-11 13:53+0000\n"
+"POT-Creation-Date: 2013-03-20 08:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ./interfaces/__init__.py:32
+#: ./interfaces.py:32
 msgid "Description"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: ./interfaces/__init__.py:17
+#: ./interfaces.py:17
 msgid "Next Cart ID"
 msgstr ""
 

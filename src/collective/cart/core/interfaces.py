@@ -36,8 +36,6 @@ class ICart(form.Schema):
 class ICartArticle(form.Schema):
     """Schema for CartArticle content type."""
 
-    # orig_uuid = Attribute('Original UUID')
-
 
 class IShoppingSiteRoot(form.Schema):
     """Marker interface for Shopping Site Root."""
