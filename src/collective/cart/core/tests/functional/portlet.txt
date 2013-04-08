@@ -61,7 +61,7 @@ Go to cart by clicking link in the portlet::
     <section><table class="listing"><thead><tr><th>Name</th>
     <th>Delete</th>
     </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
-    <tr class="odd"><td class="name">
+    <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
@@ -69,7 +69,7 @@ Go to cart by clicking link in the portlet::
     </td>
     </tr></form>
     <form method="post" action="http://nohost/plone/@@cart">
-    <tr class="even"><td class="name">
+    <input type="hidden" name="_authenticator" value="..."><tr class="even"><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
@@ -112,7 +112,7 @@ Go to cart by clicking link in the portlet::
     <section><table class="listing"><thead><tr><th>Name</th>
     <th>Delete</th>
     </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
-    <tr class="odd"><td class="name">
+    <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
@@ -120,7 +120,7 @@ Go to cart by clicking link in the portlet::
     </td>
     </tr></form>
     <form method="post" action="http://nohost/plone/@@cart">
-    <tr class="even"><td class="name">
+    <input type="hidden" name="_authenticator" value="..."><tr class="even"><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">

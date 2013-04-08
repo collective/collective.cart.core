@@ -1,3 +1,0 @@
-<table class="listing" tal:condition="view/products">
-  <div tal:replace="structure provider:collective.cart.core.totals.manager" />
-</table>

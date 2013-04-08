@@ -74,6 +74,11 @@ class TestAddToCartViewlet(IntegrationTestCase):
         self.assertFalse(instance.request.response.redirect.called)
 
         instance.request.form = {'form.addtocart': True}
+        from zExceptions import Forbidden
+        with self.assertRaises(Forbidden):
+            instance.update()
+
+        instance.context.restrictedTraverse = mock.Mock()
         instance.update()
         self.assertTrue(IArticleAdapter().add_to_cart.called)
         self.assertTrue(instance.request.response.redirect.called)

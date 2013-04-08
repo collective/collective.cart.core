@@ -6,9 +6,9 @@ import os
 
 long_description = (
     open("README.rst").read() + "\n" +
-    open(os.path.join("src", "collective", "cart", "core", "docs", "INSTALL.rst")).read() + "\n" +
+    # open(os.path.join("src", "collective", "cart", "core", "docs", "INSTALL.rst")).read() + "\n" +
     open(os.path.join("src", "collective", "cart", "core", "docs", "HISTORY.rst")).read() + "\n" +
-    open(os.path.join("src", "collective", "cart", "core", "docs", "CONTRIBUTORS.rst")).read() + "\n" +
+    # open(os.path.join("src", "collective", "cart", "core", "docs", "CONTRIBUTORS.rst")).read() + "\n" +
     open(os.path.join("src", "collective", "cart", "core", "docs", "CREDITS.rst")).read())
 
 

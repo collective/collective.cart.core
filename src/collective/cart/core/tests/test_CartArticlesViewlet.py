@@ -52,6 +52,11 @@ class TestCartArticlesViewlet(IntegrationTestCase):
 
         instance.request = mock.Mock()
         instance.request.form = {'form.delete.article': 'UUID'}
+        from zExceptions import Forbidden
+        with self.assertRaises(Forbidden):
+            instance.update()
+
+        instance.context.restrictedTraverse = mock.Mock()
         instance.update()
         self.assertTrue(instance.view.shopping_site.remove_cart_articles.called)
         self.assertFalse(instance.request.response.redirect.called)

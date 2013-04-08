@@ -15,8 +15,9 @@
     <tbody>
       <form
         method="post"
-        tal:attributes="action context/@@plone_context_state/current_base_url"
+        tal:attributes="action context/plone_context_state/current_base_url"
         tal:repeat="item viewlet/articles">
+        <span tal:replace="structure context/@@authenticator/authenticator" />
         <tr
           tal:define="oddrow repeat/item/odd"
           tal:attributes="class python:oddrow and 'even' or 'odd'">

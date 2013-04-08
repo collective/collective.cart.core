@@ -22,7 +22,7 @@
         <form
           id="clear-created"
           method="post"
-          tal:attributes="action context/@@plone_context_state/current_base_url">
+          tal:attributes="action context/plone_context_state/current_base_url">
           <button
             i18n:translate=""
             name="form.buttons.ClearCreated"

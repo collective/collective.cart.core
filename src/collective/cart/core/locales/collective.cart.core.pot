@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-20 08:57+0000\n"
+"POT-Creation-Date: 2013-04-08 08:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,6 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.cart.core\n"
-
-#: ./browser/viewlets/product_values.pt:12
-msgid "Add To Cart"
-msgstr ""
 
 #: ./profiles/default/types/collective.cart.core.Article.xml
 msgid "Article"
@@ -104,10 +100,6 @@ msgstr ""
 msgid "Next Cart ID"
 msgstr ""
 
-#: ./browser/viewlets/cart_next.pt:4
-msgid "Next Step"
-msgstr ""
-
 #: ./browser/templates/orders.pt:35
 msgid "No."
 msgstr ""
@@ -127,14 +119,6 @@ msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
 msgid "Paid"
-msgstr ""
-
-#: ./browser/viewlets/product_values.pt:6
-msgid "Price"
-msgstr ""
-
-#: ./browser/viewlets/product_values.pt:9
-msgid "Quantity"
 msgstr ""
 
 #: ./profiles/default/workflows/cart_default_workflow/definition.xml
