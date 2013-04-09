@@ -1365,6 +1365,15 @@ class TestSetup(IntegrationTestCase):
         variable = workflow.variables.time
         self.assertIsNone(variable.info_guard)
 
+    def test_viewlets__order__plone_belowcontenttitle(self):
+        from zope.component import getUtility
+        from plone.app.viewletmanager.interfaces import IViewletSettingsStorage
+        storage = getUtility(IViewletSettingsStorage)
+        manager = "plone.belowcontenttitle"
+        skinname = "*"
+        for viewlet in (u'collective.cart.core.add.to.cart',):
+            self.assertIn(viewlet, storage.getOrder(manager, skinname))
+
     def test_uninstall__package(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         installer.uninstallProducts(['collective.cart.core'])
