@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-0.6.0.2 (2013-04-xx)
+0.6.0.2 (2013-04-10)
 ====================
 
 - Added CSRF authenticator. [taito]
