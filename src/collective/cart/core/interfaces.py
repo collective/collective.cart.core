@@ -3,34 +3,35 @@ from collective.cart.core.schema import ArticleSchema
 from collective.cart.core.schema import OrderArticleSchema
 from collective.cart.core.schema import OrderContainerSchema
 from collective.cart.core.schema import OrderSchema
+from plone.dexterity.interfaces import IDexterityContainer
 from zope.interface import Interface
 
 
-class IArticle(ArticleSchema):
+class IArticle(ArticleSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.Article"""
 
 
-class IOrderContainer(OrderContainerSchema):
+class IOrderContainer(OrderContainerSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.OrderContainer"""
 
 
-class IOrder(OrderSchema):
+class IOrder(OrderSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.Order"""
 
 
-class IOrderArticle(OrderArticleSchema):
+class IOrderArticle(OrderArticleSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.OrderArticle"""
 
 
-class ICartContainer(OrderContainerSchema):
+class ICartContainer(OrderContainerSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.CartContainer"""
 
 
-class ICart(OrderSchema):
+class ICart(OrderSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.Cart"""
 
 
-class ICartArticle(OrderArticleSchema):
+class ICartArticle(OrderArticleSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.CartArticle"""
 
 

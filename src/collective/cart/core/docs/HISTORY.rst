@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+0.6.0.4 (2013-04-xx)
+====================
+
+- Added dexterity container implements to all the content types. [taito]
+
 0.6.0.3 (2013-04-20)
 ====================
 
