@@ -2,12 +2,9 @@ Log in as Manager::
 
     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
 
-Change the display to folder_listing to make '/' context portal::
-
-    >>> browser.open('/selectViewTemplate?templateId=folder_listing')
-
 There should not be Orders in actions::
 
+    >>> browser.open('/')
     >>> print browser.bycss('#contentview-orders')
 
 Make portal Shopping Site and there should appear Orders in actions::

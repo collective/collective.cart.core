@@ -7,19 +7,21 @@
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <body>
-    <div metal:fill-slot="main">
-      <section id="cart">
-        <h1 i18n:translate="">Cart</h1>
-        <p
-          i18n:translate=""
-          id="cart-is-empty"
-          tal:condition="not: view/cart_articles"
-          >
-          Cart is empty.
-        </p>
-      <div tal:condition="view/cart_articles"
-           tal:replace="structure provider:collective.cart.core.cartviewletmanager" />
-      </section>
-    </div>
+    <metal:title fill-slot="content-title">
+      <h1 class="documentFirstHeading" i18n:translate="">Cart</h1>
+    </metal:title>
+    <metal:description fill-slot="content-description">
+
+    </metal:description>
+    <metal:text fill-slot="content-core">
+      <p id="cart-is-empty"
+        i18n:translate=""
+        tal:condition="not: view/cart_articles">
+        Cart is empty.
+      </p>
+      <div
+        tal:condition="view/cart_articles"
+        tal:replace="structure provider:collective.cart.core.viewlet-manager.cart" />
+    </metal:text>
   </body>
 </html>

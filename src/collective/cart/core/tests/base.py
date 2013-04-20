@@ -88,6 +88,14 @@ class IntegrationTestCase(unittest.TestCase):
         request.set = mock.Mock()
         return view(context, request)
 
+    def create_viewlet(self, viewlet, context=None, view=None, manager=None):
+        if context is None:
+            context = self.portal
+        request = TestRequest()
+        directlyProvides(request, IAttributeAnnotatable)
+        request.set = mock.Mock()
+        return viewlet(context, request, view, manager)
+
 
 class FunctionalTestCase(unittest.TestCase):
     """Base class for functional tests."""

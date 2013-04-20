@@ -11,7 +11,7 @@
       <h1 class="documentFirstHeading" i18n:translate="">
         Cart ID: <span i18n:name="cart_id" tal:replace="context/getId" />
       </h1>
-      <div tal:replace="structure provider:collective.cart.core.cartcontentviewletmanager" />
+      <div tal:replace="structure provider:collective.cart.core.viewlet-manager.order" />
     </div>
   </body>
 </html>

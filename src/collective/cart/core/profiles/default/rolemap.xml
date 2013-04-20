@@ -18,5 +18,13 @@
       <role name="Manager" />
       <role name="Site Administrator" />
     </permission>
+    <permission name="collective.cart.core: Add Order" acquire="False">
+      <role name="Authenticated"/>
+    </permission>
+    <permission name="collective.cart.core: View Order Content" acquire="True">
+      <role name="Contributor" />
+      <role name="Manager" />
+      <role name="Site Administrator" />
+    </permission>
   </permissions>
 </rolemap>

@@ -29,7 +29,6 @@ def setUp(self):
     layer = self.globs['layer']
     browser = Browser(layer['app'])
     portal = layer['portal']
-    # Update global variables within the tests.
     self.globs.update({
         'TEST_USER_NAME': TEST_USER_NAME,
         'TEST_USER_PASSWORD': TEST_USER_PASSWORD,
@@ -38,19 +37,13 @@ def setUp(self):
     })
     ztc.utils.setupCoreSessions(layer['app'])
     browser.setBaseUrl(portal.absolute_url())
-
     browser.handleErrors = True
     portal.error_log._ignored_exceptions = ()
 
     setRoles(portal, TEST_USER_ID, ['Manager'])
 
-    folder01 = portal[
-        portal.invokeFactory(
-            'Folder',
-            'folder01',
-            title='Folder01'
-        )]
-    folder01.reindexObject()
+    # Remove front-page
+    portal.manage_delObjects(['front-page'])
 
     regtool = getToolByName(portal, 'portal_registration')
 

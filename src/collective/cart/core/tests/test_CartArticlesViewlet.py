@@ -1,67 +1,56 @@
 # -*- coding: utf-8 -*-
+from collective.cart.core.browser.viewlet import CartArticlesViewlet
+from collective.cart.core.interfaces import IShoppingSiteRoot
 from collective.cart.core.tests.base import IntegrationTestCase
-from zope.publisher.browser import TestRequest
+from zope.interface import alsoProvides
 
 import mock
 
 
-class TestCartArticlesViewlet(IntegrationTestCase):
-
-    def setUp(self):
-        self.portal = self.layer['portal']
+class CartArticlesViewletTestCase(IntegrationTestCase):
+    """TestCase for CartArticlesViewlet"""
 
     def test_subclass(self):
-        from collective.cart.core.browser.viewlet import CartArticlesViewlet
-        from collective.cart.core.browser.viewlet import BaseViewlet
-        self.assertTrue(issubclass(CartArticlesViewlet, BaseViewlet))
+        from plone.app.layout.viewlets.common import ViewletBase
+        self.assertTrue(issubclass(CartArticlesViewlet, ViewletBase))
 
-    def create_instance(self):
-        from collective.cart.core.browser.viewlet import CartArticlesViewlet
-        return CartArticlesViewlet(self.portal, TestRequest(), None, None)
+    def test_index(self):
+        alsoProvides(self.portal, IShoppingSiteRoot)
+        instance = self.create_viewlet(CartArticlesViewlet)
+        self.assertEqual(instance.index.filename.split('/')[-1], 'cart-articles.pt')
 
-    def test_instance__context(self):
-        from collective.cart.core.interfaces import IShoppingSiteRoot
-        instance = self.create_instance()
-        self.assertEqual(getattr(instance, 'grokcore.component.directive.context'), IShoppingSiteRoot)
+    @mock.patch('collective.cart.core.browser.viewlet.IShoppingSite')
+    def test_articles(self, IShoppingSite):
+        alsoProvides(self.portal, IShoppingSiteRoot)
+        instance = self.create_viewlet(CartArticlesViewlet)
+        self.assertEqual(instance.articles(), IShoppingSite().cart_article_listing())
 
-    def test_instance__name(self):
-        instance = self.create_instance()
-        self.assertEqual(getattr(instance, 'grokcore.component.directive.name'), 'collective.cart.core.cartarticles')
-
-    def test_instance__template(self):
-        instance = self.create_instance()
-        self.assertEqual(getattr(instance, 'grokcore.view.directive.template'), 'cart-articles')
-
-    def test_instance__viewletmanager(self):
-        from collective.cart.core.browser.viewlet import CartViewletManager
-        instance = self.create_instance()
-        self.assertEqual(getattr(instance, 'grokcore.viewlet.directive.viewletmanager'), CartViewletManager)
-
-    def test_articles(self):
-        instance = self.create_instance()
-        instance.view = mock.Mock()
-        shopping_site = mock.Mock()
-        instance.view.shopping_site = shopping_site
-        self.assertEqual(instance.articles, shopping_site.cart_article_listing)
-
-    def test_update(self):
-        instance = self.create_instance()
-        instance.view = mock.Mock()
-        instance.update()
-        self.assertFalse(instance.view.shopping_site.remove_cart_articles.called)
+    @mock.patch('collective.cart.core.browser.viewlet.IShoppingSite')
+    def test_update(self, IShoppingSite):
+        alsoProvides(self.portal, IShoppingSiteRoot)
+        instance = self.create_viewlet(CartArticlesViewlet)
+        instance.request = mock.Mock()
+        instance.request.form = {}
+        self.assertIsNone(instance.update())
+        self.assertEqual(IShoppingSite().remove_cart_articles.call_count, 0)
+        self.assertEqual(instance.request.response.redirect.call_count, 0)
 
         instance.request = mock.Mock()
-        instance.request.form = {'form.delete.article': 'UUID'}
+        instance.request.form = {'form.buttons.RemoveArticle': 'UUID'}
         from zExceptions import Forbidden
         with self.assertRaises(Forbidden):
             instance.update()
 
         instance.context.restrictedTraverse = mock.Mock()
-        instance.update()
-        self.assertTrue(instance.view.shopping_site.remove_cart_articles.called)
-        self.assertFalse(instance.request.response.redirect.called)
+        instance.context.restrictedTraverse().current_base_url.return_value = 'CURRENT_BASE_URL'
+        self.assertIsNone(instance.update())
+        self.assertEqual(IShoppingSite().remove_cart_articles.call_count, 1)
+        IShoppingSite().remove_cart_articles.assert_called_with('UUID')
+        self.assertEqual(instance.request.response.redirect.call_count, 0)
 
-        instance.view.cart_articles = []
-        instance.update()
-        self.assertTrue(instance.view.shopping_site.remove_cart_articles.called)
-        self.assertTrue(instance.request.response.redirect.called)
+        IShoppingSite().cart_articles.return_value = {}
+        self.assertIsNotNone(instance.update())
+        self.assertEqual(IShoppingSite().remove_cart_articles.call_count, 2)
+        IShoppingSite().remove_cart_articles.assert_called_with('UUID')
+        self.assertEqual(instance.request.response.redirect.call_count, 1)
+        instance.request.response.redirect.assert_called_with('CURRENT_BASE_URL')

@@ -2,12 +2,9 @@ Log in as Manager::
 
     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
 
-Change the display to folder_listing to make '/' context portal::
-
-    >>> browser.open('/selectViewTemplate?templateId=folder_listing')
-
 Make Shopping Site::
 
+    >>> browser.open('/')
     >>> browser.getLink('Make Shopping Site').click()
 
 Add two Articles::
@@ -27,24 +24,35 @@ Add two Articles::
 Add both articles to cart::
 
     >>> browser.open('/article1')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
     >>> browser.open('/article2')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
 
 Go to cart::
 
     >>> browser.open('/@@cart')
-    >>> print browser.bycss('#cart')
+    >>> print browser.bycss('.documentFirstHeading')
     --- 1 ---
-    <section id="cart"><h1>Cart</h1>
-    <section><table class="listing"><thead><tr><th>Name</th>
-    <th>Delete</th>
+    <h1 class="documentFirstHeading">Cart</h1>
+
+    >>> print browser.bycss('#cart-is-empty')
+
+    >>> print browser.bycss('.listing')
+    --- 1 ---
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
     <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
     <form method="post" action="http://nohost/plone/@@cart">
@@ -52,37 +60,49 @@ Go to cart::
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
-    </tbody></table></section></section>
+    </tbody></table>
 
-Delete Ärticle1::
+Remove Ärticle1::
 
-    >>> browser.getControl(name="form.delete.article", index=0).click()
-    >>> print browser.bycss('#cart')
+    >>> browser.getControl(name="form.buttons.RemoveArticle", index=0).click()
+    >>> print browser.bycss('#cart-is-empty')
+
+    >>> print browser.bycss('.listing')
     --- 1 ---
-    <section id="cart"><h1>Cart</h1>
-    <section><table class="listing"><thead><tr><th>Name</th>
-    <th>Delete</th>
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
     <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
-    </tbody></table></section></section>
+    </tbody></table>
 
-Delete Ärticle2::
 
-    >>> browser.getControl(name="form.delete.article").click()
-    >>> print browser.bycss('#cart')
+Remove Ärticle2::
+
+    >>> browser.getControl(name="form.buttons.RemoveArticle").click()
+    >>> print browser.bycss('#cart-is-empty')
     --- 1 ---
-    <section id="cart"><h1>Cart</h1>
-    <p id="cart-is-empty">Cart is empty.</p>
-    </section>
+    <p id="cart-is-empty">
+    Cart is empty.
+    </p>
+
+    >>> print browser.bycss('.listing')
 
 Log out and try the same thing with anonymous::
 
@@ -91,24 +111,35 @@ Log out and try the same thing with anonymous::
 Add both articles to cart::
 
     >>> browser.open('/article1')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
     >>> browser.open('/article2')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
 
 Go to cart::
 
     >>> browser.open('/@@cart')
-    >>> print browser.bycss('#cart')
+    >>> print browser.bycss('.documentFirstHeading')
     --- 1 ---
-    <section id="cart"><h1>Cart</h1>
-    <section><table class="listing"><thead><tr><th>Name</th>
-    <th>Delete</th>
+    <h1 class="documentFirstHeading">Cart</h1>
+
+    >>> print browser.bycss('#cart-is-empty')
+
+    >>> print browser.bycss('.listing')
+    --- 1 ---
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
     <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
     <form method="post" action="http://nohost/plone/@@cart">
@@ -116,34 +147,45 @@ Go to cart::
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
-    </tbody></table></section></section>
+    </tbody></table>
 
-Delete Ärticle1::
+Remove Ärticle1::
 
-    >>> browser.getControl(name="form.delete.article", index=0).click()
-    >>> print browser.bycss('#cart')
+    >>> browser.getControl(name="form.buttons.RemoveArticle", index=0).click()
+    >>> print browser.bycss('#cart-is-empty')
+
+    >>> print browser.bycss('.listing')
     --- 1 ---
-    <section id="cart"><h1>Cart</h1>
-    <section><table class="listing"><thead><tr><th>Name</th>
-    <th>Delete</th>
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
     <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
-    </tbody></table></section></section>
+    </tbody></table>
 
-Delete Ärticle2::
+Remove Ärticle2::
 
-    >>> browser.getControl(name="form.delete.article").click()
-    >>> print browser.bycss('#cart')
+    >>> browser.getControl(name="form.buttons.RemoveArticle").click()
+    >>> print browser.bycss('#cart-is-empty')
     --- 1 ---
-    <section id="cart"><h1>Cart</h1>
-    <p id="cart-is-empty">Cart is empty.</p>
-    </section>
+    <p id="cart-is-empty">
+    Cart is empty.
+    </p>
+
+    >>> print browser.bycss('.listing')

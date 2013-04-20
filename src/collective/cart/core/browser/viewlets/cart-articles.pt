@@ -1,6 +1,6 @@
 <section
   i18n:domain="collective.cart.core"
-  tal:condition="view/cart_articles">
+  tal:condition="view/articles">
   <table class="listing">
     <thead>
       <tr>
@@ -8,7 +8,7 @@
           Name
         </th>
         <th i18n:translate="">
-          Delete
+          Remove
         </th>
       </tr>
     </thead>
@@ -16,7 +16,7 @@
       <form
         method="post"
         tal:attributes="action context/plone_context_state/current_base_url"
-        tal:repeat="item viewlet/articles">
+        tal:repeat="item view/articles">
         <span tal:replace="structure context/@@authenticator/authenticator" />
         <tr
           tal:define="oddrow repeat/item/odd"
@@ -36,11 +36,11 @@
             <button
               class="standalone"
               i18n:translate=""
-              name="form.delete.article"
+              name="form.buttons.RemoveArticle"
               type="submit"
               tal:attributes="value item/id"
-              value="form.delete.article">
-              Delete
+              value="form.buttons.RemoveArticle">
+              Remove
             </button>
           </td>
         </tr>

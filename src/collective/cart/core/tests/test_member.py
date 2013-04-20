@@ -27,22 +27,18 @@ CHECKER = renormalizing.RENormalizing([
 
 def setUp(self):
     layer = self.globs['layer']
-    # Update global variables within the tests.
+    browser = Browser(layer['app'])
+    portal = layer['portal']
     self.globs.update({
-        'portal': layer['portal'],
-        'portal_url': layer['portal'].absolute_url(),
-        'browser': Browser(layer['app']),
         'TEST_USER_NAME': TEST_USER_NAME,
         'TEST_USER_PASSWORD': TEST_USER_PASSWORD,
+        'browser': browser,
+        'portal': portal,
     })
     ztc.utils.setupCoreSessions(layer['app'])
-    portal = self.globs['portal']
-    browser = self.globs['browser']
     browser.setBaseUrl(portal.absolute_url())
-
     browser.handleErrors = True
     portal.error_log._ignored_exceptions = ()
-
     setRoles(portal, TEST_USER_ID, ['Manager'])
 
     # Remove front-page
@@ -57,11 +53,6 @@ def setUp(self):
     folder01.reindexObject()
 
     regtool = getToolByName(portal, 'portal_registration')
-
-    # editor = 'editor'
-    # regtool.addMember(editor, editor)
-    # setRoles(portal, editor, ['Editor'])
-    # self.globs['editor'] = editor
 
     member1 = 'member1'
     regtool.addMember(member1, member1)
@@ -102,5 +93,4 @@ def DocFileSuite(testfile, flags=FLAGS, setUp=setUp, layer=FUNCTIONAL_TESTING):
 
 
 def test_suite():
-    return unittest.TestSuite([
-        DocFileSuite('functional/member.txt')])
+    return unittest.TestSuite([DocFileSuite('functional/member.txt')])

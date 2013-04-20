@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
+from collective.cart.core.interfaces import IShoppingSiteRoot
 from collective.cart.core.tests.base import FUNCTIONAL_TESTING
 from hexagonit.testing.browser import Browser
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import TEST_USER_PASSWORD
 from plone.app.testing import setRoles
+from plone.dexterity.utils import createContentInContainer
 from plone.testing import layered
+from zope.interface import alsoProvides
+from zope.lifecycleevent import modified
 from zope.testing import renormalizing
 
 import doctest
@@ -28,7 +32,6 @@ def setUp(self):
     layer = self.globs['layer']
     browser = Browser(layer['app'])
     portal = layer['portal']
-    # Update global variables within the tests.
     self.globs.update({
         'TEST_USER_NAME': TEST_USER_NAME,
         'TEST_USER_PASSWORD': TEST_USER_PASSWORD,
@@ -41,21 +44,16 @@ def setUp(self):
 
     setRoles(portal, TEST_USER_ID, ['Manager'])
 
-    from collective.cart.core.interfaces import IShoppingSiteRoot
-    from zope.interface import alsoProvides
-    from plone.dexterity.utils import createContentInContainer
-    from zope.lifecycleevent import modified
-
     alsoProvides(portal, IShoppingSiteRoot)
     portal.reindexObject()
 
-    container = createContentInContainer(portal, 'collective.cart.core.CartContainer', checkConstraints=False,
-        id='cart-container', title='Cärt Cöntäiner')
+    container = createContentInContainer(portal, 'collective.cart.core.OrderContainer', checkConstraints=False,
+        id='order-container', title='Örder Cöntäiner')
     modified(container)
 
-    cart1 = createContentInContainer(container, 'collective.cart.core.Cart', checkConstraints=False,
+    order1 = createContentInContainer(container, 'collective.cart.core.Order', checkConstraints=False,
         id='1')
-    modified(cart1)
+    modified(order1)
 
     transaction.commit()
 
@@ -86,4 +84,4 @@ def DocFileSuite(testfile, flags=FLAGS, setUp=setUp, layer=FUNCTIONAL_TESTING):
 
 
 def test_suite():
-    return unittest.TestSuite([DocFileSuite('functional/ValidateCartIDUniqueness.txt')])
+    return unittest.TestSuite([DocFileSuite('functional/ValidateOrderIDUniqueness.txt')])

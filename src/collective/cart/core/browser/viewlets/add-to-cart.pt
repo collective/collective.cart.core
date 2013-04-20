@@ -1,15 +1,14 @@
-<div
+<section
   id="add-to-cart"
-  tal:condition="viewlet/available"
-  >
+  tal:condition="view/available">
   <form
     method="post"
-    tal:attributes="action context/plone_context_state/current_base_url">
+    tal:attributes="action context/@@plone_context_state/current_base_url">
     <span tal:replace="structure context/@@authenticator/authenticator" />
     <button
       type="submit"
-      name="form.addtocart"
+      name="form.buttons.AddToCart"
       i18n:translate=""
       >Add To Cart</button>
   </form>
-</div>
+</section>

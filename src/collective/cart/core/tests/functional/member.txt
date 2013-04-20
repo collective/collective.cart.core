@@ -34,15 +34,15 @@ Cart should be empty::
     >>> 'Cart is empty' in browser.contents
     True
 
-Go to Cart Container::
+Go to Order Container::
 
-    >>> browser.open('/cart-container')
+    >>> browser.open('/order-container')
     >>> 'Insufficient Privileges' in browser.contents
     True
 
 Go to non existing Cart::
 
-    >>> browser.open('/cart-container/1')
+    >>> browser.open('/order-container/1')
     Traceback (most recent call last):
     ...
     HTTPError: HTTP Error 404: Not Found
@@ -53,17 +53,17 @@ Add Article01 To Cart::
     >>> browser.open('/article01')
     >>> 'Add To Cart' in browser.contents
     True
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
 
-Go to Cart Container::
+Go to Order Container::
 
-    >>> browser.open('/cart-container')
+    >>> browser.open('/order-container')
     >>> 'Insufficient Privileges' in browser.contents
     True
 
-# Go to Cart::
+# Go to Order::
 
-#     >>> browser.open('/cart-container/1')
+#     >>> browser.open('/order-container/1')
 #     >>> 'Insufficient Privileges' in browser.contents
 #     True
 
@@ -93,7 +93,7 @@ Cart should be empty::
 Add Ärticle02::
 
     >>> browser.open('/article02')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
 
     >>> browser.open('/@@cart')
     >>> print browser.bycss('.name')
@@ -118,7 +118,7 @@ The session is invalidated::
 Add Ärticle01::
 
     >>> browser.open('/article01')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
 
 There should be Ärticle01 in cart.::
 
@@ -129,9 +129,9 @@ There should be Ärticle01 in cart.::
     <a href="http://nohost/plone/article01">&#196;rticle01</a>
     </td>
 
-Delete Ärticle01::
+Remove Ärticle01::
 
-    >>> browser.getControl(name="form.delete.article").click()
+    >>> browser.getControl(name="form.buttons.RemoveArticle").click()
     >>> print browser.bycss('.name')
 
     >>> 'Cart is empty' in browser.contents
@@ -140,9 +140,9 @@ Delete Ärticle01::
 Add Ärticle01 and Ärticle02::
 
     >>> browser.open('/article01')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
     >>> browser.open('/article02')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
 
 Check cart::
 
@@ -177,7 +177,7 @@ Log out, log in as member1 invalidates cart::
 Add Ärticle01::
 
     >>> browser.open('/article01')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
 
     >>> browser.open('/@@cart')
     >>> print browser.bycss('.name')
@@ -189,12 +189,14 @@ Add Ärticle01::
     >>> print browser.bycss('.remove')
     --- 1 ---
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
 
-Delete Article01::
+Remove Article01::
 
-    >>> browser.getControl(name="form.delete.article").click()
+    >>> browser.getControl(name="form.buttons.RemoveArticle").click()
     >>> print browser.bycss('.name')
 
     >>> browser.open('/@@cart')

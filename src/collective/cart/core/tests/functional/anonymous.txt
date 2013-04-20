@@ -27,13 +27,13 @@ Cart should be empty::
 
 Go to Cart Container::
 
-    >>> browser.open('/cart-container')
+    >>> browser.open('/order-container')
     >>> browser.url
-    'http://nohost/plone/acl_users/credentials_cookie_auth/require_login?came_from=http%3A//nohost/plone/cart-container'
+    'http://nohost/plone/acl_users/credentials_cookie_auth/require_login?came_from=http%3A//nohost/plone/order-container'
 
-Go to non existing Cart::
+Go to non existing Order::
 
-    >>> browser.open('/cart-container/1')
+    >>> browser.open('/order-container/1')
     Traceback (most recent call last):
     ...
     HTTPError: HTTP Error 404: Not Found
@@ -43,7 +43,7 @@ Add Article01 To Cart::
     >>> browser.open('/article01')
     >>> 'Add To Cart' in browser.contents
     True
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
 
 Check cart::
 

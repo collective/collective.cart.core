@@ -1,94 +1,56 @@
-from collective.cart.core.browser.interfaces import ICollectiveCartCoreLayer
-from collective.cart.core.interfaces import IArticle
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from collective.cart.core.interfaces import IArticleAdapter
-from collective.cart.core.interfaces import ICart
-from collective.cart.core.interfaces import IShoppingSiteRoot
-from five import grok
-from plone.app.layout.globals.interfaces import IViewView
-from plone.app.layout.viewlets.interfaces import IBelowContentTitle
-from plone.app.viewletmanager.manager import OrderedViewletManager
+from collective.cart.core.interfaces import IShoppingSite
+from plone.app.layout.viewlets.common import ViewletBase
 from zExceptions import Forbidden
-from zope.component import getMultiAdapter
 
 
-grok.templatedir('viewlets')
+class AddToCartViewlet(ViewletBase):
+    """Viewlet to display add to cart form for article"""
 
-
-class BaseViewlet(grok.Viewlet):
-    """Base class for all the viewlets"""
-    grok.baseclass()
-    grok.layer(ICollectiveCartCoreLayer)
-    grok.require('zope2.View')
-
-
-class AddToCartViewlet(BaseViewlet):
-    """Viewlet to show add to cart form for salable article."""
-    grok.context(IArticle)
-    grok.name('collective.cart.core.add.to.cart')
-    grok.template('add-to-cart')
-    grok.view(IViewView)
-    grok.viewletmanager(IBelowContentTitle)
+    index = ViewPageTemplateFile('viewlets/add-to-cart.pt')
 
     def update(self):
         form = self.request.form
-        if form.get('form.addtocart', None) is not None:
+        if form.get('form.buttons.AddToCart', None) is not None:
 
             authenticator = self.context.restrictedTraverse('@@authenticator')
             if not authenticator.verify():
                 raise Forbidden()
 
             IArticleAdapter(self.context).add_to_cart()
-            context_state = getMultiAdapter((self.context, self.request), name="plone_context_state")
+            context_state = self.context.restrictedTraverse('@@plone_context_state')
             return self.request.response.redirect(context_state.current_base_url())
 
-    @property
     def available(self):
-        return IArticleAdapter(self.context).addable_to_cart
+        return IArticleAdapter(self.context).addable_to_cart()
 
 
-class CartViewletManager(OrderedViewletManager, grok.ViewletManager):
-    """Viewlet manager for cart view."""
-    grok.context(IShoppingSiteRoot)
-    grok.layer(ICollectiveCartCoreLayer)
-    grok.name('collective.cart.core.cartviewletmanager')
+class CartArticlesViewlet(ViewletBase):
+    """Viewlet to display articles in cart"""
 
+    index = ViewPageTemplateFile('viewlets/cart-articles.pt')
 
-class CartArticlesViewlet(BaseViewlet):
-    """Cart Articles Viewlet Class."""
-    grok.context(IShoppingSiteRoot)
-    grok.name('collective.cart.core.cartarticles')
-    grok.template('cart-articles')
-    grok.viewletmanager(CartViewletManager)
+    def articles(self):
+        return IShoppingSite(self.context).cart_article_listing()
 
     def update(self):
         form = self.request.form
-        uuid = form.get('form.delete.article', None)
+        uuid = form.get('form.buttons.RemoveArticle', None)
+
         if uuid is not None:
 
             authenticator = self.context.restrictedTraverse('@@authenticator')
             if not authenticator.verify():
                 raise Forbidden()
 
-            self.view.shopping_site.remove_cart_articles(uuid)
-            if not self.view.cart_articles:
-                return self.request.response.redirect(self.view.url())
-
-    @property
-    def articles(self):
-        """Returns list of articles to show in cart."""
-        return self.view.shopping_site.cart_article_listing
+            shopping_site = IShoppingSite(self.context)
+            shopping_site.remove_cart_articles(uuid)
+            if not shopping_site.cart_articles():
+                current_base_url = self.context.restrictedTraverse("plone_context_state").current_base_url()
+                return self.request.response.redirect(current_base_url)
 
 
-class CartContentViewletManager(OrderedViewletManager, grok.ViewletManager):
-    """Viewlet manager for cart view."""
-    grok.context(ICart)
-    grok.layer(ICollectiveCartCoreLayer)
-    grok.name('collective.cart.core.cartcontentviewletmanager')
-
-
-class CartContentViewlet(BaseViewlet):
-    """Viewlet to show cart content in cart container."""
-    grok.context(ICart)
-    grok.name('collective.cart.core.cart-content')
-    grok.template('cart-content')
-    grok.viewletmanager(CartContentViewletManager)
+class OrderArticlesViewlet(ViewletBase):
+    """Viewlet to display articles in order"""
+    index = ViewPageTemplateFile('viewlets/order-articles.pt')

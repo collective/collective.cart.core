@@ -1,112 +1,122 @@
 from collective.base.interfaces import IAdapter
-from collective.cart.core import _
-from plone.directives import form
-from zope.interface import Attribute
+from collective.cart.core.schema import ArticleSchema
+from collective.cart.core.schema import OrderArticleSchema
+from collective.cart.core.schema import OrderContainerSchema
+from collective.cart.core.schema import OrderSchema
 from zope.interface import Interface
-from zope import schema
 
 
-class IArticle(form.Schema):
-    """Schema for Article content type."""
+class IArticle(ArticleSchema):
+    """Interface for content type: collective.cart.core.Article"""
 
 
-class ICartContainer(form.Schema):
-    """Schema for CartContainer content type."""
-
-    next_cart_id = schema.Int(
-        title=_(u'Next Cart ID'),
-        default=1,
-        min=1)
-
-    def update_next_cart_id():  # pragma: no cover
-        """Update next_cart_id"""
-
-    def clear_created(minutes):  # pragma: no cover
-        """Clear cart state with created if it is older than minutes"""
+class IOrderContainer(OrderContainerSchema):
+    """Interface for content type: collective.cart.core.OrderContainer"""
 
 
-class ICart(form.Schema):
-    """Schema for Cart content type."""
-
-    description = schema.Text(
-        title=_(u'Description'),
-        required=False)
+class IOrder(OrderSchema):
+    """Interface for content type: collective.cart.core.Order"""
 
 
-class ICartArticle(form.Schema):
-    """Schema for CartArticle content type."""
+class IOrderArticle(OrderArticleSchema):
+    """Interface for content type: collective.cart.core.OrderArticle"""
 
 
-class IShoppingSiteRoot(form.Schema):
-    """Marker interface for Shopping Site Root."""
+class ICartContainer(OrderContainerSchema):
+    """Interface for content type: collective.cart.core.CartContainer"""
+
+
+class ICart(OrderSchema):
+    """Interface for content type: collective.cart.core.Cart"""
+
+
+class ICartArticle(OrderArticleSchema):
+    """Interface for content type: collective.cart.core.CartArticle"""
+
+
+class IShoppingSiteRoot(Interface):
+    """Marker interface for Shopping Site Root"""
 
 
 class IShoppingSite(IAdapter):
-    """Adapter Interface for Shopping Site."""
+    """Adapter interface for Shopping Site."""
 
-    shop = Attribute("Shop Site Root object.")
-    shop_path = Attribute("Path of shop.")
-    cart_container = Attribute("Cart Container object located directly under Shop Site Root.")
-    cart = Attribute('Current cart in session.')
-    cart_articles = Attribute('List of ordered dictionary of cart articles in session.')
-    cart_article_listing = Attribute('List of cart articles in session for views.')
+    def shop():  # pragma: no cover
+        """Returns Shopping site root object"""
+
+    def shop_path():  # pragma: no cover
+        """Returns path of shopping site root"""
+
+    def order_container():  # pragma: no cover
+        """Returns order container located directly under shopping site root"""
+
+    def cart():  # pragma: no cover
+        """Returns cart in session"""
+
+    def cart_articles():  # pragma: no cover
+        """Returns list of ordered dictionary of cart articles in session"""
+
+    def cart_article_listing():  # pragma: no cover
+        """Returns list of cart articles in session for view"""
 
     def get_cart_article(uuid):  # pragma: no cover
-        """Get cart article by uuid."""
+        """Returns dictionary of cart article by uuid"""
 
-    def remove_cart_articles(ids):  # pragma: no cover
-        """Remove articles of ids from current cart."""
+    def remove_cart_articles(uuids):  # pragma: no cover
+        """Removes articles of uuids from cart"""
 
     def update_cart(name, items):  # pragma: no cover
-        """Update cart"""
+        """Update cart by name and items"""
 
     def remove_from_cart(name):  # pragma: no cover
         """Remove name from cart"""
 
-    def clear_cart(key=None):  # pragma: no cover
+    def clear_cart():  # pragma: no cover
         """Clear cart from session"""
 
-    # CartContainer related methods comes here::
+    def clean_articles_in_cart():  # pragma: no cover
+        """Clean articles in cart like:
 
-    def get_cart(cart_id):  # pragma: no cover
-        """Get cart by its id."""
+        Remove article from cart if article no longer exist in shop.
+        """
 
-    def update_next_cart_id():  # pragma: no cover
-        """Update next cart ID for the cart container."""
+    # OrderContainer related methods comes here::
 
-    def create_cart(cart_id=None):  # pragma: no cover
-        """Create cart instance from cart in session."""
+    def get_order(order_id):  # pragma: no cover
+        """Returns order by its id"""
+
+    def update_next_order_id():  # pragma: no cover
+        """Update next order ID for the order container"""
+
+    def create_order(order_id=None):  # pragma: no cover
+        """Create order into order container from cart in session"""
 
 
-class ICartContainerAdapter(IAdapter):
+class IOrderContainerAdapter(IAdapter):
     """Adapter Interface for CartContainer."""
 
-    def update_next_cart_id():  # pragma: no cover
-        """Update next_cart_id based on numbering_method."""
+    def update_next_order_id():  # pragma: no cover
+        """Update next_order_id"""
 
 
-class ICartAdapter(IAdapter):
+class IOrderAdapter(IAdapter):
     """Adapter interface for Cart."""
 
-    articles = Attribute('List of brains of CartArticle.')
+    def articles():  # pragma: no cover
+        """Returns list of brains of OrderArticle"""
 
-    def get_article(oid):
-        """Get CartArticle form cart by ID."""
-
-
-class ICartArticleAdapter(IAdapter):
-    """Adapter Interface for CartArticle."""
-
-    orig_article = Attribute('Originar Article object.')
+    def get_article(oid):  # pragma: no cover
+        """Returns CartArticle form order by ID"""
 
 
 class IArticleAdapter(IAdapter):
     """Adapter Interface for Article."""
 
-    addable_to_cart = Attribute('True if the Article is addable to cart.')
+    def addable_to_cart():  # pragma: no cover
+        """Returns True if the Article is addable to cart else False"""
 
     def add_to_cart():  # pragma: no cover
-        """Add Article to Cart."""
+        """Add Article to cart"""
 
 
 class IMakeShoppingSiteEvent(Interface):

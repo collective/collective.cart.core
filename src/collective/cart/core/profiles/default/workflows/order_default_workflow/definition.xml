@@ -6,8 +6,8 @@
   initial_state="created"
   manager_bypass="False"
   state_variable="review_state"
-  title="Cart Default Workflow"
-  workflow_id="cart_default_workflow"
+  title="Order Default Workflow"
+  workflow_id="order_default_workflow"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <permission>Access contents information</permission>

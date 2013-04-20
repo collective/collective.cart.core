@@ -26,32 +26,19 @@ CHECKER = renormalizing.RENormalizing([
 
 def setUp(self):
     layer = self.globs['layer']
-    # Update global variables within the tests.
+    browser = Browser(layer['app'])
+    portal = layer['portal']
     self.globs.update({
-        'portal': layer['portal'],
-        'portal_url': layer['portal'].absolute_url(),
-        'browser': Browser(layer['app']),
         'TEST_USER_NAME': TEST_USER_NAME,
         'TEST_USER_PASSWORD': TEST_USER_PASSWORD,
+        'browser': browser,
+        'portal': portal,
     })
     ztc.utils.setupCoreSessions(layer['app'])
-    portal = self.globs['portal']
-    browser = self.globs['browser']
-    portal_url = self.globs['portal_url']
-    browser.setBaseUrl(portal_url)
-
+    browser.setBaseUrl(portal.absolute_url())
     browser.handleErrors = True
     portal.error_log._ignored_exceptions = ()
-
     setRoles(portal, TEST_USER_ID, ['Manager'])
-
-    folder01 = portal[
-        portal.invokeFactory(
-            'Folder',
-            'folder01',
-            title='Folder01'
-        )]
-    folder01.reindexObject()
 
     transaction.commit()
 
@@ -82,5 +69,4 @@ def DocFileSuite(testfile, flags=FLAGS, setUp=setUp, layer=FUNCTIONAL_TESTING):
 
 
 def test_suite():
-    return unittest.TestSuite([
-        DocFileSuite('functional/portlet.txt')])
+    return unittest.TestSuite([DocFileSuite('functional/portlet.txt')])

@@ -34,7 +34,7 @@ Add to cart should show cart portlet::
     >>> print browser.bycss('#article-count')
 
     >>> browser.open('/article1')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
     >>> print browser.bycss('#article-count')
     --- 1 ---
     <td id="article-count">
@@ -42,7 +42,7 @@ Add to cart should show cart portlet::
     </td>
 
     >>> browser.open('/article2')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
     >>> print browser.bycss('#article-count')
     --- 1 ---
     <td id="article-count">
@@ -55,17 +55,22 @@ Go to cart by clicking link in the portlet::
     >>> browser.url
     'http://nohost/plone/@@cart'
 
-    >>> print browser.bycss('#cart')
+    >>> print browser.bycss('.listing')
     --- 1 ---
-    <section id="cart"><h1>Cart</h1>
-    <section><table class="listing"><thead><tr><th>Name</th>
-    <th>Delete</th>
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
     <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
     <form method="post" action="http://nohost/plone/@@cart">
@@ -73,10 +78,13 @@ Go to cart by clicking link in the portlet::
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
-    </tbody></table></section></section>
+    </tbody></table>
+
 
 Log out and try the same thing with anonymous::
 
@@ -85,7 +93,7 @@ Log out and try the same thing with anonymous::
     >>> print browser.bycss('#article-count')
 
     >>> browser.open('/article1')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
     >>> print browser.bycss('#article-count')
     --- 1 ---
     <td id="article-count">
@@ -93,7 +101,7 @@ Log out and try the same thing with anonymous::
     </td>
 
     >>> browser.open('/article2')
-    >>> browser.getControl(name="form.addtocart").click()
+    >>> browser.getControl(name="form.buttons.AddToCart").click()
     >>> print browser.bycss('#article-count')
     --- 1 ---
     <td id="article-count">
@@ -106,17 +114,22 @@ Go to cart by clicking link in the portlet::
     >>> browser.url
     'http://nohost/plone/@@cart'
 
-    >>> print browser.bycss('#cart')
+    >>> print browser.bycss('.listing')
     --- 1 ---
-    <section id="cart"><h1>Cart</h1>
-    <section><table class="listing"><thead><tr><th>Name</th>
-    <th>Delete</th>
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
     <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
     <form method="post" action="http://nohost/plone/@@cart">
@@ -124,7 +137,9 @@ Go to cart by clicking link in the portlet::
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.delete.article" type="submit" value="...">Delete</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></form>
-    </tbody></table></section></section>
+    </tbody></table>

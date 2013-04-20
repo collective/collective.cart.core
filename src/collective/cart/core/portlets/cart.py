@@ -24,17 +24,16 @@ class Renderer(base.Renderer):
 
     render = ViewPageTemplateFile('cart.pt')
 
-    @property
     def cart_url(self):
-        return '{}/@@cart'.format(IShoppingSite(self.context).shop.absolute_url())
+        shop = IShoppingSite(self.context).shop()
+        return '{}/@@cart'.format(shop.absolute_url())
 
     @property
     def available(self):
-        if hasattr(self, 'view') and getattr(self.view, 'grokcore.component.directive.name', None) == 'cart':
+        if hasattr(self, 'view') and self.view.__name__ == 'cart':
             return False
-        return IShoppingSite(self.context).cart_articles
+        return IShoppingSite(self.context).cart_articles()
 
-    @property
     def count(self):
         return len(self.available)
 

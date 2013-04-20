@@ -2,31 +2,30 @@
 <object
   i18n:domain="collective.cart.core"
   meta_type="Dexterity FTI"
-  name="collective.cart.core.Article"
+  name="collective.cart.core.OrderContainer"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic properties -->
-  <property name="title" i18n:translate="">Article</property>
+  <property name="title" i18n:translate="">Order Container</property>
   <property name="description" i18n:translate=""/>
-  <property name="content_icon">++resource++collective.cart.core/article.png</property>
+  <property name="content_icon">folder.gif</property>
   <property name="allow_discussion">False</property>
 
   <!-- Hierarchy control -->
-  <property name="global_allow">True</property>
+  <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
-  <property name="allowed_content_types" />
+  <property name="allowed_content_types">
+    <element value="collective.cart.core.Order"/>
+  </property>
 
   <!-- Schema, class and security -->
-  <property name="schema">collective.cart.core.schema.ArticleSchema</property>
-  <!-- <property name="klass">plone.dexterity.content.Container</property> -->
-  <property name="klass">collective.cart.core.content.Article</property>
-  <property name="add_permission">collective.cart.core.AddArticle</property>
+  <property name="schema">collective.cart.core.schema.OrderContainerSchema</property>
+  <property name="klass">collective.cart.core.content.OrderContainer</property>
+  <property name="add_permission">collective.cart.core.AddOrderContainer</property>
 
   <!-- enabled behaviors -->
   <property name="behaviors">
     <element value="plone.app.content.interfaces.INameFromTitle" />
-    <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
-    <element value="collective.behavior.salable.interfaces.ISalable" />
   </property>
 
   <!-- Views and aliases -->

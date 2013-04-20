@@ -3,10 +3,7 @@ from collective.cart.core.tests.base import IntegrationTestCase
 
 
 class TestCase(IntegrationTestCase):
-    """TestCase for upgrade steps."""
-
-    def setUp(self):
-        self.portal = self.layer['portal']
+    """TestCase for upgrade steps"""
 
     def get_action(self, category, name):
         """Get action by category and name."""
@@ -25,10 +22,10 @@ class TestCase(IntegrationTestCase):
 
     def test_reimport_workflows(self):
         workflow = getToolByName(self.portal, 'portal_workflow')
-        workflow.setChainForPortalTypes(('collective.cart.core.Cart', ), '')
-        self.assertEqual(workflow.getChainForPortalType('collective.cart.core.Cart'), ())
+        workflow.setChainForPortalTypes(('collective.cart.core.Order', ), '')
+        self.assertEqual(workflow.getChainForPortalType('collective.cart.core.Order'), ())
 
         from collective.cart.core.upgrades import reimport_workflows
         reimport_workflows(self.portal)
 
-        self.assertEqual(workflow.getChainForPortalType('collective.cart.core.Cart'), ('cart_default_workflow',))
+        self.assertEqual(workflow.getChainForPortalType('collective.cart.core.Order'), ('order_default_workflow',))

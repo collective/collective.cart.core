@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-04-10 12:34+0000\n"
+"POT-Creation-Date: 2013-04-20 10:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Article"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Canceled"
 msgstr ""
 
-#: ./browser/templates/cart.pt:12
+#: ./browser/templates/cart.pt:11
 #: ./portlets/cart.py:20
 #: ./profiles/default/portlets.xml
 msgid "Cart"
@@ -39,39 +39,27 @@ msgstr ""
 msgid "Cart Container"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
-msgid "Cart Default Workflow"
-msgstr ""
-
-#: ./browser/templates/cart-content.pt:12
+#: ./browser/templates/order.pt:12
 msgid "Cart ID: ${cart_id}"
 msgstr ""
 
-#: ./browser/templates/cart.pt:13
+#: ./browser/templates/cart.pt:17
 msgid "Cart is empty."
 msgstr ""
 
-#: ./browser/templates/orders.pt:39
+#: ./browser/templates/orders.pt:35
 msgid "Change State"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Charged"
 msgstr ""
 
-#: ./browser/templates/orders.pt:26
-msgid "Clear Created"
-msgstr ""
-
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Created"
 msgstr ""
 
-#: ./browser/viewlets/cart-articles.pt:10
-msgid "Delete"
-msgstr ""
-
-#: ./interfaces.py:32
+#: ./schema.py:24
 msgid "Description"
 msgstr ""
 
@@ -79,7 +67,7 @@ msgstr ""
 msgid "Go to cart"
 msgstr ""
 
-#: ./browser/viewlets/cart-content.pt:11
+#: ./browser/viewlets/order-articles.pt:11
 msgid "ID"
 msgstr ""
 
@@ -92,19 +80,35 @@ msgid "Make this container shopping site."
 msgstr ""
 
 #: ./browser/viewlets/cart-articles.pt:7
-#: ./browser/viewlets/cart-content.pt:12
+#: ./browser/viewlets/order-articles.pt:12
 msgid "Name"
 msgstr ""
 
-#: ./interfaces.py:17
-msgid "Next Cart ID"
+#: ./schema.py:15
+msgid "Next Order ID"
 msgstr ""
 
-#: ./browser/templates/orders.pt:35
+#: ./browser/templates/orders.pt:31
 msgid "No."
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/types/collective.cart.core.Order.xml
+msgid "Order"
+msgstr ""
+
+#: ./profiles/default/types/collective.cart.core.OrderArticle.xml
+msgid "Order Article"
+msgstr ""
+
+#: ./profiles/default/types/collective.cart.core.OrderContainer.xml
+msgid "Order Container"
+msgstr ""
+
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
+msgid "Order Default Workflow"
+msgstr ""
+
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Ordered"
 msgstr ""
 
@@ -113,19 +117,23 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
-#: ./browser/templates/orders.pt:37
+#: ./browser/templates/orders.pt:33
 msgid "Owner"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Paid"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./browser/viewlets/cart-articles.pt:10
+msgid "Remove"
+msgstr ""
+
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Returned"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Shipped"
 msgstr ""
 
@@ -133,52 +141,40 @@ msgstr ""
 msgid "Show list of orders."
 msgstr ""
 
-#: ./browser/templates/orders.pt:38
+#: ./browser/templates/orders.pt:34
 msgid "State"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "State to Paid"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "State to Returned"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "State to Shipped"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "State to canceled"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "State to charged"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "State to created"
 msgstr ""
 
-#: ./profiles/default/workflows/cart_default_workflow/definition.xml
+#: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "State to ordered"
 msgstr ""
 
-#: ./validator.py:19
-msgid "The cart ID is already in use."
-msgstr ""
-
-#: ./browser/templates/orders.pt:13
-msgid "The next cart ID: ${next_cart_id}"
-msgstr ""
-
-#: ./browser/viewlets/cart-content.pt:2
+#: ./browser/viewlets/order-articles.pt:2
 msgid "There are no articles within this cart."
-msgstr ""
-
-#: ./browser/templates/orders.pt:15
-msgid "There are no orders."
 msgstr ""
 
 #: ./subscriber.py:22
@@ -193,7 +189,22 @@ msgstr ""
 msgid "Unmake this container shopping site."
 msgstr ""
 
-#: ./browser/templates/orders.pt:36
+#: ./browser/templates/orders.pt:32
 msgid "Updated"
+msgstr ""
+
+#. Default: "The next order ID: ${order_id}"
+#: ./browser/templates/orders.pt:18
+msgid "next-order-id"
+msgstr ""
+
+#. Default: "There are no orders."
+#: ./browser/templates/orders.pt:22
+msgid "no-orders"
+msgstr ""
+
+#. Default: "The order ID is already in use."
+#: ./validator.py:18
+msgid "order-id-already-in-use"
 msgstr ""
 

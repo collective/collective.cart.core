@@ -1,6 +1,14 @@
 Changelog
 ---------
 
+0.6.0.3 (2013-04-20)
+====================
+
+- Moved test packages to extras_require. [taito]
+- Removed dependency from five.grok. [taito]
+- Moved cart related content to order related. [taito]
+- Tested with Plone-4.3. [taito]
+
 0.6.0.2 (2013-04-10)
 ====================
 

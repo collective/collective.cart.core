@@ -2,18 +2,18 @@ from Acquisition import aq_inner
 from Acquisition import aq_parent
 from Products.statusmessages.interfaces import IStatusMessage
 from collective.cart.core import _
-from collective.cart.core.interfaces import ICartContainer
+from collective.cart.core.interfaces import IOrderContainer
 from collective.cart.core.interfaces import IMakeShoppingSiteEvent
 from collective.cart.core.interfaces import IShoppingSite
 from collective.cart.core.interfaces import IShoppingSiteRoot
-from five import grok
 from plone.dexterity.utils import createContentInContainer
+from zope.component import adapter
 from zope.interface import noLongerProvides
 from zope.lifecycleevent import modified
 from zope.lifecycleevent.interfaces import IObjectRemovedEvent
 
 
-@grok.subscribe(ICartContainer, IObjectRemovedEvent)
+@adapter(IOrderContainer, IObjectRemovedEvent)
 def unmake_shopping_site(container, event):
     if container == event.object:
         parent = aq_parent(aq_inner(container))
@@ -23,11 +23,11 @@ def unmake_shopping_site(container, event):
         IStatusMessage(container.REQUEST).addStatusMessage(message, type='warn')
 
 
-@grok.subscribe(IMakeShoppingSiteEvent)
-def add_cart_container(event):
+@adapter(IMakeShoppingSiteEvent)
+def add_order_container(event):
     context = event.context
-    if not IShoppingSite(context).cart_container:
+    if not IShoppingSite(context).order_container():
         container = createContentInContainer(
-            context, 'collective.cart.core.CartContainer',
-            id="cart-container", title="Cart Container", checkConstraints=False)
+            context, 'collective.cart.core.OrderContainer',
+            id="order-container", title="Order Container", checkConstraints=False)
         modified(container)
