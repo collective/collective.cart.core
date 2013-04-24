@@ -14,15 +14,18 @@ class BaseCheckOutView(BrowserView):
     def __call__(self):
         self.request.set('disable_border', True)
 
-        IShoppingSite(self.context).clean_articles_in_cart()
+        self.shopping_site().clean_articles_in_cart()
 
         cart_url = '{}/@@cart'.format(self.context.absolute_url())
         current_base_url = self.context.restrictedTraverse("plone_context_state").current_base_url()
         if cart_url != current_base_url:
             return self.request.response.redirect(cart_url)
 
+    def shopping_site(self):
+        return IShoppingSite(self.context)
+
     def cart_articles(self):
-        return IShoppingSite(self.context).cart_articles()
+        return self.shopping_site().cart_articles()
 
 
 class CartView(BaseCheckOutView):
