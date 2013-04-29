@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-04-20 10:17+0000\n"
+"POT-Creation-Date: 2013-04-29 19:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr "Tuote"
 msgid "Canceled"
 msgstr "Peruttu"
 
-#: ./browser/templates/cart.pt:11
+#: ./browser/template.py:39
 #: ./portlets/cart.py:20
 #: ./profiles/default/portlets.xml
 msgid "Cart"
@@ -40,14 +40,6 @@ msgstr "Ostoskorikonteineri"
 msgid "Cart ID: ${cart_id}"
 msgstr "Ostoskoritunnus: ${cart_id}"
 
-#: ./browser/templates/cart.pt:17
-msgid "Cart is empty."
-msgstr "Ostoskori on tyhjä"
-
-#: ./browser/templates/orders.pt:35
-msgid "Change State"
-msgstr "Muuta tilaa"
-
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Charged"
 msgstr "Laskutettu"
@@ -64,7 +56,7 @@ msgstr "Kuvaus"
 msgid "Go to cart"
 msgstr "Siirry ostoskoriin"
 
-#: ./browser/viewlets/order-articles.pt:11
+#: ./browser/viewlets/order-article-listing.pt:11
 msgid "ID"
 msgstr "Tunnus"
 
@@ -76,18 +68,14 @@ msgstr "Luo kauppa"
 msgid "Make this container shopping site."
 msgstr "Tee tästä konteinerista kauppa."
 
-#: ./browser/viewlets/cart-articles.pt:7
-#: ./browser/viewlets/order-articles.pt:12
+#: ./browser/viewlets/cart-article-listing.pt:12
+#: ./browser/viewlets/order-article-listing.pt:12
 msgid "Name"
 msgstr "Nimi"
 
 #: ./schema.py:15
 msgid "Next Order ID"
 msgstr "Seuraava tilausnumero"
-
-#: ./browser/templates/orders.pt:31
-msgid "No."
-msgstr "Nr."
 
 #: ./profiles/default/types/collective.cart.core.Order.xml
 msgid "Order"
@@ -105,24 +93,23 @@ msgstr "Tilauskonteineri"
 msgid "Order Default Workflow"
 msgstr "Tilauksen oletus-workflow"
 
+#: ./browser/template.py:52
+msgid "Order Listing"
+msgstr "Tilauslista"
+
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Ordered"
 msgstr "Tilattu"
 
-#: ./browser/templates/orders.pt:11
 #: ./profiles/default/actions.xml
 msgid "Orders"
 msgstr "Tilaukset"
-
-#: ./browser/templates/orders.pt:33
-msgid "Owner"
-msgstr "Omistaja"
 
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Paid"
 msgstr "Maksettu"
 
-#: ./browser/viewlets/cart-articles.pt:10
+#: ./browser/viewlets/cart-article-listing.pt:15
 msgid "Remove"
 msgstr "Poista"
 
@@ -137,10 +124,6 @@ msgstr "Lähetetty"
 #: ./profiles/default/actions.xml
 msgid "Show list of orders."
 msgstr "Näytä tilauksien lista."
-
-#: ./browser/templates/orders.pt:34
-msgid "State"
-msgstr "Tila"
 
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "State to Paid"
@@ -170,7 +153,7 @@ msgstr "Luotu tilaan"
 msgid "State to ordered"
 msgstr "Tilattu tilaan"
 
-#: ./browser/viewlets/order-articles.pt:2
+#: ./browser/viewlets/order-article-listing.pt:2
 msgid "There are no articles within this cart."
 msgstr "Tässä ostoskorissa ei ole yhtään tuotetta."
 
@@ -186,19 +169,10 @@ msgstr "Lopeta kauppa"
 msgid "Unmake this container shopping site."
 msgstr "Otetaan tästä konteinerista kauppa ominaisuus pois."
 
-#: ./browser/templates/orders.pt:32
-msgid "Updated"
-msgstr "Päivitetty"
-
 #. Default: "The next order ID: ${order_id}"
-#: ./browser/templates/orders.pt:18
-msgid "next-order-id"
-msgstr "Seuraava tilausnumero: ${order_id}"
-
-#. Default: "There are no orders."
-#: ./browser/templates/orders.pt:22
-msgid "no-orders"
-msgstr "Ei ole tilausta."
+#: ./browser/template.py:57
+msgid "next_order_id_description"
+msgstr "Seuraava tilaustunnus: ${order_id}"
 
 #. Default: "The order ID is already in use."
 #: ./validator.py:18

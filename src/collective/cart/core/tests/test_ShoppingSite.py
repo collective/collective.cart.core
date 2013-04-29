@@ -166,7 +166,7 @@ class ShoppingSiteTestCase(IntegrationTestCase):
     def test_clean_articles_in_cart(self):
         from plone.uuid.interfaces import IUUID
         adapter = IShoppingSite(self.portal)
-        self.assertEqual(adapter.clean_articles_in_cart(), [])
+        self.assertIsNone(adapter.clean_articles_in_cart())
 
         article1 = self.create_content('collective.cart.core.Article', id='1')
         article2 = self.create_content('collective.cart.core.Article', id='2')
@@ -174,10 +174,10 @@ class ShoppingSiteTestCase(IntegrationTestCase):
         uuid2 = IUUID(article2)
         session = adapter.getSessionData(create=True)
         session.set('collective.cart.core', {'articles': {uuid1: 'ARTICLE1', uuid2: 'ARTICLE2'}})
-        self.assertEqual(adapter.clean_articles_in_cart(), [])
+        self.assertEqual(adapter.clean_articles_in_cart(), {uuid1: 'ARTICLE1', uuid2: 'ARTICLE2'})
 
         self.portal.manage_delObjects(['1', '2'])
-        self.assertEqual(sorted(adapter.clean_articles_in_cart()), ['ARTICLE1', 'ARTICLE2'])
+        self.assertEqual(adapter.clean_articles_in_cart(), {})
 
     # CartContainer related methods
 

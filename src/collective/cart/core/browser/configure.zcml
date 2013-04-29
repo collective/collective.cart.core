@@ -52,15 +52,7 @@
     />
 
   <browser:page
-    class=".template.OrdersView"
-    for="*"
-    layer=".interfaces.ICollectiveCartCoreLayer"
-    name="orders"
-    permission="collective.cart.core.ViewOrderContent"
-    />
-
-  <browser:page
-    class=".template.OrdersView"
+    class=".template.OrderListingView"
     for="collective.cart.core.interfaces.IOrderContainer"
     layer=".interfaces.ICollectiveCartCoreLayer"
     name="view"
@@ -76,13 +68,15 @@
     />
 
   <!-- Viewlet Manager -->
+
   <browser:viewletManager
     class="plone.app.viewletmanager.manager.OrderedViewletManager"
-    for="collective.cart.core.interfaces.IShoppingSiteRoot"
+    for="*"
     layer=".interfaces.ICollectiveCartCoreLayer"
-    name="collective.cart.core.viewlet-manager.cart"
+    name="collective.cart.core.viewlet-manager.base-form"
     permission="zope2.View"
-    provides=".interfaces.ICartViewletManager"
+    provides=".interfaces.IBaseFormViewletManager"
+    view=".interfaces.IBaseFormView"
     />
 
   <browser:viewletManager
@@ -95,6 +89,7 @@
     />
 
   <!-- Viewlet -->
+
   <browser:viewlet
     class=".viewlet.AddToCartViewlet"
     for="collective.cart.core.interfaces.IArticle"
@@ -106,20 +101,31 @@
     />
 
   <browser:viewlet
-    class=".viewlet.CartArticlesViewlet"
+    class=".viewlet.CartArticleListingViewlet"
     for="collective.cart.core.interfaces.IShoppingSiteRoot"
     layer=".interfaces.ICollectiveCartCoreLayer"
-    manager=".interfaces.ICartViewletManager"
-    name="collective.cart.core.viewlet.cart-articles"
+    manager=".interfaces.IBaseFormViewletManager"
+    name="collective.cart.core.viewlet.cart-article-listing"
     permission="zope2.View"
+    view=".interfaces.ICartView"
     />
 
   <browser:viewlet
-    class=".viewlet.OrderArticlesViewlet"
+    class=".viewlet.OrderListingViewlet"
+    for="collective.cart.core.interfaces.IOrderContainer"
+    layer=".interfaces.ICollectiveCartCoreLayer"
+    manager=".interfaces.IBaseFormViewletManager"
+    name="collective.cart.core.viewlet.order-listing"
+    permission="zope2.View"
+    view=".interfaces.IOrderListingView"
+    />
+
+  <browser:viewlet
+    class=".viewlet.OrderArticleListingViewlet"
     for="collective.cart.core.interfaces.IOrder"
     layer=".interfaces.ICollectiveCartCoreLayer"
     manager=".interfaces.IOrderViewletManager"
-    name="collective.cart.core.viewlet.order-articles"
+    name="collective.cart.core.viewlet.order-article-listing"
     permission="zope2.View"
     />
 

@@ -8,20 +8,18 @@
   xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <body>
     <metal:title fill-slot="content-title">
-      <h1 class="documentFirstHeading" i18n:translate="">Cart</h1>
+      <h1 class="documentFirstHeading" tal:condition="view/title" tal:content="view/title"></h1>
     </metal:title>
     <metal:description fill-slot="content-description">
-
+      <div class="documentDescription" tal:condition="view/description" tal:content="view/description"></div>
     </metal:description>
     <metal:text fill-slot="content-core">
-      <p id="cart-is-empty"
-        i18n:translate=""
-        tal:condition="not: view/cart_articles">
-        Cart is empty.
-      </p>
-      <div
-        tal:condition="view/cart_articles"
-        tal:replace="structure provider:collective.cart.core.viewlet-manager.cart" />
+      <form
+        method="post"
+        tal:attributes="action context/plone_context_state/current_base_url">
+        <span tal:replace="structure context/@@authenticator/authenticator" />
+        <div tal:replace="structure provider:collective.cart.core.viewlet-manager.base-form" />
+      </form>
     </metal:text>
   </body>
 </html>

@@ -1373,7 +1373,7 @@ class TestSetup(IntegrationTestCase):
         state = workflow.states.ordered
         self.assertEqual(state.getPermissionInfo('Access contents information'), {
             'acquired': 0,
-            'roles': ['Authenticated'],
+            'roles': ['Anonymous', 'Authenticated'],
         })
 
     def test_order_default_workflow__states__ordered__permission__List_folder_contents(self):

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-04-20 10:17+0000\n"
+"POT-Creation-Date: 2013-04-29 19:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Canceled"
 msgstr ""
 
-#: ./browser/templates/cart.pt:11
+#: ./browser/template.py:39
 #: ./portlets/cart.py:20
 #: ./profiles/default/portlets.xml
 msgid "Cart"
@@ -41,14 +41,6 @@ msgstr ""
 
 #: ./browser/templates/order.pt:12
 msgid "Cart ID: ${cart_id}"
-msgstr ""
-
-#: ./browser/templates/cart.pt:17
-msgid "Cart is empty."
-msgstr ""
-
-#: ./browser/templates/orders.pt:35
-msgid "Change State"
 msgstr ""
 
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
@@ -67,7 +59,7 @@ msgstr ""
 msgid "Go to cart"
 msgstr ""
 
-#: ./browser/viewlets/order-articles.pt:11
+#: ./browser/viewlets/order-article-listing.pt:11
 msgid "ID"
 msgstr ""
 
@@ -79,17 +71,13 @@ msgstr ""
 msgid "Make this container shopping site."
 msgstr ""
 
-#: ./browser/viewlets/cart-articles.pt:7
-#: ./browser/viewlets/order-articles.pt:12
+#: ./browser/viewlets/cart-article-listing.pt:12
+#: ./browser/viewlets/order-article-listing.pt:12
 msgid "Name"
 msgstr ""
 
 #: ./schema.py:15
 msgid "Next Order ID"
-msgstr ""
-
-#: ./browser/templates/orders.pt:31
-msgid "No."
 msgstr ""
 
 #: ./profiles/default/types/collective.cart.core.Order.xml
@@ -108,24 +96,23 @@ msgstr ""
 msgid "Order Default Workflow"
 msgstr ""
 
+#: ./browser/template.py:52
+msgid "Order Listing"
+msgstr ""
+
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Ordered"
 msgstr ""
 
-#: ./browser/templates/orders.pt:11
 #: ./profiles/default/actions.xml
 msgid "Orders"
-msgstr ""
-
-#: ./browser/templates/orders.pt:33
-msgid "Owner"
 msgstr ""
 
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Paid"
 msgstr ""
 
-#: ./browser/viewlets/cart-articles.pt:10
+#: ./browser/viewlets/cart-article-listing.pt:15
 msgid "Remove"
 msgstr ""
 
@@ -139,10 +126,6 @@ msgstr ""
 
 #: ./profiles/default/actions.xml
 msgid "Show list of orders."
-msgstr ""
-
-#: ./browser/templates/orders.pt:34
-msgid "State"
 msgstr ""
 
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
@@ -173,7 +156,7 @@ msgstr ""
 msgid "State to ordered"
 msgstr ""
 
-#: ./browser/viewlets/order-articles.pt:2
+#: ./browser/viewlets/order-article-listing.pt:2
 msgid "There are no articles within this cart."
 msgstr ""
 
@@ -189,18 +172,9 @@ msgstr ""
 msgid "Unmake this container shopping site."
 msgstr ""
 
-#: ./browser/templates/orders.pt:32
-msgid "Updated"
-msgstr ""
-
 #. Default: "The next order ID: ${order_id}"
-#: ./browser/templates/orders.pt:18
-msgid "next-order-id"
-msgstr ""
-
-#. Default: "There are no orders."
-#: ./browser/templates/orders.pt:22
-msgid "no-orders"
+#: ./browser/template.py:57
+msgid "next_order_id_description"
 msgstr ""
 
 #. Default: "The order ID is already in use."

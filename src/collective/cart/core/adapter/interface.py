@@ -153,18 +153,17 @@ class ShoppingSite(Adapter):
         :rtype: list
         """
         cart_articles = self.cart_articles()
-        deleted = []
         if cart_articles:
             articles = cart_articles.copy()
             number_of_articles = len(articles)
             for key in cart_articles:
                 if not self.get_brain(UID=key):
-                    deleted.append(articles.pop(key))
+                    del articles[key]
 
             if len(articles) != number_of_articles:
                 self.update_cart('articles', articles)
 
-        return deleted
+            return articles
 
     # OrderContainer related methods comes here::
 
@@ -178,7 +177,7 @@ class ShoppingSite(Adapter):
         """
         if self.order_container():
             container_path = '/'.join(self.order_container().getPhysicalPath())
-            return self.get_object(IOrder, id=order_id, path=container_path, depth=1)
+            return self.get_object(IOrder, id=order_id, path=container_path, depth=1, unrestricted=True)
 
     def update_next_order_id(self):
         """Update next order ID for the order container"""

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from collective.cart.core.browser.viewlet import AddToCartViewlet
 from collective.cart.core.tests.base import IntegrationTestCase
+from collective.cart.core.browser.interfaces import IAddToCartViewlet
 
 import mock
 
@@ -11,6 +12,14 @@ class AddToCartViewletTestCase(IntegrationTestCase):
     def test_subclass(self):
         from plone.app.layout.viewlets.common import ViewletBase
         self.assertTrue(issubclass(AddToCartViewlet, ViewletBase))
+        from collective.cart.core.browser.interfaces import IBaseViewlet
+        self.assertTrue(issubclass(IAddToCartViewlet, IBaseViewlet))
+
+    def test_verifyObject(self):
+        from zope.interface.verify import verifyObject
+        article = self.create_content('collective.cart.core.Article')
+        instance = self.create_viewlet(AddToCartViewlet, article)
+        self.assertTrue(verifyObject(IAddToCartViewlet, instance))
 
     def test_index(self):
         article = self.create_content('collective.cart.core.Article', id='1')

@@ -54,6 +54,7 @@
     <exit-transition transition_id="charged"/>
     <exit-transition transition_id="paid"/>
     <permission-map name="Access contents information" acquired="False">
+      <permission-role>Anonymous</permission-role>
       <permission-role>Authenticated</permission-role>
     </permission-map>
     <permission-map name="List folder contents" acquired="False">

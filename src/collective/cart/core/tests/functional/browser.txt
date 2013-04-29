@@ -27,9 +27,7 @@ Make Shopping Site::
     >>> browser.open('/order-container')
     >>> print browser.bycss('.documentDescription')
     --- 1 ---
-    <div class="documentDescription">
-    The next order ID: 1
-    </div>
+    <div class="documentDescription">The next order ID: 1</div>
 
     >>> print browser.bycss('#no-orders')
     --- 1 ---

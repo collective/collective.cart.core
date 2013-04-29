@@ -45,8 +45,7 @@ Go to cart::
     <th>
     Remove
     </th>
-    </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
-    <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
+    </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
@@ -54,9 +53,7 @@ Go to cart::
     Remove
     </button>
     </td>
-    </tr></form>
-    <form method="post" action="http://nohost/plone/@@cart">
-    <input type="hidden" name="_authenticator" value="..."><tr class="even"><td class="name">
+    </tr><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
@@ -64,8 +61,7 @@ Go to cart::
     Remove
     </button>
     </td>
-    </tr></form>
-    </tbody></table>
+    </tr></tbody></table>
 
 Remove Ärticle1::
 
@@ -80,8 +76,7 @@ Remove Ärticle1::
     <th>
     Remove
     </th>
-    </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
-    <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
+    </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
@@ -89,8 +84,7 @@ Remove Ärticle1::
     Remove
     </button>
     </td>
-    </tr></form>
-    </tbody></table>
+    </tr></tbody></table>
 
 
 Remove Ärticle2::
@@ -132,8 +126,7 @@ Go to cart::
     <th>
     Remove
     </th>
-    </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
-    <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
+    </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
@@ -141,9 +134,7 @@ Go to cart::
     Remove
     </button>
     </td>
-    </tr></form>
-    <form method="post" action="http://nohost/plone/@@cart">
-    <input type="hidden" name="_authenticator" value="..."><tr class="even"><td class="name">
+    </tr><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
@@ -151,8 +142,7 @@ Go to cart::
     Remove
     </button>
     </td>
-    </tr></form>
-    </tbody></table>
+    </tr></tbody></table>
 
 Remove Ärticle1::
 
@@ -167,8 +157,7 @@ Remove Ärticle1::
     <th>
     Remove
     </th>
-    </tr></thead><tbody><form method="post" action="http://nohost/plone/@@cart">
-    <input type="hidden" name="_authenticator" value="..."><tr class="odd"><td class="name">
+    </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
@@ -176,8 +165,7 @@ Remove Ärticle1::
     Remove
     </button>
     </td>
-    </tr></form>
-    </tbody></table>
+    </tr></tbody></table>
 
 Remove Ärticle2::
 

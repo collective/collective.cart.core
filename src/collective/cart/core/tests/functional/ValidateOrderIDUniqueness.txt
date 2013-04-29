@@ -9,9 +9,7 @@ Go to edit order container::
     >>> browser.getControl(name="form.buttons.save").click()
     >>> print browser.bycss('.documentDescription')
     --- 1 ---
-    <div class="documentDescription">
-    The next order ID: 2
-    </div>
+    <div class="documentDescription">The next order ID: 2</div>
 
 Go to edit order container for the validation::
 
