@@ -1,7 +1,7 @@
+from collective.base.interfaces import IViewlet
 from plone.app.layout.globals.interfaces import IViewView
 from zope.interface import Attribute
 from zope.interface import Interface
-from zope.viewlet.interfaces import IViewlet
 from zope.viewlet.interfaces import IViewletManager
 
 
@@ -51,29 +51,21 @@ class IOrderView(IViewView):
 
 # Viewlet
 
-
-class IBaseViewlet(IViewlet):
-    """Base viewlet interface to override method: render"""
-
-    def render():
-        """"""
-
-
-class IAddToCartViewlet(IBaseViewlet):
+class IAddToCartViewlet(IViewlet):
     """Viewlet interface for AddToCartViewlet"""
 
     def available():
         """Returns True if availabel else False"""
 
 
-class ICartArticleListingViewlet(IBaseViewlet):
+class ICartArticleListingViewlet(IViewlet):
     """Viewlet interface for CartArticleListingViewlet"""
 
     def articles():
         """Returns list of articles in cart"""
 
 
-class IOrderListingViewlet(IBaseViewlet):
+class IOrderListingViewlet(IViewlet):
     """Viewlet interface for OrderListingViewlet"""
 
     def container():
@@ -89,5 +81,5 @@ class IOrderListingViewlet(IBaseViewlet):
         """
 
 
-class IOrderArticleListingViewlet(IBaseViewlet):
+class IOrderArticleListingViewlet(IViewlet):
     """Viewlet interface for OrderArticleListingViewlet"""

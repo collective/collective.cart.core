@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+0.6.0.6 (2013-04-30)
+====================
+
+- Moved base viewlet interface to package: collective.base. [taito]
+
 0.6.0.5 (2013-04-29)
 ====================
 

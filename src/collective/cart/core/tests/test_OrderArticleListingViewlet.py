@@ -10,8 +10,8 @@ class OrderArticleListingViewletTestCase(IntegrationTestCase):
     def test_subclass(self):
         from plone.app.layout.viewlets.common import ViewletBase
         self.assertTrue(issubclass(OrderArticleListingViewlet, ViewletBase))
-        from collective.cart.core.browser.interfaces import IBaseViewlet
-        self.assertTrue(issubclass(IOrderArticleListingViewlet, IBaseViewlet))
+        from collective.cart.core.browser.interfaces import IViewlet
+        self.assertTrue(issubclass(IOrderArticleListingViewlet, IViewlet))
 
     def test_verifyObject(self):
         from collective.cart.core.browser.interfaces import IOrderArticleListingViewlet
