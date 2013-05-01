@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+0.6.0.7 (2013-05-01)
+====================
+
+- Moved BaseFormView to package: collective.base. [taito]
+
 0.6.0.6 (2013-04-30)
 ====================
 

@@ -69,15 +69,15 @@
 
   <!-- Viewlet Manager -->
 
-  <browser:viewletManager
+  <!-- <browser:viewletManager
     class="plone.app.viewletmanager.manager.OrderedViewletManager"
     for="*"
     layer=".interfaces.ICollectiveCartCoreLayer"
     name="collective.cart.core.viewlet-manager.base-form"
     permission="zope2.View"
-    provides=".interfaces.IBaseFormViewletManager"
+    provides="collective.base.interfaces.IBaseFormViewletManager"
     view=".interfaces.IBaseFormView"
-    />
+    /> -->
 
   <browser:viewletManager
     class="plone.app.viewletmanager.manager.OrderedViewletManager"
@@ -104,7 +104,7 @@
     class=".viewlet.CartArticleListingViewlet"
     for="collective.cart.core.interfaces.IShoppingSiteRoot"
     layer=".interfaces.ICollectiveCartCoreLayer"
-    manager=".interfaces.IBaseFormViewletManager"
+    manager="collective.base.interfaces.IBaseFormViewletManager"
     name="collective.cart.core.viewlet.cart-article-listing"
     permission="zope2.View"
     view=".interfaces.ICartView"
@@ -114,7 +114,7 @@
     class=".viewlet.OrderListingViewlet"
     for="collective.cart.core.interfaces.IOrderContainer"
     layer=".interfaces.ICollectiveCartCoreLayer"
-    manager=".interfaces.IBaseFormViewletManager"
+    manager="collective.base.interfaces.IBaseFormViewletManager"
     name="collective.cart.core.viewlet.order-listing"
     permission="zope2.View"
     view=".interfaces.IOrderListingView"

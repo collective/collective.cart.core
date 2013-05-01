@@ -1,6 +1,6 @@
+from collective.base.interfaces import IBaseFormView
 from collective.base.interfaces import IViewlet
 from plone.app.layout.globals.interfaces import IViewView
-from zope.interface import Attribute
 from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
 
@@ -13,22 +13,11 @@ class ICollectiveCartCoreLayer(Interface):
 
 # Viewlet manager
 
-class IBaseFormViewletManager(IViewletManager):
-    """Viewlet manager interface for base form"""
-
-
 class IOrderViewletManager(IViewletManager):
     """Viewlet manager interface for order"""
 
 
 # View
-
-class IBaseFormView(IViewView):
-    """View interface for base form"""
-
-    title = Attribute('Title of context')
-    description = Attribute('Description of context')
-
 
 class ICheckOutView(IBaseFormView):
     """View interface for check out"""

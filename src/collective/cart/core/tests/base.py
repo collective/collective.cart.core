@@ -1,10 +1,8 @@
-from Testing import ZopeTestCase as ztc
+from collective.base.tests.base import IntegrationTestCase
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import setRoles
 from plone.dexterity.utils import createContentInContainer
 from plone.testing import z2
 from zope.annotation.interfaces import IAttributeAnnotatable
@@ -54,15 +52,10 @@ FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FIXTURE,), name="CartCoreLayer:Functional")
 
 
-class IntegrationTestCase(unittest.TestCase):
+class IntegrationTestCase(IntegrationTestCase):
     """Base class for integration tests."""
 
     layer = INTEGRATION_TESTING
-
-    def setUp(self):
-        ztc.utils.setupCoreSessions(self.layer['app'])
-        self.portal = self.layer['portal']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
     def create_content(self, ctype, parent=None, **kwargs):
         """Create instance of dexterity content type"""
@@ -79,14 +72,6 @@ class IntegrationTestCase(unittest.TestCase):
         content = parent[parent.invokeFactory(ctype, **kwargs)]
         content.reindexObject()
         return content
-
-    def create_view(self, view, context=None):
-        if context is None:
-            context = self.portal
-        request = TestRequest()
-        directlyProvides(request, IAttributeAnnotatable)
-        request.set = mock.Mock()
-        return view(context, request)
 
     def create_viewlet(self, viewlet, context=None, view=None, manager=None):
         if context is None:

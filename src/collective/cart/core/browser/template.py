@@ -1,26 +1,13 @@
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.base.view import BaseFormView
 from collective.cart.core import _
-from collective.cart.core.browser.interfaces import IBaseFormView
 from collective.cart.core.browser.interfaces import ICartView
 from collective.cart.core.browser.interfaces import ICheckOutView
 from collective.cart.core.browser.interfaces import IOrderListingView
 from collective.cart.core.browser.interfaces import IOrderView
 from collective.cart.core.interfaces import IShoppingSite
 from zope.interface import implements
-
-
-class BaseFormView(BrowserView):
-    """Base view for base form"""
-
-    implements(IBaseFormView)
-    template = ViewPageTemplateFile('templates/base-form.pt')
-
-    title = None
-    description = None
-
-    def __call__(self):
-        self.request.set('disable_border', True)
 
 
 class CheckOutView(BaseFormView):
