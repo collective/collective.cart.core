@@ -12,7 +12,7 @@ long_description = (
 
 setup(
     name='collective.cart.core',
-    version='0.6.0.6',
+    version='0.6.0.7',
     description="Yet another cart for Plone.",
     long_description=long_description,
     classifiers=[
@@ -32,7 +32,6 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'Products.CMFPlone',
         'collective.base',
         'collective.behavior.salable',
         'plone.app.dexterity',
