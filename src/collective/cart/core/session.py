@@ -4,4 +4,5 @@ from zope.interface import implements
 
 
 class SessionArticles(OrderedDict):
+    """Holds articles in session cart"""
     implements(ISessionArticles)

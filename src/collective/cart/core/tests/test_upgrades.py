@@ -1,6 +1,8 @@
 from Products.CMFCore.utils import getToolByName
 from collective.cart.core.tests.base import IntegrationTestCase
 
+import mock
+
 
 class TestCase(IntegrationTestCase):
     """TestCase for upgrade steps"""
@@ -19,6 +21,13 @@ class TestCase(IntegrationTestCase):
         reimport_actions(self.portal)
 
         self.assertTrue(action.visible)
+
+    @mock.patch('collective.cart.core.upgrades.getToolByName')
+    def test_reimport_typeinfo(self, getToolByName):
+        from collective.cart.core.upgrades import reimport_typeinfo
+        reimport_typeinfo(self.portal)
+        getToolByName().runImportStepFromProfile.assert_called_with(
+            'profile-collective.cart.core:default', 'typeinfo', run_dependencies=False, purge_old=False)
 
     def test_reimport_workflows(self):
         workflow = getToolByName(self.portal, 'portal_workflow')

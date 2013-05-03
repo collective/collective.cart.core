@@ -18,7 +18,6 @@
 
   <!-- Schema, class and security -->
   <property name="schema">collective.cart.core.schema.ArticleSchema</property>
-  <!-- <property name="klass">plone.dexterity.content.Container</property> -->
   <property name="klass">collective.cart.core.content.Article</property>
   <property name="add_permission">collective.cart.core.AddArticle</property>
 

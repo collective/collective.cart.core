@@ -15,6 +15,15 @@ def reimport_actions(context, logger=None):
     setup.runImportStepFromProfile(PROFILE_ID, 'actions', run_dependencies=False, purge_old=False)
 
 
+def reimport_typeinfo(context, logger=None):
+    """Update typeinfo"""
+    if logger is None:
+        logger = logging.getLogger(__name__)
+    setup = getToolByName(context, 'portal_setup')
+    logger.info('Reimporting typeinfo.')
+    setup.runImportStepFromProfile(PROFILE_ID, 'typeinfo', run_dependencies=False, purge_old=False)
+
+
 def reimport_workflows(context, logger=None):
     """Reimport workflows"""
     if logger is None:

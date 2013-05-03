@@ -130,7 +130,7 @@ class TestSetup(IntegrationTestCase):
 
     def test_metadata__version(self):
         setup = getToolByName(self.portal, 'portal_setup')
-        self.assertEqual(setup.getVersionForProfile('profile-collective.cart.core:default'), u'3')
+        self.assertEqual(setup.getVersionForProfile('profile-collective.cart.core:default'), u'4')
 
     def test_site_properties__types_not_searchable(self):
         properties = getToolByName(self.portal, 'portal_properties')

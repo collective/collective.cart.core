@@ -33,4 +33,14 @@
     title="Reimport workflows"
     />
 
+  <genericsetup:upgradeStep
+    description=""
+    destination="4"
+    handler="collective.cart.core.upgrades.reimport_typeinfo"
+    profile="collective.cart.core:default"
+    sortkey="1"
+    source="3"
+    title="Reimport typeinfo"
+    />
+
 </configure>

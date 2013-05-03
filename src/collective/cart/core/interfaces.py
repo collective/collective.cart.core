@@ -7,6 +7,8 @@ from plone.dexterity.interfaces import IDexterityContainer
 from zope.interface import Interface
 
 
+# Content type
+
 class IArticle(ArticleSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.Article"""
 
@@ -23,6 +25,8 @@ class IOrderArticle(OrderArticleSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.OrderArticle"""
 
 
+# Deprecated
+
 class ICartContainer(OrderContainerSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.CartContainer"""
 
@@ -34,6 +38,8 @@ class ICart(OrderSchema, IDexterityContainer):
 class ICartArticle(OrderArticleSchema, IDexterityContainer):
     """Interface for content type: collective.cart.core.CartArticle"""
 
+
+# Adapter
 
 class IShoppingSiteRoot(Interface):
     """Marker interface for Shopping Site Root"""
