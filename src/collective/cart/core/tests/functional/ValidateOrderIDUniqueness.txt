@@ -22,13 +22,11 @@ Go to edit order container for the validation::
 
     >>> print browser.bycss('.error')
     --- 1 ---
-    <dl class="portalMessage error"><dt>
-    Error
-    </dt>
+    <dl class="portalMessage error"><dt>Error</dt>
     <dd>There were some errors.</dd>
     </dl>
     --- 2 ---
-    <div data-fieldname="form.widgets.next_order_id" class="field z3cformInlineValidation kssattr-fieldname-form.widgets.next_order_id error" id="formfield-form-widgets-next_order_id">
+    <div ...>
     <label for="form-widgets-next_order_id" class="horizontal">
     Next Order ID
     <span class="required horizontal" title="Required">&#160;</span>

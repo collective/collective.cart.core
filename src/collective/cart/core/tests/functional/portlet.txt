@@ -57,27 +57,19 @@ Go to cart by clicking link in the portlet::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>
-    Name
-    </th>
-    <th>
-    Remove
-    </th>
+    <table class="listing"><thead><tr><th>Name</th>
+    <th>Remove</th>
     </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
-    Remove
-    </button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
     </td>
     </tr><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
-    Remove
-    </button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
     </td>
     </tr></tbody></table>
 
@@ -111,26 +103,18 @@ Go to cart by clicking link in the portlet::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>
-    Name
-    </th>
-    <th>
-    Remove
-    </th>
+    <table class="listing"><thead><tr><th>Name</th>
+    <th>Remove</th>
     </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
-    Remove
-    </button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
     </td>
     </tr><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
-    Remove
-    </button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
     </td>
     </tr></tbody></table>

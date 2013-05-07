@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-01 17:16+0000\n"
+"POT-Creation-Date: 2013-05-07 18:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Canceled"
 msgstr ""
 
-#: ./browser/template.py:27
+#: ./browser/template.py:26
 #: ./portlets/cart.py:20
 #: ./profiles/default/portlets.xml
 msgid "Cart"
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: ./schema.py:24
+#: ./schema.py:23
 msgid "Description"
 msgstr ""
 
@@ -76,7 +76,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: ./schema.py:15
+#: ./schema.py:14
 msgid "Next Order ID"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Order Default Workflow"
 msgstr ""
 
-#: ./browser/template.py:40
+#: ./browser/template.py:39
 msgid "Order Listing"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgid "Unmake this container shopping site."
 msgstr ""
 
 #. Default: "The next order ID: ${order_id}"
-#: ./browser/template.py:45
+#: ./browser/template.py:44
 msgid "next_order_id_description"
 msgstr ""
 

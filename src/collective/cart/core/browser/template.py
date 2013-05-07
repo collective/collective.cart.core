@@ -52,6 +52,7 @@ class OrderListingView(BaseFormView):
         self.request.set('disable_plone.leftcolumn', True)
         self.request.set('disable_plone.rightcolumn', True)
         super(OrderListingView, self).__call__()
+        self.request.set('disable_border', False)
 
         return self.template()
 
