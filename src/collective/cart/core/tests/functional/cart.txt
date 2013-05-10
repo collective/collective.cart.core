@@ -39,19 +39,27 @@ Go to cart::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>Name</th>
-    <th>Remove</th>
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></tbody></table>
 
@@ -62,13 +70,19 @@ Remove Ärticle1::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>Name</th>
-    <th>Remove</th>
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></tbody></table>
 
@@ -78,7 +92,9 @@ Remove Ärticle2::
     >>> browser.getControl(name="form.buttons.RemoveArticle").click()
     >>> print browser.bycss('#cart-is-empty')
     --- 1 ---
-    <p id="cart-is-empty">Cart is empty.</p>
+    <p id="cart-is-empty">
+    Cart is empty.
+    </p>
 
     >>> print browser.bycss('.listing')
 
@@ -104,19 +120,27 @@ Go to cart::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>Name</th>
-    <th>Remove</th>
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></tbody></table>
 
@@ -127,13 +151,19 @@ Remove Ärticle1::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>Name</th>
-    <th>Remove</th>
+    <table class="listing"><thead><tr><th>
+    Name
+    </th>
+    <th>
+    Remove
+    </th>
     </tr></thead><tbody><tr><td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
     </tr></tbody></table>
 
@@ -142,6 +172,8 @@ Remove Ärticle2::
     >>> browser.getControl(name="form.buttons.RemoveArticle").click()
     >>> print browser.bycss('#cart-is-empty')
     --- 1 ---
-    <p id="cart-is-empty">Cart is empty.</p>
+    <p id="cart-is-empty">
+    Cart is empty.
+    </p>
 
     >>> print browser.bycss('.listing')

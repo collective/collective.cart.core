@@ -31,7 +31,9 @@ Make Shopping Site::
 
     >>> print browser.bycss('#no-orders')
     --- 1 ---
-    <p id="no-orders">There are no orders.</p>
+    <p id="no-orders">
+    There are no orders.
+    </p>
 
     >>> print browser.bycss('.listing')
 
@@ -50,7 +52,9 @@ Unmake Shopping Site::
 
     >>> print browser.bycss('#no-orders')
     --- 1 ---
-    <p id="no-orders">There are no orders.</p>
+    <p id="no-orders">
+    There are no orders.
+    </p>
 
     >>> print browser.bycss('.listing')
 

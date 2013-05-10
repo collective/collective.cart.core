@@ -189,7 +189,9 @@ Add Ärticle01::
     >>> print browser.bycss('.remove')
     --- 1 ---
     <td class="remove">
-    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">Remove</button>
+    <button class="standalone" name="form.buttons.RemoveArticle" type="submit" value="...">
+    Remove
+    </button>
     </td>
 
 Remove Article01::
