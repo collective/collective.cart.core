@@ -5,6 +5,7 @@ Changelog
 =====================
 
 - Updated view for content type: collective.cart.core.Order. [taito]
+- Updated roles. [taito]
 
 0.6.0.10 (2013-05-10)
 =====================

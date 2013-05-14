@@ -15,6 +15,15 @@ def reimport_actions(context, logger=None):
     setup.runImportStepFromProfile(PROFILE_ID, 'actions', run_dependencies=False, purge_old=False)
 
 
+def reimport_rolemap(context, logger=None):
+    """Reimport rolemap"""
+    if logger is None:
+        logger = logging.getLogger(__name__)
+    setup = getToolByName(context, 'portal_setup')
+    logger.info('Reimporting rolemap.')
+    setup.runImportStepFromProfile(PROFILE_ID, 'rolemap', run_dependencies=False, purge_old=False)
+
+
 def reimport_typeinfo(context, logger=None):
     """Update typeinfo"""
     if logger is None:
@@ -34,3 +43,5 @@ def reimport_workflows(context, logger=None):
         PROFILE_ID, 'workflow', run_dependencies=False, purge_old=False)
     workflow = getToolByName(context, 'portal_workflow')
     workflow.updateRoleMappings()
+
+

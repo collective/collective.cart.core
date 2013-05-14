@@ -23,6 +23,13 @@ class TestCase(IntegrationTestCase):
         self.assertTrue(action.visible)
 
     @mock.patch('collective.cart.core.upgrades.getToolByName')
+    def test_reimport_rolemap(self, getToolByName):
+        from collective.cart.core.upgrades import reimport_rolemap
+        reimport_rolemap(self.portal)
+        getToolByName().runImportStepFromProfile.assert_called_with(
+            'profile-collective.cart.core:default', 'rolemap', run_dependencies=False, purge_old=False)
+
+    @mock.patch('collective.cart.core.upgrades.getToolByName')
     def test_reimport_typeinfo(self, getToolByName):
         from collective.cart.core.upgrades import reimport_typeinfo
         reimport_typeinfo(self.portal)

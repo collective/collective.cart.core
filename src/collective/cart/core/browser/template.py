@@ -60,8 +60,11 @@ class OrderView(BaseFormView):
     implements(IOrderView)
 
     def title(self):
-        message = _(u'order_view_title', u'Order ID: ${order_id}', mapping={'order_id': self.context.id})
+        message = _(u'order_view_title', default=u'Order ID: ${order_id}', mapping={'order_id': self.context.id})
         return message
+
+    def description(self):
+        return self.context.description
 
     def __call__(self):
         return self.template()

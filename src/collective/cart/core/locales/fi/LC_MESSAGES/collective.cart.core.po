@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-14 09:00+0000\n"
+"POT-Creation-Date: 2013-05-14 13:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr "Tuote"
 msgid "Canceled"
 msgstr "Peruttu"
 
-#: ./browser/template.py:26
+#: ./browser/template.py:24
 #: ./portlets/cart.py:20
 #: ./profiles/default/portlets.xml
 msgid "Cart"
@@ -35,10 +35,6 @@ msgstr "Ostoskorituote"
 #: ./profiles/default/types/collective.cart.core.CartContainer.xml
 msgid "Cart Container"
 msgstr "Ostoskorikonteineri"
-
-#: ./browser/templates/order.pt:12
-msgid "Cart ID: ${cart_id}"
-msgstr "Ostoskoritunnus: ${cart_id}"
 
 #: ./browser/viewlets/order-listing.pt:15
 msgid "Change State"
@@ -101,7 +97,7 @@ msgstr "Tilauskonteineri"
 msgid "Order Default Workflow"
 msgstr "Tilauksen oletus-workflow"
 
-#: ./browser/template.py:39
+#: ./browser/template.py:37
 msgid "Order Listing"
 msgstr "Tilauslista"
 
@@ -190,7 +186,7 @@ msgid "Updated"
 msgstr "Päivitetty"
 
 #. Default: "The next order ID: ${order_id}"
-#: ./browser/template.py:44
+#: ./browser/template.py:42
 msgid "next_order_id_description"
 msgstr "Seuraava tilaustunnus: ${order_id}"
 
@@ -205,7 +201,7 @@ msgid "order-id-already-in-use"
 msgstr "Tilausnumero on jo käytössä."
 
 #. Default: "Order ID: ${order_id}"
-#: ./browser/template.py:65
+#: ./browser/template.py:63
 msgid "order_view_title"
-msgstr ""
+msgstr "Tilaustunnus: ${order_id}"
 

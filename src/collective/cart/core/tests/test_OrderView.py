@@ -25,6 +25,11 @@ class OrderViewTestCase(IntegrationTestCase):
         instance = self.create_view(OrderView, order)
         self.assertEqual(instance.title(), u'order_view_title')
 
+    def test_description(self):
+        order = self.create_content('collective.cart.core.Order', id='2', description="Descriptiön")
+        instance = self.create_view(OrderView, order)
+        self.assertEqual(instance.description(), 'Descriptiön')
+
     def test___call__(self):
         instance = self.create_view(OrderView)
         template= mock.Mock()

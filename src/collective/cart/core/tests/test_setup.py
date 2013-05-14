@@ -220,12 +220,13 @@ class TestSetup(IntegrationTestCase):
         self.assertEqual(roles, [
             'Contributor',
             'Manager',
+            'Owner',
             'Site Administrator'])
 
     def test_rolemap__collective_cart_core_ViewOrderContent__acquiredRolesAreUsedBy(self):
         permission = "collective.cart.core: View Order Content"
         self.assertEqual(
-            self.portal.acquiredRolesAreUsedBy(permission), 'CHECKED')
+            self.portal.acquiredRolesAreUsedBy(permission), '')
 
     def test_rolemap__collective_cart_core_AddCartPortlet__rolesOfPermission(self):
         permission = "collective.cart.core: Add Cart Portlet"

@@ -21,9 +21,10 @@
     <permission name="collective.cart.core: Add Order" acquire="False">
       <role name="Authenticated"/>
     </permission>
-    <permission name="collective.cart.core: View Order Content" acquire="True">
+    <permission name="collective.cart.core: View Order Content" acquire="False">
       <role name="Contributor" />
       <role name="Manager" />
+      <role name="Owner" />
       <role name="Site Administrator" />
     </permission>
   </permissions>

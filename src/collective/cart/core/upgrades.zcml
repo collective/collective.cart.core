@@ -63,4 +63,14 @@
     title="Reimport actions"
     />
 
+  <genericsetup:upgradeStep
+    description=""
+    destination="4"
+    handler="collective.cart.core.upgrades.reimport_rolemap"
+    profile="collective.cart.core:default"
+    sortkey="4"
+    source="3"
+    title="Reimport rolemap"
+    />
+
 </configure>
