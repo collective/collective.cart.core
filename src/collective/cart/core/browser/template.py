@@ -1,5 +1,3 @@
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from collective.base.view import BaseFormView
 from collective.cart.core import _
 from collective.cart.core.browser.interfaces import ICartView
@@ -57,9 +55,13 @@ class OrderListingView(BaseFormView):
         return self.template()
 
 
-class OrderView(BrowserView):
+class OrderView(BaseFormView):
     """View for order"""
-
     implements(IOrderView)
 
-    __call__ = ViewPageTemplateFile('templates/order.pt')
+    def title(self):
+        message = _(u'order_view_title', u'Order ID: ${order_id}', mapping={'order_id': self.context.id})
+        return message
+
+    def __call__(self):
+        return self.template()

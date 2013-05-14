@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-07 18:17+0000\n"
+"POT-Creation-Date: 2013-05-14 09:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,6 +40,10 @@ msgstr "Ostoskorikonteineri"
 msgid "Cart ID: ${cart_id}"
 msgstr "Ostoskoritunnus: ${cart_id}"
 
+#: ./browser/viewlets/order-listing.pt:15
+msgid "Change State"
+msgstr "Muuta tila"
+
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Charged"
 msgstr "Laskutettu"
@@ -77,6 +81,10 @@ msgstr "Nimi"
 msgid "Next Order ID"
 msgstr "Seuraava tilausnumero"
 
+#: ./browser/viewlets/order-listing.pt:11
+msgid "No."
+msgstr "Nr."
+
 #: ./profiles/default/types/collective.cart.core.Order.xml
 msgid "Order"
 msgstr "Tilaus"
@@ -105,6 +113,10 @@ msgstr "Tilattu"
 msgid "Orders"
 msgstr "Tilaukset"
 
+#: ./browser/viewlets/order-listing.pt:13
+msgid "Owner"
+msgstr "Omistaja"
+
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "Paid"
 msgstr "Maksettu"
@@ -124,6 +136,10 @@ msgstr "Lähetetty"
 #: ./profiles/default/actions.xml
 msgid "Show list of orders."
 msgstr "Näytä tilauksien lista."
+
+#: ./browser/viewlets/order-listing.pt:14
+msgid "State"
+msgstr "Tila"
 
 #: ./profiles/default/workflows/order_default_workflow/definition.xml
 msgid "State to Paid"
@@ -169,13 +185,27 @@ msgstr "Lopeta kauppa"
 msgid "Unmake this container shopping site."
 msgstr "Otetaan tästä konteinerista kauppa ominaisuus pois."
 
+#: ./browser/viewlets/order-listing.pt:12
+msgid "Updated"
+msgstr "Päivitetty"
+
 #. Default: "The next order ID: ${order_id}"
 #: ./browser/template.py:44
 msgid "next_order_id_description"
 msgstr "Seuraava tilaustunnus: ${order_id}"
 
+#. Default: "There are no orders."
+#: ./browser/viewlets/order-listing.pt:2
+msgid "no-orders"
+msgstr "Ei ole tilausta."
+
 #. Default: "The order ID is already in use."
 #: ./validator.py:18
 msgid "order-id-already-in-use"
 msgstr "Tilausnumero on jo käytössä."
+
+#. Default: "Order ID: ${order_id}"
+#: ./browser/template.py:65
+msgid "order_view_title"
+msgstr ""
 

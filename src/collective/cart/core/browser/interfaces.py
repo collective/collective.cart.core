@@ -1,6 +1,5 @@
 from collective.base.interfaces import IBaseFormView
 from collective.base.interfaces import IViewlet
-from plone.app.layout.globals.interfaces import IViewView
 from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
 
@@ -34,7 +33,7 @@ class IOrderListingView(IBaseFormView):
         """Returns order container"""
 
 
-class IOrderView(IViewView):
+class IOrderView(IBaseFormView):
     """View interface for order"""
 
 

@@ -60,10 +60,18 @@
     />
 
   <browser:page
+    class=".template.OrderListingView"
+    for="collective.cart.core.interfaces.IShoppingSiteRoot"
+    layer=".interfaces.ICollectiveCartCoreLayer"
+    name="orders"
+    permission="collective.cart.core.ViewOrderContent"
+    />
+
+  <browser:page
     class=".template.OrderView"
     for="collective.cart.core.interfaces.IOrder"
     layer=".interfaces.ICollectiveCartCoreLayer"
-    name="order"
+    name="view"
     permission="collective.cart.core.ViewOrderContent"
     />
 
@@ -102,7 +110,7 @@
 
   <browser:viewlet
     class=".viewlet.OrderListingViewlet"
-    for="collective.cart.core.interfaces.IOrderContainer"
+    for="*"
     layer=".interfaces.ICollectiveCartCoreLayer"
     manager="collective.base.interfaces.IBaseFormViewletManager"
     name="collective.cart.core.viewlet.order-listing"

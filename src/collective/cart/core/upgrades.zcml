@@ -48,9 +48,19 @@
     destination="4"
     handler="collective.cart.core.upgrades.reimport_workflows"
     profile="collective.cart.core:default"
-    sortkey="3"
+    sortkey="2"
     source="3"
     title="Reimport workflows"
+    />
+
+  <genericsetup:upgradeStep
+    description=""
+    destination="4"
+    handler="collective.cart.core.upgrades.reimport_actions"
+    profile="collective.cart.core:default"
+    sortkey="3"
+    source="3"
+    title="Reimport actions"
     />
 
 </configure>

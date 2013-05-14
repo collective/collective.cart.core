@@ -1,4 +1,4 @@
-<section id="order-listing">
+<section i18n:domain="collective.cart.core" id="order-listing">
   <p
     i18n:translate="no-orders"
     id="no-orders"
