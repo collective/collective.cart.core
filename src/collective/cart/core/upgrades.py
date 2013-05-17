@@ -43,5 +43,3 @@ def reimport_workflows(context, logger=None):
         PROFILE_ID, 'workflow', run_dependencies=False, purge_old=False)
     workflow = getToolByName(context, 'portal_workflow')
     workflow.updateRoleMappings()
-
-

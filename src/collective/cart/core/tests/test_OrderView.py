@@ -32,6 +32,6 @@ class OrderViewTestCase(IntegrationTestCase):
 
     def test___call__(self):
         instance = self.create_view(OrderView)
-        template= mock.Mock()
+        template = mock.Mock()
         instance.template = template
         self.assertEqual(instance(), template())

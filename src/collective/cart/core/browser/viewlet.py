@@ -1,5 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.base.viewlet import Viewlet
 from collective.cart.core.browser.interfaces import IAddToCartViewlet
 from collective.cart.core.browser.interfaces import ICartArticleListingViewlet
 from collective.cart.core.browser.interfaces import IOrderArticleListingViewlet
@@ -8,13 +9,12 @@ from collective.cart.core.interfaces import IArticleAdapter
 from collective.cart.core.interfaces import IOrder
 from collective.cart.core.interfaces import IOrderContainerAdapter
 from collective.cart.core.interfaces import IShoppingSite
-from plone.app.layout.viewlets.common import ViewletBase
 from zExceptions import Forbidden
 from zope.interface import implements
 from zope.lifecycleevent import modified
 
 
-class AddToCartViewlet(ViewletBase):
+class AddToCartViewlet(Viewlet):
     """Viewlet to display add to cart form for article"""
     implements(IAddToCartViewlet)
     index = ViewPageTemplateFile('viewlets/add-to-cart.pt')
@@ -39,7 +39,7 @@ class AddToCartViewlet(ViewletBase):
         return IArticleAdapter(self.context).addable_to_cart()
 
 
-class CartArticleListingViewlet(ViewletBase):
+class CartArticleListingViewlet(Viewlet):
     """Viewlet to display articles in cart"""
     implements(ICartArticleListingViewlet)
     index = ViewPageTemplateFile('viewlets/cart-article-listing.pt')
@@ -68,7 +68,7 @@ class CartArticleListingViewlet(ViewletBase):
                 return self.request.response.redirect(current_base_url)
 
 
-class OrderListingViewlet(ViewletBase):
+class OrderListingViewlet(Viewlet):
     """Viewlet for content type: collective.cart.core.OrderContent"""
     implements(IOrderListingViewlet)
     index = ViewPageTemplateFile('viewlets/order-listing.pt')
@@ -133,7 +133,7 @@ class OrderListingViewlet(ViewletBase):
             return self.request.response.redirect(url)
 
 
-class OrderArticleListingViewlet(ViewletBase):
+class OrderArticleListingViewlet(Viewlet):
     """Viewlet to display articles in order"""
     implements(IOrderArticleListingViewlet)
     index = ViewPageTemplateFile('viewlets/order-article-listing.pt')
