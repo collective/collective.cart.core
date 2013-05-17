@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-0.6.0.11 (2013-05-xx)
+0.6.0.11 (2013-05-17)
 =====================
 
 - Updated view for content type: collective.cart.core.Order. [taito]
