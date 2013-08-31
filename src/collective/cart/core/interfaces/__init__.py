@@ -136,3 +136,8 @@ class IUnmakeShoppingSiteEvent(Interface):
 
 class ISessionArticles(Interface):
     """Interface for cart in session."""
+
+
+# Deprecated
+class IProductAnnotations(Interface):
+    """Marker interface for product information stored in annotation."""
