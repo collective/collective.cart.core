@@ -1,64 +1,18 @@
 Changelog
 ---------
 
-0.6.0.11 (2013-05-17)
-=====================
+0.7 (2013-10-28)
+================
 
-- Updated view for content type: collective.cart.core.Order. [taito]
-- Updated roles. [taito]
-
-0.6.0.10 (2013-05-10)
-=====================
-
-- Fixed tests. [taito]
-
-0.6.0.9 (2013-05-07)
-====================
-
-- Added upgrade steps and fixed tests. [taito]
-
-0.6.0.8 (2013-05-03)
-====================
-
-- Added upgrade steps. [taito]
-
-0.6.0.7 (2013-05-01)
-====================
-
-- Moved BaseFormView to package: collective.base. [taito]
-
-0.6.0.6 (2013-04-30)
-====================
-
-- Moved base viewlet interface to package: collective.base. [taito]
-
-0.6.0.5 (2013-04-29)
-====================
-
-- Refactored views. [taito]
-
-0.6.0.4 (2013-04-20)
-====================
-
-- Added dexterity container implements to all the content types. [taito]
-
-0.6.0.3 (2013-04-20)
-====================
-
-- Moved test packages to extras_require. [taito]
-- Removed dependency from five.grok. [taito]
-- Moved cart related content to order related. [taito]
-- Tested with Plone-4.3. [taito]
-
-0.6.0.2 (2013-04-10)
-====================
-
+- Update view for content type: collective.cart.core.Order. [taito]
+- Update roles. [taito]
+- Move BaseFormView to package: collective.base. [taito]
+- Move base viewlet interface to package: collective.base. [taito]
+- Move test packages to extras_require. [taito]
+- Remove dependency from five.grok. [taito]
+- Move cart related content to order related. [taito]
+- Test with Plone-4.3.2. [taito]
 - Added CSRF authenticator. [taito]
-
-0.6.0.1 (2013-03-20)
-====================
-
-- Removed unnecessary modules. [taito]
 
 0.6 (2013-03-11)
 ================
