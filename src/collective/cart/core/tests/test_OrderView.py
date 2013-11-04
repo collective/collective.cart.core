@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from collective.cart.core.browser.interfaces import IOrderView
-from collective.cart.core.browser.template import OrderView
+from collective.cart.core.browser.view import OrderView
 from collective.cart.core.tests.base import IntegrationTestCase
 
 import mock

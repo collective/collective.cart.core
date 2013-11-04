@@ -44,7 +44,7 @@
   <!-- View -->
 
   <browser:page
-    class=".template.CartView"
+    class=".view.CartView"
     for="collective.cart.core.interfaces.IShoppingSiteRoot"
     layer=".interfaces.ICollectiveCartCoreLayer"
     name="cart"
@@ -52,7 +52,7 @@
     />
 
   <browser:page
-    class=".template.OrderListingView"
+    class=".view.OrderListingView"
     for="collective.cart.core.interfaces.IOrderContainer"
     layer=".interfaces.ICollectiveCartCoreLayer"
     name="view"
@@ -60,7 +60,7 @@
     />
 
   <browser:page
-    class=".template.OrderListingView"
+    class=".view.OrderListingView"
     for="collective.cart.core.interfaces.IShoppingSiteRoot"
     layer=".interfaces.ICollectiveCartCoreLayer"
     name="orders"
@@ -68,7 +68,7 @@
     />
 
   <browser:page
-    class=".template.OrderView"
+    class=".view.OrderView"
     for="collective.cart.core.interfaces.IOrder"
     layer=".interfaces.ICollectiveCartCoreLayer"
     name="view"
