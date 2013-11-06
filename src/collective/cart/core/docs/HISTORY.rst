@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-0.8 (2013-11-xx)
+0.8 (2013-11-06)
 ================
 
 - Fix module name template.py -> view.py [taito]
