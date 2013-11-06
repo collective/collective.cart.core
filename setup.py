@@ -12,7 +12,7 @@ long_description = (
 
 setup(
     name='collective.cart.core',
-    version='0.7',
+    version='0.8',
     description="Yet another cart for Plone.",
     long_description=long_description,
     classifiers=[
