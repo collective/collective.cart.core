@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+0.9 (2014-09-16)
+================
+
+- Update icons for content types: CartContainer and OrderContainer. [taito]
+
 0.8 (2013-11-06)
 ================
 

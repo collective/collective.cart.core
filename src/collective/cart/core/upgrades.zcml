@@ -73,4 +73,14 @@
     title="Reimport rolemap"
     />
 
+  <genericsetup:upgradeStep
+    description=""
+    destination="5"
+    handler="collective.cart.core.upgrades.reimport_typeinfo"
+    profile="collective.cart.core:default"
+    sortkey="1"
+    source="4"
+    title="Reimport typeinfo"
+    />
+
 </configure>

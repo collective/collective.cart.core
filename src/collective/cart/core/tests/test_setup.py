@@ -130,7 +130,7 @@ class TestSetup(IntegrationTestCase):
 
     def test_metadata__version(self):
         setup = getToolByName(self.portal, 'portal_setup')
-        self.assertEqual(setup.getVersionForProfile('profile-collective.cart.core:default'), u'4')
+        self.assertEqual(setup.getVersionForProfile('profile-collective.cart.core:default'), u'5')
 
     def test_site_properties__types_not_searchable(self):
         properties = getToolByName(self.portal, 'portal_properties')
@@ -417,7 +417,7 @@ class TestSetup(IntegrationTestCase):
     def test_types__collective_cart_core_CartContainer__content_icon(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.CartContainer')
-        self.assertEqual(ctype.getIcon(), 'folder.gif')
+        self.assertEqual(ctype.getIcon(), 'folder.png')
 
     def test_types__collective_cart_core_CartContainer__allow_discussion(self):
         types = getToolByName(self.portal, 'portal_types')
@@ -860,7 +860,7 @@ class TestSetup(IntegrationTestCase):
     def test_types__collective_cart_core_OrderContainer__content_icon(self):
         types = getToolByName(self.portal, 'portal_types')
         ctype = types.getTypeInfo('collective.cart.core.OrderContainer')
-        self.assertEqual(ctype.getIcon(), 'folder.gif')
+        self.assertEqual(ctype.getIcon(), 'folder.png')
 
     def test_types__collective_cart_core_OrderContainer__allow_discussion(self):
         types = getToolByName(self.portal, 'portal_types')
