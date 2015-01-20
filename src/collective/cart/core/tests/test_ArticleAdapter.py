@@ -41,9 +41,9 @@ class TestArticleAdapter(IntegrationTestCase):
         session = session_data_manager.getSessionData(create=False)
         self.assertIsNone(session)
 
-        article1 = self.create_content('collective.cart.core.Article', id='1', title='Ärticle1', description='Descriptiön of Ärticle1')
+        article1 = self.create_content('collective.cart.core.Article', id='article1', title='Ärticle1', description='Descriptiön of Ärticle1')
         uuid1 = IUUID(article1)
-        article2 = self.create_content('collective.cart.core.Article', id='2', title='Ärticle2', description='Descriptiön of Ärticle2')
+        article2 = self.create_content('collective.cart.core.Article', id='article2', title='Ärticle2', description='Descriptiön of Ärticle2')
         uuid2 = IUUID(article2)
         adapter = IArticleAdapter(article1)
         adapter._update_existing_cart_article = mock.Mock()
