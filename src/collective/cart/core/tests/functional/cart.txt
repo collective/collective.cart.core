@@ -39,13 +39,20 @@ Go to cart::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>
+    <table class="listing">
+    <thead>
+    <tr>
+    <th>
     Name
     </th>
     <th>
     Remove
     </th>
-    </tr></thead><tbody><tr><td class="name">
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
@@ -53,7 +60,9 @@ Go to cart::
     Remove
     </button>
     </td>
-    </tr><tr><td class="name">
+    </tr>
+    <tr>
+    <td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
@@ -61,7 +70,9 @@ Go to cart::
     Remove
     </button>
     </td>
-    </tr></tbody></table>
+    </tr>
+    </tbody>
+    </table>
 
 Remove Ärticle1::
 
@@ -70,13 +81,20 @@ Remove Ärticle1::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>
+    <table class="listing">
+    <thead>
+    <tr>
+    <th>
     Name
     </th>
     <th>
     Remove
     </th>
-    </tr></thead><tbody><tr><td class="name">
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
@@ -84,7 +102,9 @@ Remove Ärticle1::
     Remove
     </button>
     </td>
-    </tr></tbody></table>
+    </tr>
+    </tbody>
+    </table>
 
 
 Remove Ärticle2::
@@ -120,13 +140,20 @@ Go to cart::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>
+    <table class="listing">
+    <thead>
+    <tr>
+    <th>
     Name
     </th>
     <th>
     Remove
     </th>
-    </tr></thead><tbody><tr><td class="name">
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td class="name">
     <a href="http://nohost/plone/article1">&#196;rticle1</a>
     </td>
     <td class="remove">
@@ -134,7 +161,9 @@ Go to cart::
     Remove
     </button>
     </td>
-    </tr><tr><td class="name">
+    </tr>
+    <tr>
+    <td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
@@ -142,7 +171,9 @@ Go to cart::
     Remove
     </button>
     </td>
-    </tr></tbody></table>
+    </tr>
+    </tbody>
+    </table>
 
 Remove Ärticle1::
 
@@ -151,13 +182,20 @@ Remove Ärticle1::
 
     >>> print browser.bycss('.listing')
     --- 1 ---
-    <table class="listing"><thead><tr><th>
+    <table class="listing">
+    <thead>
+    <tr>
+    <th>
     Name
     </th>
     <th>
     Remove
     </th>
-    </tr></thead><tbody><tr><td class="name">
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td class="name">
     <a href="http://nohost/plone/article2">&#196;rticle2</a>
     </td>
     <td class="remove">
@@ -165,7 +203,9 @@ Remove Ärticle1::
     Remove
     </button>
     </td>
-    </tr></tbody></table>
+    </tr>
+    </tbody>
+    </table>
 
 Remove Ärticle2::
 

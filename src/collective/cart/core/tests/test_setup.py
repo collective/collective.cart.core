@@ -1282,8 +1282,7 @@ class TestSetup(IntegrationTestCase):
 
     def test_workflow__type__collective_cart_core_Order(self):
         workflow = getToolByName(self.portal, 'portal_workflow')
-        self.assertEqual(workflow.getChainForPortalType('collective.cart.core.Order'),
-            ('order_default_workflow', ))
+        self.assertEqual(workflow.getChainForPortalType('collective.cart.core.Order'), ('order_default_workflow', ))
 
     def get_workflow(self, name):
         workflow = getToolByName(self.portal, 'portal_workflow')
@@ -1523,8 +1522,7 @@ class TestSetup(IntegrationTestCase):
     def test_order_default_workflow__transitions__created__action__url(self):
         workflow = self.get_workflow('order_default_workflow')
         transition = workflow.transitions.created
-        self.assertEqual(transition.actbox_url,
-            '%(content_url)s/content_status_modify?workflow_action=created')
+        self.assertEqual(transition.actbox_url, '%(content_url)s/content_status_modify?workflow_action=created')
 
     def test_order_default_workflow__transitions__created__guard(self):
         workflow = self.get_workflow('order_default_workflow')
@@ -1569,8 +1567,7 @@ class TestSetup(IntegrationTestCase):
     def test_order_default_workflow__transitions__ordered__action__url(self):
         workflow = self.get_workflow('order_default_workflow')
         transition = workflow.transitions.ordered
-        self.assertEqual(transition.actbox_url,
-            '%(content_url)s/content_status_modify?workflow_action=ordered')
+        self.assertEqual(transition.actbox_url, '%(content_url)s/content_status_modify?workflow_action=ordered')
 
     def test_order_default_workflow__transitions__ordered__guard(self):
         workflow = self.get_workflow('order_default_workflow')
@@ -1615,8 +1612,7 @@ class TestSetup(IntegrationTestCase):
     def test_order_default_workflow__transitions__paid__action__url(self):
         workflow = self.get_workflow('order_default_workflow')
         transition = workflow.transitions.paid
-        self.assertEqual(transition.actbox_url,
-            '%(content_url)s/content_status_modify?workflow_action=paid')
+        self.assertEqual(transition.actbox_url, '%(content_url)s/content_status_modify?workflow_action=paid')
 
     def test_order_default_workflow__transitions__paid__guard(self):
         workflow = self.get_workflow('order_default_workflow')
@@ -1661,8 +1657,7 @@ class TestSetup(IntegrationTestCase):
     def test_order_default_workflow__transitions__shipped__action__url(self):
         workflow = self.get_workflow('order_default_workflow')
         transition = workflow.transitions.shipped
-        self.assertEqual(transition.actbox_url,
-            '%(content_url)s/content_status_modify?workflow_action=shipped')
+        self.assertEqual(transition.actbox_url, '%(content_url)s/content_status_modify?workflow_action=shipped')
 
     def test_order_default_workflow__transitions__shipped__guard(self):
         workflow = self.get_workflow('order_default_workflow')
@@ -1752,8 +1747,7 @@ class TestSetup(IntegrationTestCase):
     def test_order_default_workflow__variables__comments__default(self):
         workflow = self.get_workflow('order_default_workflow')
         variable = workflow.variables.comments
-        self.assertEqual(variable.getDefaultExprText(),
-            "python:state_change.kwargs.get('comment', '')")
+        self.assertEqual(variable.getDefaultExprText(), "python:state_change.kwargs.get('comment', '')")
 
     def test_order_default_workflow__variables__comments__guard(self):
         workflow = self.get_workflow('order_default_workflow')
@@ -1783,14 +1777,12 @@ class TestSetup(IntegrationTestCase):
     def test_order_default_workflow__variables__review_history__default(self):
         workflow = self.get_workflow('order_default_workflow')
         variable = workflow.variables.review_history
-        self.assertEqual(variable.getDefaultExprText(),
-            "state_change/getHistory")
+        self.assertEqual(variable.getDefaultExprText(), "state_change/getHistory")
 
     def test_order_default_workflow__variables__review_history__guard(self):
         workflow = self.get_workflow('order_default_workflow')
         variable = workflow.variables.review_history
-        self.assertEqual(variable.info_guard.permissions,
-            ('Request review', 'Review portal content'))
+        self.assertEqual(variable.info_guard.permissions, ('Request review', 'Review portal content'))
 
     def test_order_default_workflow__variables__time__for_catalog(self):
         workflow = self.get_workflow('order_default_workflow')
@@ -1815,8 +1807,7 @@ class TestSetup(IntegrationTestCase):
     def test_order_default_workflow__variables__time__default(self):
         workflow = self.get_workflow('order_default_workflow')
         variable = workflow.variables.time
-        self.assertEqual(variable.getDefaultExprText(),
-            "state_change/getDateTime")
+        self.assertEqual(variable.getDefaultExprText(), "state_change/getDateTime")
 
     def test_order_default_workflow__variables__time__guard(self):
         workflow = self.get_workflow('order_default_workflow')

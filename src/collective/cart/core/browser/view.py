@@ -39,8 +39,8 @@ class OrderListingView(BaseFormView):
     def description(self):
         """Returns description of view"""
         if self.order_container():
-            return _(u'next_order_id_description', u'The next order ID: ${order_id}',
-                mapping={'order_id': self.order_container().next_order_id})
+            return _(u'next_order_id_description', u'The next order ID: ${order_id}', mapping={
+                'order_id': self.order_container().next_order_id})
 
     def order_container(self):
         """Returns order container"""

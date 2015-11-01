@@ -47,12 +47,11 @@ def setUp(self):
     alsoProvides(portal, IShoppingSiteRoot)
     portal.reindexObject()
 
-    container = createContentInContainer(portal, 'collective.cart.core.OrderContainer', checkConstraints=False,
-        id='order-container', title='Örder Cöntäiner')
+    container = createContentInContainer(
+        portal, 'collective.cart.core.OrderContainer', checkConstraints=False, id='order-container', title='Örder Cöntäiner')
     modified(container)
 
-    order1 = createContentInContainer(container, 'collective.cart.core.Order', checkConstraints=False,
-        id='1')
+    order1 = createContentInContainer(container, 'collective.cart.core.Order', checkConstraints=False, id='1')
     modified(order1)
 
     transaction.commit()

@@ -50,7 +50,8 @@ class TestArticleAdapter(IntegrationTestCase):
         adapter.add_to_cart()
         session = session_data_manager.getSessionData(create=False)
         self.assertEqual(len(session.get('collective.cart.core').get('articles')), 1)
-        self.assertEqual(sorted(session.get('collective.cart.core').get('articles').get(uuid1).items()),
+        self.assertEqual(
+            sorted(session.get('collective.cart.core').get('articles').get(uuid1).items()),
             [
                 ('description', 'Descriptiön of Ärticle1'),
                 ('id', uuid1),
@@ -60,7 +61,8 @@ class TestArticleAdapter(IntegrationTestCase):
 
         adapter.add_to_cart()
         self.assertEqual(len(session.get('collective.cart.core').get('articles')), 1)
-        self.assertEqual(sorted(session.get('collective.cart.core').get('articles').get(uuid1).items()),
+        self.assertEqual(
+            sorted(session.get('collective.cart.core').get('articles').get(uuid1).items()),
             [
                 ('description', 'Descriptiön of Ärticle1'),
                 ('id', uuid1),
@@ -71,13 +73,15 @@ class TestArticleAdapter(IntegrationTestCase):
         adapter = IArticleAdapter(article2)
         adapter.add_to_cart()
         self.assertEqual(len(session.get('collective.cart.core').get('articles')), 2)
-        self.assertEqual(sorted(session.get('collective.cart.core').get('articles').get(uuid1).items()),
+        self.assertEqual(
+            sorted(session.get('collective.cart.core').get('articles').get(uuid1).items()),
             [
                 ('description', 'Descriptiön of Ärticle1'),
                 ('id', uuid1),
                 ('title', 'Ärticle1'),
                 ('url', 'http://nohost/plone/article1')])
-        self.assertEqual(sorted(session.get('collective.cart.core').get('articles').get(uuid2).items()),
+        self.assertEqual(
+            sorted(session.get('collective.cart.core').get('articles').get(uuid2).items()),
             [
                 ('description', 'Descriptiön of Ärticle2'),
                 ('id', uuid2),

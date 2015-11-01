@@ -22,7 +22,8 @@ Go to edit order container for the validation::
 
     >>> print browser.bycss('.error')
     --- 1 ---
-    <dl class="portalMessage error"><dt>
+    <dl class="portalMessage error">
+    <dt>
     Error
     </dt>
     <dd>There were some errors.</dd>
